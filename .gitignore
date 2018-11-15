@@ -259,3 +259,20 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/ShopSabre Pro3636/_Boot
+/ShopSabre Pro3636.project.~u
+/Port_851_boot.tizip
+/Port_851.ocm
+/Port_851.occ
+/Port_851.crc
+/Port_851.cid
+/Port_851.app
+/ShopSabre Pro3636/CNCControl/_Libraries/beckhoff automation gmbh/tc3_module/3.3.18.0
+/ShopSabre Pro3636/CNCControl/_Libraries/beckhoff automation gmbh/tc2_system/3.4.19.0/tc2_system.compiled-library
+/ShopSabre Pro3636/CNCControl/_Libraries/beckhoff automation gmbh/tc2_system/3.4.19.0
+/ShopSabre Pro3636/CNCControl/_Libraries/beckhoff automation gmbh/tc2_standard/3.3.2.0/tc2_standard.compiled-library
+/ShopSabre Pro3636/CNCControl/_Libraries/beckhoff automation gmbh/tc2_standard/3.3.2.0
+/ShopSabre Pro3636/CNCControl/_Libraries/beckhoff automation gmbh
+/ShopSabre Pro3636/CNCControl/_CompileInfo/CCBF152B-174E-A41F-E859-053280635F07.compileinfo
+/ShopSabre Pro3636/CNCControl/_CompileInfo
+/ShopSabre Pro3636/ShopSabre Pro3636.tsproj.bak

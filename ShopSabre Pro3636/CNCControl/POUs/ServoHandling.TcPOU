@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="ServoHandling" Id="{8a13316b-cf16-4b49-a13c-85ac385b3e37}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ServoHandling
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+  	// Alarm inputs from Axis
+  	XAxisAlarm AT %I*:BOOL := TRUE;
+  	YAxisAlarm AT %I*:BOOL := TRUE;
+  	ZAxisAlarm AT %I*:BOOL := TRUE;
+  	AAxisAlarm AT %I*:BOOL := TRUE;
+  	// Alarm Output to PC pin 8
+  	PCServoAlarm AT %Q*:BOOL := FALSE;
+	
+  	// Whether servo thinks Z Axis break should be off
+  	ZAxisBrakeOff AT %I*:BOOL := FALSE;
+	// Relay output controlling ZAxis Brake
+	ZAxisBrakeRelay AT %Q*: BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[PCServoAlarm := XAxisAlarm AND YAxisAlarm AND ZAxisAlarm AND AAxisAlarm;
+ZAxisBrakeRelay := ZAxisBrakeOff;]]></ST>
+    </Implementation>
+    <LineIds Name="ServoHandling">
+      <LineId Id="31" Count="0" />
+      <LineId Id="39" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
