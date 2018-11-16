@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="SpindleSpeedCalculator" Id="{acb8e845-43b4-43c0-882b-b928a6ffba6b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SpindleSpeedCalculator
+VAR
+	// Spindle speed in RPM
+	SpindleSpeed : REAL;
+	// Current pulse count value from the counter
+	PulseCount: UINT;
+	// Counter value from previous time we read the counter
+    LastCounterValue: UDINT;
+	// Counter value from counter
+	CounterValue AT %I*: UDINT;
+	// Array of spindle speeds
+	SpindleSpeeds : ARRAY[0..4] OF REAL;
+	// Index of Counter
+	SpindleSpeedIndex : INT;
+END_VAR
+VAR_TEMP
+	I : INT;
+	TempSpindleSpeed: REAL;
+	Sum: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Spindle speed is 2 pulses per revolution.
+// Task runs every 100ms
+
+// Convert counter value to pulses
+PulseCount := TO_UINT(CounterValue - LastCounterValue);
+LastCounterValue := CounterValue;
+TempSpindleSpeed := (TO_REAL(PulseCount)*600)/2;
+SpindleSpeeds[SpindleSpeedIndex] := TempSpindleSpeed;
+
+SpindleSpeedIndex := SpindleSpeedIndex + 1;
+SpindleSpeedIndex := SpindleSpeedIndex MOD 5;
+
+FOR I:= 0 TO 4 BY 1 DO
+	Sum := Sum + SpindleSpeeds[I];
+END_FOR
+SpindleSpeed := Sum / 5;
+]]></ST>
+    </Implementation>
+    <LineIds Name="SpindleSpeedCalculator">
+      <LineId Id="11" Count="1" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="27" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="54" Count="1" />
+      <LineId Id="57" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

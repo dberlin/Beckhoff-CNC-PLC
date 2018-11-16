@@ -20,10 +20,10 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MiscHandling.TcPOU">
+    <Compile Include="POUs\SpindleSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ServoHandling.TcPOU">
+    <Compile Include="SpindleSpeedTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

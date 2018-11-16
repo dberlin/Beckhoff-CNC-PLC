@@ -35,15 +35,19 @@
 		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{F9211855-BB60-4BCA-B8F0-6C327B10B5F0}" Target64Bit="true" ShowHideConfigurations="#x306">
+	<Project ProjectGUID="{F9211855-BB60-4BCA-B8F0-6C327B10B5F0}" Target64Bit="true" AutoPrioManagement="true" ShowHideConfigurations="#x306">
 		<System>
 			<Settings MaxCpus="4" NonWinCpus="1">
 				<Cpu CpuId="3"/>
 				<Debugger Priority="61"/>
+				<IoIdleTask Priority="6"/>
 			</Settings>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="10000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="4" CycleTime="10000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="8" CycleTime="1000000" AmsPort="351" AdtTasks="true">
+					<Name>SpindleSpeedTask</Name>
 				</Task>
 			</Tasks>
 		</System>
@@ -55,42 +59,49 @@
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.ServoHandling.XAxisAlarm</Name>
+							<Name>MAIN.XAxisAlarm</Name>
 							<Comment>
-								<![CDATA[ Alarm inputs from Axis]]>
+								<![CDATA[ Alarm inputs from Servos]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.ServoHandling.YAxisAlarm</Name>
+							<Name>MAIN.YAxisAlarm</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.ServoHandling.ZAxisAlarm</Name>
+							<Name>MAIN.ZAxisAlarm</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.ServoHandling.AAxisAlarm</Name>
+							<Name>MAIN.AAxisAlarm</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.ServoHandling.ZAxisBrakeOff</Name>
+							<Name>MAIN.ZAxisBrakeOff</Name>
 							<Comment>
 								<![CDATA[ Whether servo thinks Z Axis break should be off]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.MiscHandling.ProbeInput</Name>
+							<Name>MAIN.ProbeInput</Name>
 							<Comment>
 								<![CDATA[ Digital Probe Input (Normally Closed)]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.MiscHandling.PressureSensorInput</Name>
+							<Name>MAIN.PressureSensorInput</Name>
 							<Comment>
-								<![CDATA[ Air Pressure >90psi signal from sensor]]>
+								<![CDATA[ Air Pressure >90psi signal from sensor.  The sensor triggers as pressure is rising past 90psi]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.PCSpindleOn</Name>
+							<Comment>
+								<![CDATA[ Turn spindle on input from PC]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -98,36 +109,65 @@
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.ServoHandling.PCServoAlarm</Name>
+							<Name>MAIN.PCServoAlarm</Name>
 							<Comment>
 								<![CDATA[ Alarm Output to PC pin 8]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.ServoHandling.ZAxisBrakeRelay</Name>
+							<Name>MAIN.ZAxisBrakeRelay</Name>
 							<Comment>
-								<![CDATA[ Relay output controlling ZAxis Brake]]>
+								<![CDATA[ Relay output controlling Z Axis Brake]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.MiscHandling.PCProbeOutput</Name>
+							<Name>MAIN.PCProbeOutput</Name>
 							<Comment>
-								<![CDATA[ Digital Probe Trigger output to Pin 29 of PC]]>
+								<![CDATA[ Digital Probe Trigger output to PC pin 29]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.MiscHandling.PCPressureOutput</Name>
+							<Name>MAIN.PCPressureOutput</Name>
 							<Comment>
-								<![CDATA[ Air Pressure >90psi signal to PC Pin 10]]>
+								<![CDATA[ Air Pressure >90psi signal to PC pin 10]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.TestValue</Name>
+							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.PCSpindleStopped</Name>
+							<Comment>
+								<![CDATA[ Spindle stopped output to PC pin 1]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.PCSpindleSpeedOK</Name>
+							<Comment>
+								<![CDATA[ Spindle within 5% of speed to PC Pin 28]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
+					<Vars VarGrpType="1">
+						<Name>SpindleSpeedTask Inputs</Name>
+						<Var>
+							<Name>SpindleSpeedCalculator.CounterValue</Name>
+							<Comment>
+								<![CDATA[ Counter value from counter]]>
+							</Comment>
+							<Type>UDINT</Type>
+						</Var>
+					</Vars>
 					<TaskPouOids>
-						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+						<TaskPouOid Prio="8" OTCID="#x08502002"/>
+						<TaskPouOid Prio="4" OTCID="#x08502001"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
@@ -536,4 +576,12 @@
 			</Device>
 		</Io>
 	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{08502001-2002-0850-0020-500801205008}" Id="#x02030010" Watchdog="90010000040000000400000004000000"/>
+		<OwnerA Name="TIPC^CNCControl^CNCControl Instance">
+			<OwnerB Name="TIPC^CNCControl^CNCControl Instance">
+				<Link VarA="PlcTask Outputs^MAIN.TestValue" VarB="SpindleSpeedTask Inputs^SpindleSpeedCalculator.CounterValue"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>

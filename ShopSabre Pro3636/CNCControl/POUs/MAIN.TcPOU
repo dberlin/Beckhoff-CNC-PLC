@@ -3,20 +3,103 @@
   <POU Name="MAIN" Id="{cd64af0a-d51b-49f0-91ce-918439305f15}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	ServoHandling : ServoHandling;
-	MiscHandling: MiscHandling;
+	{region "Servo handling variables"}
+	// Alarm inputs from Servos
+  	XAxisAlarm AT %I*:BOOL := TRUE;
+  	YAxisAlarm AT %I*:BOOL := TRUE;
+  	ZAxisAlarm AT %I*:BOOL := TRUE;
+  	AAxisAlarm AT %I*:BOOL := TRUE;
+  	// Alarm Output to PC pin 8
+  	PCServoAlarm AT %Q*:BOOL;
+  	// Whether servo thinks Z Axis break should be off
+  	ZAxisBrakeOff AT %I*:BOOL;
+	// Relay output controlling Z Axis Brake
+	ZAxisBrakeRelay AT %Q*: BOOL;
+    {endregion}
+    {region "Probe and air pressure"}
+	// Digital Probe Trigger output to PC pin 29
+	PCProbeOutput AT %Q*: BOOL;
+	// Digital Probe Input (Normally Closed)
+	ProbeInput AT %I*: BOOL := TRUE;
+	// Air Pressure >90psi signal to PC pin 10
+	PCPressureOutput AT %Q*: BOOL;
+	// Air Pressure >90psi signal from sensor.  The sensor triggers as pressure is rising past 90psi
+	PressureSensorInput AT %I*: BOOL;
+	{endregion}
+	{region "Spindle variables"}
+	// True if spindle is at less than 1 RPM
+	SpindleStopped : BOOL;
+	// Spindle stopped output to PC pin 1
+	PCSpindleStopped AT %Q* : BOOL;
+	// Turn spindle on input from PC
+	PCSpindleOn AT %I* : BOOL;
+	// Spindle within 5% of speed to PC Pin 28
+	PCSpindleSpeedOK AT %Q* : BOOL;
+	// Spindle speed from VFD
+	VFDCurrentSpindleSpeed : UINT;
+	{endregion}
+	Test : TP;
+	TestOn : BOOL := FALSE;
+	TestValue AT %Q* : UDINT := 0;
+	TestTrig : F_Trig;
 END_VAR
 
     ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[ServoHandling();
-MiscHandling();
-
+      <ST><![CDATA[{region "Servo handling"}
+PCServoAlarm := XAxisAlarm AND YAxisAlarm AND ZAxisAlarm AND AAxisAlarm;
+ZAxisBrakeRelay := ZAxisBrakeOff;
+{endregion}
+{region "Probe and Air Pressure"}
+PCProbeOutput := NOT ProbeInput;
+PCPressureOutput := PressureSensorInput;
+{endregion}
+{region "Spindle handling"}
+// Spindle is stopped if it is under 1RPM
+SpindleStopped := SpindleSpeedCalculator.SpindleSpeed <= 1.0;
+PCSpindleStopped := SpindleStopped;
+// If spindle is on, calculate whether it is up to speed.
+IF PCSpindleOn THEN
+	PCSpindleSpeedOK := SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(VFDCurrentSpindleSpeed));
+END_IF
+{endregion}
+Test(IN := TestOn, PT := T#3.5MS);
+IF NOT TestOn THEN
+	TestOn := TRUE;
+END_IF
+TestTrig(CLK := Test.Q);
+IF NOT Test.Q THEN
+	TestValue := TestValue + 1;
+END_IF
+IF TestTrig.Q THEN
+	TestOn := FALSE;
+END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="16" Count="0" />
-      <LineId Id="22" Count="1" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="69" Count="1" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="189" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="176" Count="1" />
+      <LineId Id="185" Count="0" />
+      <LineId Id="174" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="110" Count="1" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="118" Count="1" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="112" Count="1" />
+      <LineId Id="109" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
