@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="VacuumPressureGetter" Id="{b57d29a8-c9f4-4d9b-9b4c-1a2f1394aa81}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM VacuumPressureGetter
+VAR
+	// Vacuum PSI on VFD. The VFD gives it to us without decimal points.
+	VacuumPressureFromVFD : WORD;
+	// Real Vacuum PSI from 0 to 14.7
+	VacuumPressure: REAL;
+	GetVacuumPressure : FB_GET_ATTRIBUTE_SINGLE;
+	GVPErrorString: STRING(80);
+END_VAR
+VAR CONSTANT
+	// This is the application for parameter access on the IPE001Z
+	ODVAApplicationObject: WORD := 16#64;
+	// FE98 is the VLP pressure monitor register. For monitor variables, we subtract 0x8000 according to the IPE001Z manual
+	ToshibaVLPPressureInstance: WORD := TO_WORD(16#FE98) - TO_WORD(16#8000);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Parameter 
+GetVacuumPressure(sNetId := '192.168.1.84.3.1',
+		 		  sIPv4Addr := '192.168.1.9',
+			  	  bExecute :=NOT GetVacuumPressure.bBusy,
+				  nClass := ODVAApplicationObject,
+				  nInstance := ToshibaVLPPressureInstance,
+				  nAttribute := 3,
+				  pDst := ADR(VacuumPressureFromVFD),
+				  nMaxLen := SIZEOF(VacuumPressureFromVFD));
+IF GetVacuumPressure.bError THEN
+	GVPErrorString := F_GET_ETHERNETIP_ERROR_TEXT(nErrorId := GetVacuumPressure.nErrId);
+END_IF
+VacuumPressure := TO_REAL(VacuumPressureFromVFD) / 10;]]></ST>
+    </Implementation>
+    <LineIds Name="VacuumPressureGetter">
+      <LineId Id="12" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

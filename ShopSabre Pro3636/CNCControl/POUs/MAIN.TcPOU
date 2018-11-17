@@ -16,7 +16,7 @@ VAR
 	// Relay output controlling Z Axis Brake
 	ZAxisBrakeRelay AT %Q*: BOOL;
     {endregion}
-    {region "Probe and air pressure"}
+	{region "Probe, Air Pressure, Coolant, Vacuum"}
 	// Digital Probe Trigger output to PC pin 29
 	PCProbeOutput AT %Q*: BOOL;
 	// Digital Probe Input (Normally Closed)
@@ -25,6 +25,16 @@ VAR
 	PCPressureOutput AT %Q*: BOOL;
 	// Air Pressure >90psi signal from sensor.  The sensor triggers as pressure is rising past 90psi
 	PressureSensorInput AT %I*: BOOL;
+	// Control of NITRA Valves over ethernet/ip	 
+	ValveControl AT %Q* : NitraValves; 
+	// Turn on coolant signal from PC
+	PCCoolantOn AT %I* : BOOL;
+	// Turn on vacuum signal from PC
+	PCVacuumOn AT %I* : BOOL;
+	// Vacuum Control Output
+	VacuumControl AT %Q* : CIPExtendedSpeedOut;
+	// Vacuum Pressure good output to PC Pin 7
+	PCVacuumPressureGood AT %Q*: BOOL;
 	{endregion}
 	{region "Spindle variables"}
 	// True if spindle is at less than 1 RPM
@@ -44,15 +54,26 @@ VAR
 	TestTrig : F_Trig;
 END_VAR
 
-    ]]></Declaration>
+VAR CONSTANT
+	// Minimum PSI at which vacuum holding is viable for workpiece
+	GoodVacuumPressure: REAL := 10.0;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[{region "Servo handling"}
 PCServoAlarm := XAxisAlarm AND YAxisAlarm AND ZAxisAlarm AND AAxisAlarm;
 ZAxisBrakeRelay := ZAxisBrakeOff;
 {endregion}
-{region "Probe and Air Pressure"}
+{region "Probe, Air Pressure, Coolant, Vacuum"}
 PCProbeOutput := NOT ProbeInput;
 PCPressureOutput := PressureSensorInput;
+ValveControl.Coolant := PCCoolantOn;
+VacuumControl.RunFwd := PCVacuumOn;
+VacuumControl.RunReverse := FALSE;
+VacuumControl.NetCtrl := TRUE;
+VacuumControl.NetRef := TRUE;
+	
+PCVacuumPressureGood := VacuumPressureGetter.VacuumPressure >= GoodVacuumPressure;
+	 		
 {endregion}
 {region "Spindle handling"}
 // Spindle is stopped if it is under 1RPM
@@ -77,29 +98,8 @@ END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="16" Count="0" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="53" Count="0" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="69" Count="1" />
-      <LineId Id="67" Count="0" />
-      <LineId Id="186" Count="0" />
-      <LineId Id="175" Count="0" />
-      <LineId Id="189" Count="0" />
-      <LineId Id="173" Count="0" />
-      <LineId Id="191" Count="0" />
-      <LineId Id="176" Count="1" />
-      <LineId Id="185" Count="0" />
-      <LineId Id="174" Count="0" />
-      <LineId Id="105" Count="0" />
-      <LineId Id="110" Count="1" />
-      <LineId Id="107" Count="0" />
-      <LineId Id="118" Count="1" />
-      <LineId Id="125" Count="0" />
-      <LineId Id="123" Count="0" />
-      <LineId Id="112" Count="1" />
-      <LineId Id="109" Count="0" />
+      <LineId Id="571" Count="11" />
+      <LineId Id="596" Count="23" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

@@ -14,6 +14,9 @@
     <LibraryReferences>{c7c0e547-bfb7-40ad-9f3f-987d0e8f8c65}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HundredMillisecondTasks.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -23,7 +26,7 @@
     <Compile Include="POUs\SpindleSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SpindleSpeedTask.TcTTO">
+    <Compile Include="POUs\VacuumPressureGetter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -34,6 +37,10 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="Tc2_EthernetIP">
+      <DefaultResolution>Tc2_EthernetIP, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_EthernetIP</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -51,6 +58,11 @@
     <None Include="CNCControl.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="Tc2_EthernetIP">
+      <Resolution>Tc2_EthernetIP, * (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
