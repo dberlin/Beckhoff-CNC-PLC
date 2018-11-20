@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <Task Name="MainCNCControl" Id="{5bfe5432-b8b3-4db2-8366-9a8837ac2fe9}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>1000</CycleTime>
+    <Priority>4</Priority>
+    <PouCall>
+      <Name>MAIN</Name>
+    </PouCall>
+    <TaskFBGuid>{95432944-f24d-4d32-8ec0-46689f06c6c0}</TaskFBGuid>
+    <Fb_init>{dac4ae96-197c-4979-9d07-48420ac11a77}</Fb_init>
+    <Fb_exit>{a8776f36-2200-44ed-b3b6-d7f0a15760eb}</Fb_exit>
+    <CycleUpdate>{a4b791ee-9645-4fa4-9727-f466bcda21d0}</CycleUpdate>
+    <PostCycleUpdate>{4a0301b9-4bec-4181-bc8e-ec23410fddd0}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

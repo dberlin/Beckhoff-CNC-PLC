@@ -1,57 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="MAIN" Id="{cd64af0a-d51b-49f0-91ce-918439305f15}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	{region "Servo handling variables"}
 	// Alarm inputs from Servos
-  	XAxisAlarm AT %I*:BOOL := TRUE;
-  	YAxisAlarm AT %I*:BOOL := TRUE;
-  	ZAxisAlarm AT %I*:BOOL := TRUE;
-  	AAxisAlarm AT %I*:BOOL := TRUE;
+  	iXAxisAlarm AT %I*:BOOL;
+  	iYAxisAlarm AT %I*:BOOL;
+  	iZAxisAlarm AT %I*:BOOL;
+  	iAAxisAlarm AT %I*:BOOL;
   	// Alarm Output to PC pin 8
-  	PCServoAlarm AT %Q*:BOOL;
+  	oPCServoAlarm AT %Q*:BOOL;
   	// Whether servo thinks Z Axis break should be off
-  	ZAxisBrakeOff AT %I*:BOOL;
+  	iZAxisBrakeOff AT %I*:BOOL;
 	// Relay output controlling Z Axis Brake
-	ZAxisBrakeRelay AT %Q*: BOOL;
+	oZAxisBrakeRelay AT %Q*: BOOL;
     {endregion}
 	{region "Probe, Air Pressure, Coolant, Vacuum"}
 	// Digital Probe Trigger output to PC pin 29
-	PCProbeOutput AT %Q*: BOOL;
+	oPCProbe AT %Q*: BOOL;
 	// Digital Probe Input (Normally Closed)
-	ProbeInput AT %I*: BOOL := TRUE;
+	iProbe AT %I*: BOOL := TRUE;
 	// Air Pressure >90psi signal to PC pin 10
-	PCPressureOutput AT %Q*: BOOL;
+	oPCAirPressure AT %Q*: BOOL;
 	// Air Pressure >90psi signal from sensor.  The sensor triggers as pressure is rising past 90psi
-	PressureSensorInput AT %I*: BOOL;
+	iPressureSensor AT %I*: BOOL;
 	// Control of NITRA Valves over ethernet/ip	 
-	ValveControl AT %Q* : NitraValves; 
+	oValveControl AT %Q* : NitraValves; 
 	// Turn on coolant signal from PC
-	PCCoolantOn AT %I* : BOOL;
+	iPCCoolantOn AT %I* : BOOL;
 	// Turn on vacuum signal from PC
-	PCVacuumOn AT %I* : BOOL;
+	iPCVacuumOn AT %I* : BOOL;
 	// Vacuum Control Output
-	VacuumControl AT %Q* : CIPExtendedSpeedOut;
+	oVacuumControl AT %Q* : CIPExtendedSpeedOut;
 	// Vacuum Pressure good output to PC Pin 7
-	PCVacuumPressureGood AT %Q*: BOOL;
+	oPCVacuumPressureGood AT %Q*: BOOL;
 	{endregion}
 	{region "Spindle variables"}
+	{region "Spindle Speed Handling"}
 	// True if spindle is at less than 1 RPM
 	SpindleStopped : BOOL;
 	// Spindle stopped output to PC pin 1
-	PCSpindleStopped AT %Q* : BOOL;
-	// Turn spindle on input from PC
-	PCSpindleOn AT %I* : BOOL;
+	oPCSpindleStopped AT %Q* : BOOL;
 	// Spindle within 5% of speed to PC Pin 28
-	PCSpindleSpeedOK AT %Q* : BOOL;
+	oPCSpindleSpeedOK AT %Q* : BOOL;
 	// Spindle speed from VFD
 	VFDCurrentSpindleSpeed : UINT;
+	{endregion}
+	{region "Spindle Tool Change handling"}
+	// Tool Release from PC Pin 24
+	iPCToolRelease AT %I*: BOOL;
+	// Tool Presence to PC Pin 2
+	oPCToolPresence AT %Q* : BOOL;
+	// S1 Tool Presence sensor from the spindle
+	iS1ToolPresence AT %I* : BOOL;
+	// Collet Open to PC Pin 9
+	oPCColletOpen AT %Q* : BOOL;
+	// S2 Collet Open sensor from the spindle
+	iS2ColletOpen AT %I* : BOOL;	 
+	// Spindle over temperature to PC Pin 27
+	oPCSpindleOverTemp AT %Q* : BOOL;
+	// Spindle over temperature relay
+	iSpindleOverTemp AT %I* : BOOL;
+	// Turn spindle on input from PC
+	iPCSpindleOn AT %I* : BOOL;
+	{endregion}
 	{endregion}
 	Test : TP;
 	TestOn : BOOL := FALSE;
 	TestValue AT %Q* : UDINT := 0;
 	TestTrig : F_Trig;
+	{region "Input Debouncers"}
+	// The 5V input has a ridiculously fast time - a few nanoseconds.
+	CoolantOnDebounced : TON;
+	SpindleOnDebounced : TON;
+	VacuumOnDebounced : TON;
+	ToolReleaseDebounced : TON;	
+	{endregion}
 END_VAR
 
 VAR CONSTANT
@@ -59,30 +84,39 @@ VAR CONSTANT
 	GoodVacuumPressure: REAL := 10.0;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[{region "Servo handling"}
-PCServoAlarm := XAxisAlarm AND YAxisAlarm AND ZAxisAlarm AND AAxisAlarm;
-ZAxisBrakeRelay := ZAxisBrakeOff;
+      <ST><![CDATA[CoolantOnDebounced(IN := iPCCoolantOn, PT := T#3MS);
+SpindleOnDebounced(IN := iPCSpindleOn, PT := T#3MS);
+VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
+ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
+{region "Servo handling"}
+// The servo alarm inputs are normally closed
+oPCServoAlarm := NOT (iXAxisAlarm AND iYAxisAlarm AND iZAxisAlarm AND iAAxisAlarm);
+oZAxisBrakeRelay := iZAxisBrakeOff;
 {endregion}
 {region "Probe, Air Pressure, Coolant, Vacuum"}
-PCProbeOutput := NOT ProbeInput;
-PCPressureOutput := PressureSensorInput;
-ValveControl.Coolant := PCCoolantOn;
-VacuumControl.RunFwd := PCVacuumOn;
-VacuumControl.RunReverse := FALSE;
-VacuumControl.NetCtrl := TRUE;
-VacuumControl.NetRef := TRUE;
-	
-PCVacuumPressureGood := VacuumPressureGetter.VacuumPressure >= GoodVacuumPressure;
+oPCProbe := NOT iProbe;
+oPCAirPressure := iPressureSensor;
+oValveControl.Coolant := CoolantOnDebounced.Q;
+oVacuumControl.RunFwd := VacuumOnDebounced.Q;
+oVacuumControl.RunReverse := FALSE;
+oVacuumControl.NetCtrl := TRUE;
+oVacuumControl.NetRef := TRUE;
+oPCVacuumPressureGood := VacuumPressureGetter.VacuumPressure >= GoodVacuumPressure;
 	 		
 {endregion}
 {region "Spindle handling"}
+{region "Spindle Speed Handling"}
 // Spindle is stopped if it is under 1RPM
 SpindleStopped := SpindleSpeedCalculator.SpindleSpeed <= 1.0;
-PCSpindleStopped := SpindleStopped;
-// If spindle is on, calculate whether it is up to speed.
-IF PCSpindleOn THEN
-	PCSpindleSpeedOK := SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(VFDCurrentSpindleSpeed));
-END_IF
+oPCSpindleStopped := SpindleStopped;
+// Calculate whether spindle is up to speed.  We will only say it is up to speed if it is on.
+oPCSpindleSpeedOK := SpindleOnDebounced.Q AND (SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(VFDCurrentSpindleSpeed)));
+{region "Spindle Tool Change handling"}
+oPCToolPresence := iS1ToolPresence;
+oPCColletOpen := iS2ColletOpen;
+oPCSpindleOverTemp := iSpindleOverTemp; 		  
+{endregion}
+{endregion}
 {endregion}
 Test(IN := TestOn, PT := T#3.5MS);
 IF NOT TestOn THEN
@@ -98,8 +132,7 @@ END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="571" Count="11" />
-      <LineId Id="596" Count="23" />
+      <LineId Id="3226" Count="44" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

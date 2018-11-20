@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="SpindleSpeedCalculator" Id="{acb8e845-43b4-43c0-882b-b928a6ffba6b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM SpindleSpeedCalculator
 VAR

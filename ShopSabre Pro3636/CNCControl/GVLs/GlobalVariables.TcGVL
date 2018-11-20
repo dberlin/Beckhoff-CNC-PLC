@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <GVL Name="GlobalVariables" Id="{91f2e3dd-a29c-4d35-91b8-66baf02e0887}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+		// Control of NITRA Valves over ethernet/ip	 
+	ValveControl AT %Q* : NitraValves; 
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
