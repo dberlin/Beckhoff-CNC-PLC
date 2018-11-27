@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="FB_GetVacuumAMSID" Id="{1d0d95ca-2f0a-4841-bf10-7d1e2b4b3cf2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GetVacuumAMSID
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	Busy : BOOL := TRUE;
+	GetLocalAMSId : FB_GetLocalAmsNetId;
+END_VAR
+VAR
+	DoCallOnce : BOOL := TRUE;
+	DoOnce : BOOL := TRUE;
+	VacuumNetID : T_AmsNetID;
+END_VAR
+VAR_TEMP
+	NetIDLen : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT DoOnce AND NOT DoCallOnce THEN
+	RETURN;
+END_IF
+GetLocalAMSId(bExecute :=  DoCallOnce, tTimeOut := T#5S);
+DoCallOnce := FALSE ;
+Busy := GetLocalAMSId.bBusy;
+IF Busy THEN
+	RETURN;
+END_IF
+IF DoOnce THEN
+	DoOnce := FALSE;
+	NetIDLen := LEN(GetLocalAMSId.AddrString);
+	VacuumNetID := CONCAT(LEFT(GetLocalAMSId.AddrString, NetIDLen-4), '.3.1');
+END_IF	]]></ST>
+    </Implementation>
+    <LineIds Name="FB_GetVacuumAMSID">
+      <LineId Id="42" Count="0" />
+      <LineId Id="66" Count="1" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="48" Count="2" />
+      <LineId Id="31" Count="4" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

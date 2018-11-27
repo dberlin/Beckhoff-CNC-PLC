@@ -357,10 +357,13 @@
 		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{F9211855-BB60-4BCA-B8F0-6C327B10B5F0}" Target64Bit="true" AutoPrioManagement="true" ShowHideConfigurations="#x3c7">
+	<Project ProjectGUID="{F9211855-BB60-4BCA-B8F0-6C327B10B5F0}" TargetNetId="192.168.1.51.1.1" Target64Bit="true" AutoPrioManagement="true" ShowHideConfigurations="#x3c7">
 		<System>
-			<Settings MaxCpus="4" NonWinCpus="1">
-				<Cpu CpuId="3"/>
+			<Settings MaxCpus="8" NonWinCpus="4">
+				<Cpu CpuId="4"/>
+				<Cpu CpuId="5"/>
+				<Cpu CpuId="6"/>
+				<Cpu CpuId="7"/>
 				<Debugger Priority="61"/>
 				<IoIdleTask Priority="6"/>
 			</Settings>
@@ -589,13 +592,13 @@
 			</Project>
 		</Plc>
 		<Io>
-			<Device DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="192.168.1.84.2.1" RemoteName="Device 1 (EtherCAT)" Id="1">
+			<Device DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="192.168.1.51.2.1" RemoteName="Device 1 (EtherCAT)" Id="1">
 				<Name>Device 1 (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet 3 (TwinCAT-Intel PCI Ethernet Adapter (Gig</DeviceDesc>
-						<DeviceName>\DEVICE\{78DE1AE5-DF5A-4896-9694-23276C46FC93}</DeviceName>
-						<DeviceData>0015172e82a4</DeviceData>
+						<DeviceDesc>Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
+						<DeviceName>\DEVICE\{507E3F3C-F36A-4F77-83FE-782468B8F8F2}</DeviceName>
+						<DeviceData>54b20304cbb8</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">
@@ -992,10 +995,61 @@
 							</Pdo>
 						</EtherCAT>
 					</Box>
+					<Box BoxType="9099" Id="15">
+						<Name>Term 15 (EL1018)</Name>
+						<ImageId>7</ImageId>
+						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03fa3052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1018 8Ch. Dig. Input 24V, 10µs" Desc="EL1018" PortABoxInfo="#x01000005">
+							<SyncMan>001001000000010004000000000000000100001000010000</SyncMan>
+							<Fmmu>0000000000000000001000010100000002000000000000000000000000000000</Fmmu>
+							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
+								<Entry Name="MAIN.iProbe" Index="#x6000" Sub="#x01">
+									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Digital Probe Input (Normally Closed)]]>
+									</Comment>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6010" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6020" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6030" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 5" Index="#x1a04" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6040" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 6" Index="#x1a05" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6050" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 7" Index="#x1a06" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6060" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 8" Index="#x1a07" Flags="#x0011" SyncMan="0">
+								<Entry Name="Input" Index="#x6070" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+						</EtherCAT>
+					</Box>
 					<Box BoxType="9099" Id="20">
 						<Name>Term 20 (EL9110)</Name>
 						<ImageId>1001</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23963052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9110 Power Supplier with LED (24V, Diagnostics)" Desc="EL9110" PortABoxInfo="#x01000005">
+						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23963052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9110 Power Supplier with LED (24V, Diagnostics)" Desc="EL9110" PortABoxInfo="#x0100000f">
 							<SyncMan>001001000000010004000000000000000000001000000000</SyncMan>
 							<Fmmu>0000000000000000001000010100000002000000000000000000000000000000</Fmmu>
 							<Pdo Name="PowerOK" Index="#x1a00" Flags="#x0011" SyncMan="0">
@@ -1224,15 +1278,15 @@
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x0100000b"/>
 					</Box>
 				</Box>
-				<EtherCAT DeviceDesc="Ethernet 3 (TwinCAT-Intel PCI Ethernet Adapter (Gigabit) #2)"/>
+				<EtherCAT DeviceDesc="Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigabit) #2)"/>
 			</Device>
-			<Device DevType="133" AmsPort="28674" AmsNetId="192.168.1.84.3.1" RemoteName="Device 2 (TC3 EIP Scanner)" Id="2">
+			<Device DevType="133" AmsPort="28674" AmsNetId="192.168.1.51.3.1" RemoteName="Device 2 (TC3 EIP Scanner)" Id="2">
 				<Name>Device 2 (TC3 EIP Scanner)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
-						<DeviceName>\DEVICE\{2A131375-ABD2-4DDB-859E-DD9784D1CC9D}</DeviceName>
-						<DeviceData>0015172e82a4</DeviceData>
+						<DeviceDesc>Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gig</DeviceDesc>
+						<DeviceName>\DEVICE\{99B4813E-6549-4699-A303-8A0B4CB568EC}</DeviceName>
+						<DeviceData>54b20304cbb7</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="3" AddrType="1" ImageType="3">
@@ -1359,8 +1413,382 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\IPE001Z_AS1.eds
 						</MasterConnection>
 					</EthernetIp>
 				</Box>
-				<Ethernet DeviceDesc="Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigabit))"/>
-				<EtherNetIPMasterDev m_EthIpMasterDevPar="020000004465766963652032202854433320454950205363616e6e6572290000000000000c0000006c000000891800000301000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000215172e82a40000000000000000000000000000800001001e000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+				<Box Disabled="true" BoxType="9134" Id="2">
+					<Name>Box 2 (CMM-EIP01) - No IP Address</Name>
+					<Comment>
+						<![CDATA[<INFO>
+
+</INFO>
+<EDS>
+C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
+</EDS>
+]]>
+					</Comment>
+					<ImageId>263</ImageId>
+					<Vars VarGrpType="1">
+						<Name>Inputs</Name>
+						<Var>
+							<Name>State</Name>
+							<Comment>
+								<![CDATA[0x8000 = Remote Node has no connections
+0x4000 = Remote Node is not reachable
+0x2000 = TCP Client: initialization failed
+0x1000 = UDP Client: initialization failed
+0x0X00 = reserved
+0x0001 = 1st Connection disconnected
+0x0002 = 2nd Connection disconnected
+0x0004 = 3rd Connection disconnected
+   ...
+0x0080 = 8th Connection disconnected
+]]>
+							</Comment>
+							<Type>UINT</Type>
+							<BitOffs>64</BitOffs>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>Outputs</Name>
+						<Var>
+							<Name>Ctrl</Name>
+							<Type>UINT</Type>
+							<BitOffs>80</BitOffs>
+						</Var>
+					</Vars>
+					<EthernetIp NewSlavePara="0200000000000000000000000000000000000000000000000000000000000000000000000c0000006c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800001001e000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" EdsFilePath="031F000C010400010001.eds">
+						<MasterConnection Id="2" ConnectionPara="d811cc6cd811cc6c30b1ff6d30b1ff6de411cc6ce411cc6c70b1ff6d70b1ff6d6ce0ff6d6ce0ff6df0b5ff6df0b5ff6d90ffcb6c90ffcb6c847dd56c847dd56c80ffcb6c80ffcb6c0c17cc6c0c17cc6ce8b8ff6de8b8ff6d00bcff6d00bcff6d10bcff6d10bcff6d20bcff6d20bcff6d30bcff6d30bcff6d40bcff6d40bcff6d50bcff6d50bcff6d9816cc6c9816cc6c08bdff6d08bdff6d7c16cc6c7c16cc6c4cbdff6d4cbdff6d001fcc6c001fcc6c7cbdff6d7cbdff6d101fcc6c101fcc6cbc16cc6cbc16cc6cfc16cc6cfc16cc6ca8c4ff6da8c4ff6ddcc4ff6ddcc4ff6d10c5ff6d10c5ff6d44c5ff6d44c5ff6d50c5ff6d50c5ff6d60c5ff6d60c5ff6d70c5ff6d70c5ff6d7cc5ff6d7cc5ff6d8cc5ff6d8cc5ff6d9cc5ff6d9cc5ff6da8c5ff6da8c5ff6db8c5ff6db8c5ff6dc8c5ff6dc8c5ff6dd4c5ff6dd4c5ff6de4c5ff6de4c5ff6df4c5ff6df4c5ff6d00c6ff6d00c6ff6d10c6ff6d10c6ff6d20c6ff6d20c6ff6d2cc6ff6d2cc6ff6d3cc6ff6d3cc6ff6d4cc6ff6d4cc6ff6d58c6ff6d58c6ff6d68c6ff6d68c6ff6d78c6ff6d" AssemblyPara="020000a0140000001400000000000000000000006900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000020000006800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000100000000000000020000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" ConnectionType="-2147483587">
+							<Name>Connection 2 (Input/Output)</Name>
+							<ImageId>86</ImageId>
+							<Vars VarGrpType="1" InsertType="1">
+								<Name>Inputs</Name>
+								<Var>
+									<Name>Error Code</Name>
+									<Type>UINT</Type>
+									<BitOffs>80</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved2101</Name>
+									<Type>UINT</Type>
+									<BitOffs>96</BitOffs>
+								</Var>
+								<Var>
+									<Name>Frequence Command</Name>
+									<Type>UINT</Type>
+									<BitOffs>112</BitOffs>
+								</Var>
+								<Var>
+									<Name>Output Frequence</Name>
+									<Type>UINT</Type>
+									<BitOffs>128</BitOffs>
+								</Var>
+								<Var>
+									<Name>Output Current</Name>
+									<Type>UINT</Type>
+									<BitOffs>144</BitOffs>
+								</Var>
+								<Var>
+									<Name>DC Bus Voltage</Name>
+									<Type>UINT</Type>
+									<BitOffs>160</BitOffs>
+								</Var>
+								<Var>
+									<Name>Output Voltage</Name>
+									<Type>UINT</Type>
+									<BitOffs>176</BitOffs>
+								</Var>
+								<Var>
+									<Name>Speed</Name>
+									<Type>UINT</Type>
+									<BitOffs>192</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved2108</Name>
+									<Type>UINT</Type>
+									<BitOffs>208</BitOffs>
+								</Var>
+								<Var>
+									<Name>Counter</Name>
+									<Type>UINT</Type>
+									<BitOffs>224</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved210A</Name>
+									<Type>UINT</Type>
+									<BitOffs>240</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved210B</Name>
+									<Type>UINT</Type>
+									<BitOffs>256</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved210C</Name>
+									<Type>UINT</Type>
+									<BitOffs>272</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved210D</Name>
+									<Type>UINT</Type>
+									<BitOffs>288</BitOffs>
+								</Var>
+								<Var>
+									<Name>Reserved210E</Name>
+									<Type>UINT</Type>
+									<BitOffs>304</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_1_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>320</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_2_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>336</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_3_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>352</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_4_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>368</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_5_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>384</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_6_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>400</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_7_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>416</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_8_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>432</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_9_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>448</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_10_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>464</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_11_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>480</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_12_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>496</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_13_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>512</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_14_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>528</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_15_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>544</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_16_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>560</BitOffs>
+								</Var>
+								<Var>
+									<Name>IN_Value_17_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>576</BitOffs>
+								</Var>
+							</Vars>
+							<Vars VarGrpType="2" InsertType="1">
+								<Name>Outputs</Name>
+								<Var>
+									<Name>Control</Name>
+									<Type>UINT</Type>
+									<BitOffs>96</BitOffs>
+								</Var>
+								<Var>
+									<Name>Frequence Control</Name>
+									<Type>UINT</Type>
+									<BitOffs>112</BitOffs>
+								</Var>
+								<Var>
+									<Name>Others</Name>
+									<Type>UINT</Type>
+									<BitOffs>128</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_1_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>144</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_2_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>160</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_3_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>176</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_4_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>192</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_5_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>208</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_6_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>224</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_7_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>240</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_8_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>256</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_10_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>272</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_11_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>288</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_12_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>304</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_13_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>320</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_14_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>336</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_15_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>352</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_16_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>368</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_17_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>384</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_18_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>400</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_19_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>416</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_20_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>432</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_21_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>448</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_22_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>464</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_23_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>480</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_24_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>496</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_25_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>512</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_26_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>528</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_27_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>544</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_28_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>560</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_29_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>576</BitOffs>
+								</Var>
+								<Var>
+									<Name>OUT_Value_30_old</Name>
+									<Type>UINT</Type>
+									<BitOffs>592</BitOffs>
+								</Var>
+							</Vars>
+						</MasterConnection>
+					</EthernetIp>
+				</Box>
+				<Ethernet DeviceDesc="Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gigabit))"/>
+				<EtherNetIPMasterDev m_EthIpMasterDevPar="020000004465766963652032202854433320454950205363616e6e6572290000000000000c0000006c0000008918000003010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000056b20304cbb70000000000000000000000000000800001001e000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
 			</Device>
 		</Io>
 	</Project>
@@ -1374,6 +1802,9 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\IPE001Z_AS1.eds
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleOn" VarB="Channel 1^MAIN.iPCSpindleOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCToolRelease" VarB="Channel 3^MAIN.iPCToolRelease"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCVacuumOn" VarB="Channel 2^MAIN.iPCVacuumOn"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 15 (EL1018)">
+				<Link VarA="MainCNCControl Inputs^MAIN.iProbe" VarB="Channel 1^MAIN.iProbe"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 19 (EL2622)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oZAxisBrakeRelay" VarB="Channel 1^MAIN.oZAxisBrakeRelay"/>
