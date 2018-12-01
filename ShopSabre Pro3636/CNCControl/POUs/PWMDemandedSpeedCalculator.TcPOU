@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="PWMDemandedSpeedCalculator" Id="{d7b7f4ec-2f11-4936-85ca-0e73dfdbc7ef}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PWMDemandedSpeedCalculator
+VAR
+	DemandedSpeed at %Q* : UINT;
+	TempArray : ARRAY [1..1000] OF BOOL;	
+END_VAR
+VAR_TEMP 
+	I : UINT;	
+	LastHighLowValue : BOOL;
+	StartPulseIndex : UINT;
+	EndPulseIndex : UINT;
+	LastPulseLength : UINT;
+	TotalPulseTiming : UDINT;
+	CountedPulses : UINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	 TempArray[1] := 0;
+	 TempArray[2] := 1;
+	 TempArray[3] := 1;
+	 TempArray[4] := 1;
+	 TempArray[5] := 1;
+	 TempArray[6] := 0;
+	 TempArray[11] := 0;
+	 TempArray[12] := 1;
+	 TempArray[13] := 1;
+	 TempArray[14] := 1;
+	 TempArray[15] := 1;
+	 TempArray[16] := 0;
+	 TempArray[21] := 0;
+	 TempArray[22] := 1;
+	 TempArray[23] := 1;
+	 TempArray[24] := 1;
+	 TempArray[25] := 1;
+	 TempArray[26] := 0;
+	 TempArray[31] := 0;
+	 TempArray[32] := 1;
+	 TempArray[33] := 1;
+	 TempArray[34] := 1;
+	 TempArray[35] := 1;
+	 TempArray[36] := 0;
+	 FOR I := 1 TO 1000 BY 1 DO
+	 	IF TempArray[I] THEN
+			// Start of a pulse
+			IF NOT LastHighLowValue THEN
+				CountedPulses := CountedPulses + 1;
+				TotalPulseTiming := TotalPulseTiming + (I - StartPulseIndex);
+				StartPulseIndex := I;
+			END_IF
+		ELSIF LastHighLowValue THEN
+			// End of a pulse
+			CountedPulses := CountedPulses + TO_UINT(LastHighLowValue);	 
+			EndPulseIndex := I;
+			LastPulseLength := EndPulseIndex - StartPulseIndex;
+		END_IF 
+		LastHighLowValue := TempArray[I]; 		  
+	 END_FOR
+]]></ST>
+    </Implementation>
+    <LineIds Name="PWMDemandedSpeedCalculator">
+      <LineId Id="6" Count="39" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

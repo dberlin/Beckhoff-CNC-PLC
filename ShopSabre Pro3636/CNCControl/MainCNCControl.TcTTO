@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
-  <Task Name="MainCNCControl" Id="{5bfe5432-b8b3-4db2-8366-9a8837ac2fe9}">
+  <Task Name="MainCNCControl" Id="{5f69dbb3-90e8-4523-919a-61ad686f795c}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>1000</CycleTime>
     <Priority>4</Priority>
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>
-    <TaskFBGuid>{95432944-f24d-4d32-8ec0-46689f06c6c0}</TaskFBGuid>
-    <Fb_init>{dac4ae96-197c-4979-9d07-48420ac11a77}</Fb_init>
-    <Fb_exit>{a8776f36-2200-44ed-b3b6-d7f0a15760eb}</Fb_exit>
-    <CycleUpdate>{a4b791ee-9645-4fa4-9727-f466bcda21d0}</CycleUpdate>
-    <PostCycleUpdate>{4a0301b9-4bec-4181-bc8e-ec23410fddd0}</PostCycleUpdate>
+    <TaskFBGuid>{0075c848-71e4-438f-aea1-f4aa716d96e4}</TaskFBGuid>
+    <Fb_init>{74c57753-d8d0-4a98-8f3f-a29f703cf7db}</Fb_init>
+    <Fb_exit>{252cee96-c440-4dea-ae30-849ec6c6a178}</Fb_exit>
+    <CycleUpdate>{72277204-265e-42d4-b47b-c3fafbc3ed64}</CycleUpdate>
+    <PostCycleUpdate>{1844c227-a775-4fb0-ad63-be64a0b33f45}</PostCycleUpdate>
   </Task>
 </TcPlcObject>

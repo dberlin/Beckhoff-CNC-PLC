@@ -44,8 +44,6 @@ VAR
 	oPCSpindleStopped AT %Q* : BOOL;
 	// Spindle within 5% of speed to PC Pin 28
 	oPCSpindleSpeedOK AT %Q* : BOOL;
-	// Spindle speed from VFD
-	VFDCurrentSpindleSpeed : UINT;
 	{endregion}
 	{region "Spindle Tool Change handling"}
 	// Tool Release Button on Spindle
@@ -118,10 +116,11 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 {region "Spindle handling"}
 // Spindle Speed Handling
 	// Spindle is stopped if it is under 1RPM
+	
 	SpindleStopped := SpindleSpeedCalculator.SpindleSpeed <= 1.0;
 	oPCSpindleStopped := SpindleStopped;
 	// Calculate whether spindle is up to speed.  We will only say it is up to speed if it is on.
-	oPCSpindleSpeedOK := SpindleOnDebounced.Q AND (SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(VFDCurrentSpindleSpeed)));
+	oPCSpindleSpeedOK := SpindleOnDebounced.Q AND (SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(PWMDemandedSpeedCalculator.DemandedSpeed)));
 
 // Spindle Tool Change handling"
 	oPCToolPresence := iS1ToolPresence;
@@ -133,24 +132,10 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 {endregion}]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3366" Count="3" />
-      <LineId Id="3439" Count="0" />
-      <LineId Id="3370" Count="1" />
-      <LineId Id="3435" Count="0" />
-      <LineId Id="3372" Count="0" />
-      <LineId Id="3438" Count="0" />
-      <LineId Id="3436" Count="0" />
-      <LineId Id="3373" Count="1" />
-      <LineId Id="3434" Count="0" />
-      <LineId Id="3375" Count="1" />
-      <LineId Id="3429" Count="1" />
-      <LineId Id="3377" Count="0" />
-      <LineId Id="3431" Count="1" />
-      <LineId Id="3378" Count="0" />
-      <LineId Id="3433" Count="0" />
-      <LineId Id="3379" Count="15" />
-      <LineId Id="3428" Count="0" />
-      <LineId Id="3395" Count="6" />
+      <LineId Id="4360" Count="34" />
+      <LineId Id="4396" Count="10" />
+      <LineId Id="4662" Count="0" />
+      <LineId Id="4423" Count="0" />
       <LineId Id="3416" Count="0" />
     </LineIds>
   </POU>

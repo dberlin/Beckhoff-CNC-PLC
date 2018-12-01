@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="FB_GetVacuumAMSID" Id="{1d0d95ca-2f0a-4841-bf10-7d1e2b4b3cf2}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_GetVacuumAMSID
+    <Declaration><![CDATA[// This is a very ugly hack because I'm being lazy.
+// I'm sure there is some better/more standard way.
+FUNCTION_BLOCK FB_GetVacuumAMSID
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -18,7 +20,10 @@ VAR_TEMP
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF NOT DoOnce AND NOT DoCallOnce THEN
+      <ST><![CDATA[(* We only really want to compute the netid once.
+This requires performing the GetLocalAMSId call once and waiting for the result,
+and then doing the processing of the result once. *)
+IF NOT DoOnce AND NOT DoCallOnce THEN
 	RETURN;
 END_IF
 GetLocalAMSId(bExecute :=  DoCallOnce, tTimeOut := T#5S);
@@ -35,6 +40,8 @@ END_IF	]]></ST>
     </Implementation>
     <LineIds Name="FB_GetVacuumAMSID">
       <LineId Id="42" Count="0" />
+      <LineId Id="87" Count="1" />
+      <LineId Id="86" Count="0" />
       <LineId Id="66" Count="1" />
       <LineId Id="27" Count="0" />
       <LineId Id="37" Count="0" />

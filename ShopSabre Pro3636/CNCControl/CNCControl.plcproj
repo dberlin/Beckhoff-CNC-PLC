@@ -24,7 +24,7 @@
     </DeploymentEvents>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="EveryHundredMillisecondsTask.TcTTO">
+    <Compile Include="EveryHundredMilliseconds.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainCNCControl.TcTTO">
@@ -34,6 +34,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PWMDemandedSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\SpindleSpeedCalculator.TcPOU">

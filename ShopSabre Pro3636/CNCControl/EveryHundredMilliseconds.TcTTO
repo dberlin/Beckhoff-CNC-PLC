@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <Task Name="EveryHundredMilliseconds" Id="{a3685705-d5b4-44a2-b03f-53d66817da32}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>100000</CycleTime>
+    <Priority>8</Priority>
+    <PouCall>
+      <Name>PWMDemandedSpeedCalculator</Name>
+    </PouCall>
+    <PouCall>
+      <Name>VacuumPressureGetter</Name>
+    </PouCall>
+    <PouCall>
+      <Name>SpindleSpeedCalculator</Name>
+    </PouCall>
+    <TaskFBGuid>{b96b8113-1188-48f4-8884-e88e8ed89818}</TaskFBGuid>
+    <Fb_init>{929001ee-8ca5-4616-b32d-ba94fa506420}</Fb_init>
+    <Fb_exit>{73e27469-fc04-4bf7-aad7-b166fd8c7b56}</Fb_exit>
+    <CycleUpdate>{3f12da43-8935-4278-9445-62d2b480b5eb}</CycleUpdate>
+    <PostCycleUpdate>{bdec2eb3-a007-46c4-be9b-6dc5f2cf945c}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>
