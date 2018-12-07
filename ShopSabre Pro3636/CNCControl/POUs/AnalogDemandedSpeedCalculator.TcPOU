@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="AnalogDemandedSpeedCalculator" Id="{a5e7bf90-8d78-486c-b7af-951c7a51c7ec}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM AnalogDemandedSpeedCalculator
+VAR
+	// Array of spindle speeds
+	SpindleSpeeds : ARRAY[0..10] OF UINT;
+	MovingAverage : FB_MovingAverageInt;
+	Scaling : FB_ScaleBetween;
+END_VAR
+
+VAR_TEMP
+	TempSpindleSpeed: UINT;
+END_VAR
+VAR_OUTPUT
+	// Demanded spindle speed in RPM
+	DemandedSpeed : UINT;
+END_VAR
+VAR_INPUT
+	// Analog speed as 0-10v from PC Pin 13
+	iAnalogSpeedVoltage AT %I*: UINT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Scaling(RawValue:=iAnalogSpeedVoltage, RawValueMin:=5, 
+							RawValueMax:=31900, ScaledValueMin:=0,
+							ScaledValueMax:=24000);
+// Round value to nearest 60
+TempSpindleSpeed := TO_UINT(Scaling.ScaledValue / 60);
+TempSpindleSpeed := TempSpindleSpeed * 60;
+MovingAverage(ValueToAdd := TempSpindleSpeed,
+			  AverageArray := SpindleSpeeds);
+DemandedSpeed := MovingAverage.CurrentValue / 60;
+DemandedSpeed := DemandedSpeed * 60;]]></ST>
+    </Implementation>
+    <LineIds Name="AnalogDemandedSpeedCalculator">
+      <LineId Id="52" Count="1" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="75" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

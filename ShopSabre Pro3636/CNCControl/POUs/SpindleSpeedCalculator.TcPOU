@@ -13,16 +13,10 @@ VAR
 	CounterValue AT %I*: UDINT;
 	// Array of spindle speeds
 	SpindleSpeeds : ARRAY[0..4] OF REAL;
-	// Index of Counter
-	SpindleSpeedIndex : INT;
-END_VAR
-VAR CONSTANT
-	SpindleArrayLength : INT := 5;
+	MovingAverage : FB_MovingAverageReal;
 END_VAR
 VAR_TEMP
-	I : INT;
 	TempSpindleSpeed: REAL;
-	Sum: REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -32,36 +26,20 @@ END_VAR
 // Convert counter value to pulses
 PulseCount := TO_UINT(CounterValue - LastCounterValue);
 LastCounterValue := CounterValue;
-TempSpindleSpeed := (TO_REAL(PulseCount)*600)/2;
-SpindleSpeeds[SpindleSpeedIndex] := TempSpindleSpeed;
-
-// Compute average over last SpindleArrayLength spindle speeds.
-// The order of this addition and MOD are important to avoid going out of bounds.
-SpindleSpeedIndex := SpindleSpeedIndex + 1;
-SpindleSpeedIndex := SpindleSpeedIndex MOD SpindleArrayLength;
-
-FOR I:=0 TO (SpindleArrayLength - 1) BY 1 DO
-	Sum := Sum + SpindleSpeeds[I];
-END_FOR
-SpindleSpeed := Sum / 5;
-]]></ST>
+TempSpindleSpeed := (TO_REAL(PulseCount)*600)/4;
+MovingAverage(ValueToAdd := TempSpindleSpeed,
+			  AverageArray := SpindleSpeeds);
+SpindleSpeed := MovingAverage.CurrentValue;]]></ST>
     </Implementation>
     <LineIds Name="SpindleSpeedCalculator">
       <LineId Id="11" Count="1" />
       <LineId Id="46" Count="0" />
       <LineId Id="13" Count="0" />
-      <LineId Id="27" Count="1" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="86" Count="0" />
-      <LineId Id="53" Count="0" />
-      <LineId Id="110" Count="0" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="63" Count="0" />
-      <LineId Id="62" Count="0" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="54" Count="1" />
-      <LineId Id="57" Count="1" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="161" Count="1" />
+      <LineId Id="57" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

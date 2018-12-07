@@ -5,13 +5,13 @@
     <CycleTime>100000</CycleTime>
     <Priority>8</Priority>
     <PouCall>
-      <Name>PWMDemandedSpeedCalculator</Name>
-    </PouCall>
-    <PouCall>
       <Name>VacuumPressureGetter</Name>
     </PouCall>
     <PouCall>
       <Name>SpindleSpeedCalculator</Name>
+    </PouCall>
+    <PouCall>
+      <Name>AnalogDemandedSpeedCalculator</Name>
     </PouCall>
     <TaskFBGuid>{b96b8113-1188-48f4-8884-e88e8ed89818}</TaskFBGuid>
     <Fb_init>{929001ee-8ca5-4616-b32d-ba94fa506420}</Fb_init>

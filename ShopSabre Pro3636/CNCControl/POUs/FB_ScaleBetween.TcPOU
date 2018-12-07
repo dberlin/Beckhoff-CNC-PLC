@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="FB_ScaleBetween" Id="{3f8eaedd-67fb-45e1-9633-1279513f2586}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ScaleBetween
+VAR_INPUT
+	RawValue : LREAL;
+	RawValueMin: LREAL;
+	RawValueMax : LREAL;
+	ScaledValueMin : LREAL;
+	ScaledValueMax : LREAL;
+END_VAR
+VAR_OUTPUT
+	ScaledValue : LREAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ScaledValue :=  (((ScaledValueMax-ScaledValueMin) * (RawValue - RawValueMin)) / (RawValueMax - RawValueMin)) + ScaledValueMin;
+ScaledValue := MIN(ScaledValueMax, MAX(ScaledValueMin, ScaledValue));]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ScaleBetween">
+      <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

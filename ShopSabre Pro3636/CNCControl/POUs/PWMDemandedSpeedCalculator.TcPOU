@@ -3,7 +3,8 @@
   <POU Name="PWMDemandedSpeedCalculator" Id="{d7b7f4ec-2f11-4936-85ca-0e73dfdbc7ef}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PWMDemandedSpeedCalculator
 VAR
-	DemandedSpeed at %Q* : UINT;
+	DemandedSpeed AT %Q* : UINT;
+	AveragePulseTime : REAL;
 	TempArray : ARRAY [1..1000] OF BOOL;	
 END_VAR
 VAR_TEMP 
@@ -13,11 +14,14 @@ VAR_TEMP
 	EndPulseIndex : UINT;
 	LastPulseLength : UINT;
 	TotalPulseTiming : UDINT;
-	CountedPulses : UINT;
+	CountedPulses : UINT; 
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[	 TempArray[1] := 0;
+      <ST><![CDATA[// The input here is a PWM signal with a frequency of 75, a low of 1% duty, and a high of 95% duty.
+// Basic Calculation for PWM pulses
+
+	 TempArray[1] := 0;
 	 TempArray[2] := 1;
 	 TempArray[3] := 1;
 	 TempArray[4] := 1;
@@ -54,13 +58,19 @@ END_VAR
 			CountedPulses := CountedPulses + TO_UINT(LastHighLowValue);	 
 			EndPulseIndex := I;
 			LastPulseLength := EndPulseIndex - StartPulseIndex;
+			AveragePulseTime := AveragePulseTime + LastPulseLength;
 		END_IF 
 		LastHighLowValue := TempArray[I]; 		  
 	 END_FOR
-]]></ST>
+AveragePulseTime := AveragePulseTime / CountedPulses;]]></ST>
     </Implementation>
     <LineIds Name="PWMDemandedSpeedCalculator">
-      <LineId Id="6" Count="39" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="6" Count="36" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="43" Count="2" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

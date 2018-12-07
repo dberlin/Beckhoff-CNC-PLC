@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="FB_MovingAverageInt" Id="{85bab29d-2c07-4c5a-a127-c5ff6504e896}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MovingAverageInt
+VAR_INPUT
+	ValueToAdd : UINT;
+END_VAR
+VAR_IN_OUT
+	AverageArray  : ARRAY [*] OF UINT;
+END_VAR
+VAR_OUTPUT
+	CurrentValue : UINT;
+END_VAR
+VAR
+	CurrentIndex : UINT;
+END_VAR
+VAR_TEMP
+	I: DINT;
+	Sum: UDINT;
+	ArrayLength : UINT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Compute average over array.
+// The order of this addition and MOD are important to avoid going out of bounds.
+ArrayLength := TO_UINT(UPPER_BOUND(AverageArray, 1) - LOWER_BOUND(AverageArray, 1) + 1);
+AverageArray[CurrentIndex] := ValueToAdd;
+CurrentIndex := CurrentIndex + 1;
+CurrentIndex := CurrentIndex MOD ArrayLength;
+FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
+	Sum := Sum + AverageArray[I];
+END_FOR
+CurrentValue := TO_UINT(Sum / ArrayLength);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_MovingAverageInt">
+      <LineId Id="28" Count="1" />
+      <LineId Id="35" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="31" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
