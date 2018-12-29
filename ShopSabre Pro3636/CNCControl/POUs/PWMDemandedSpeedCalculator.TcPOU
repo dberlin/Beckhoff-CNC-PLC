@@ -3,75 +3,100 @@
   <POU Name="PWMDemandedSpeedCalculator" Id="{d7b7f4ec-2f11-4936-85ca-0e73dfdbc7ef}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PWMDemandedSpeedCalculator
 VAR
+	iInputSpeedBits AT %I* : ARRAY [1..25] OF BYTE;
 	DemandedSpeed AT %Q* : UINT;
-	AveragePulseTime : REAL;
-	TempArray : ARRAY [1..1000] OF BOOL;	
+	TempSpindleSpeed : UINT;
+	LastDemandedSpeed : UINT;
+	TotalOnTime : UDINT;
+	TotalOffTime : UDINT;
+	DutyCycle : LREAL;
+	SpindleSpeeds : ARRAY[0..5] OF UINT;
+	MovingAverage : FB_MovingAverageInt;
+	Scaling : FB_ScaleBetween;
 END_VAR
 VAR_TEMP 
 	I : UINT;	
-	LastHighLowValue : BOOL;
-	StartPulseIndex : UINT;
-	EndPulseIndex : UINT;
-	LastPulseLength : UINT;
-	TotalPulseTiming : UDINT;
-	CountedPulses : UINT; 
+	J: UINT;
+	BitMask : UINT;
+	MaskedBit : BOOL;
 END_VAR
-]]></Declaration>
+VAR CONSTANT
+	// PWM frequency
+	PWMFrequency : UINT := 20;
+    // PWM period
+	PWMPeriod : REAL := 1 / PWMFrequency;
+	// One second in microseconds
+	OneSecondInUs : UDINT := 1000000;
+	// Microseconds in Frequency
+	UsInFrequency : UDINT :=  OneSecondInUs / PWMFrequency;	
+END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// The input here is a PWM signal with a frequency of 75, a low of 1% duty, and a high of 95% duty.
+      <ST><![CDATA[// The input here is a PWM signal with a frequency of 200, a low of 1% duty, and a high of 95% duty.
 // Basic Calculation for PWM pulses
 
-	 TempArray[1] := 0;
-	 TempArray[2] := 1;
-	 TempArray[3] := 1;
-	 TempArray[4] := 1;
-	 TempArray[5] := 1;
-	 TempArray[6] := 0;
-	 TempArray[11] := 0;
-	 TempArray[12] := 1;
-	 TempArray[13] := 1;
-	 TempArray[14] := 1;
-	 TempArray[15] := 1;
-	 TempArray[16] := 0;
-	 TempArray[21] := 0;
-	 TempArray[22] := 1;
-	 TempArray[23] := 1;
-	 TempArray[24] := 1;
-	 TempArray[25] := 1;
-	 TempArray[26] := 0;
-	 TempArray[31] := 0;
-	 TempArray[32] := 1;
-	 TempArray[33] := 1;
-	 TempArray[34] := 1;
-	 TempArray[35] := 1;
-	 TempArray[36] := 0;
-	 FOR I := 1 TO 1000 BY 1 DO
-	 	IF TempArray[I] THEN
-			// Start of a pulse
-			IF NOT LastHighLowValue THEN
-				CountedPulses := CountedPulses + 1;
-				TotalPulseTiming := TotalPulseTiming + (I - StartPulseIndex);
-				StartPulseIndex := I;
-			END_IF
-		ELSIF LastHighLowValue THEN
-			// End of a pulse
-			CountedPulses := CountedPulses + TO_UINT(LastHighLowValue);	 
-			EndPulseIndex := I;
-			LastPulseLength := EndPulseIndex - StartPulseIndex;
-			AveragePulseTime := AveragePulseTime + LastPulseLength;
-		END_IF 
-		LastHighLowValue := TempArray[I]; 		  
+ FOR I := 1 TO 25 BY 1 DO
+	 FOR J := 0 TO 7 BY 1 DO
+		BitMask := SHL(1, J);
+		MaskedBit := (iInputSpeedBits[I] AND BitMask) > 0;
+		IF MaskedBit THEN
+			TotalOnTime := TotalOnTime + 1;
+		ELSE
+			TotalOffTime := TotalOffTime + 1; 
+		END_IF
 	 END_FOR
-AveragePulseTime := AveragePulseTime / CountedPulses;]]></ST>
+ END_FOR
+ 
+IF (TotalOnTime + TotalOffTime) > UsInFrequency THEN
+	DutyCycle := TO_LREAL(TotalOnTime) / TO_LREAL(TotalOnTime + TotalOffTime);
+	TotalOnTime := 0;
+	TotalOffTime := 0;
+	Scaling(RawValue:=DutyCycle, RawValueMin:=0.0, 
+							RawValueMax:=1, ScaledValueMin:=0,
+							ScaledValueMax:=24000);
+	TempSpindleSpeed := TO_UINT(Scaling.ScaledValue);
+	MovingAverage(ValueToAdd := TempSpindleSpeed,
+				  AverageArray := SpindleSpeeds);
+(*
+	// Ignore changes < 50
+	IF (MovingAverage.CurrentValue - DemandedSpeed) < 50 THEN
+      RETURN;
+    END_IF
+*)
+	DemandedSpeed := MovingAverage.CurrentValue;
+ELSIF (TotalOnTime + TotalOffTime) = 0 THEN
+    DutyCycle := 0;
+END_IF
+]]></ST>
     </Implementation>
     <LineIds Name="PWMDemandedSpeedCalculator">
       <LineId Id="64" Count="0" />
       <LineId Id="66" Count="0" />
-      <LineId Id="65" Count="0" />
-      <LineId Id="6" Count="36" />
-      <LineId Id="63" Count="0" />
-      <LineId Id="43" Count="2" />
-      <LineId Id="5" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="103" Count="1" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="126" Count="2" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="142" Count="2" />
+      <LineId Id="151" Count="2" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="180" Count="1" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="122" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

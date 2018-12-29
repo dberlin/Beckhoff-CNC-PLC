@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <Task Name="EveryMS" Id="{5367acbe-3bb9-4255-84d2-131016a30a17}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>1000</CycleTime>
+    <Priority>6</Priority>
+    <PouCall>
+      <Name>PWMDemandedSpeedCalculator</Name>
+    </PouCall>
+    <TaskFBGuid>{ad4aaec0-ed65-4517-8259-89b495165ca6}</TaskFBGuid>
+    <Fb_init>{dbd9e419-9560-4df0-a2d6-3a69a71575ac}</Fb_init>
+    <Fb_exit>{a26f3472-9a5f-4ef5-b666-695186323f7d}</Fb_exit>
+    <CycleUpdate>{dcada9f2-13ca-420a-8d91-c039f4f413c5}</CycleUpdate>
+    <PostCycleUpdate>{00d1ffba-2be7-416b-a70c-2a54c1d82fa6}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

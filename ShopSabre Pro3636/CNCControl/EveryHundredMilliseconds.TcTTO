@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
-  <Task Name="EveryHundredMilliseconds" Id="{a3685705-d5b4-44a2-b03f-53d66817da32}">
+  <Task Name="EveryHundredMilliseconds" Id="{34c6b6c0-145d-4464-adc2-4156c9a1529f}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>100000</CycleTime>
-    <Priority>8</Priority>
+    <Priority>10</Priority>
     <PouCall>
       <Name>VacuumPressureGetter</Name>
     </PouCall>
     <PouCall>
       <Name>SpindleSpeedCalculator</Name>
     </PouCall>
-    <PouCall>
-      <Name>AnalogDemandedSpeedCalculator</Name>
-    </PouCall>
-    <TaskFBGuid>{b96b8113-1188-48f4-8884-e88e8ed89818}</TaskFBGuid>
-    <Fb_init>{929001ee-8ca5-4616-b32d-ba94fa506420}</Fb_init>
-    <Fb_exit>{73e27469-fc04-4bf7-aad7-b166fd8c7b56}</Fb_exit>
-    <CycleUpdate>{3f12da43-8935-4278-9445-62d2b480b5eb}</CycleUpdate>
-    <PostCycleUpdate>{bdec2eb3-a007-46c4-be9b-6dc5f2cf945c}</PostCycleUpdate>
+    <TaskFBGuid>{25956e70-a6c1-471b-8774-f78a175ee6a9}</TaskFBGuid>
+    <Fb_init>{a02eb1f6-23c9-4b04-884c-cd2b41deb027}</Fb_init>
+    <Fb_exit>{1db500f1-02f4-47c0-af53-61db96b0b906}</Fb_exit>
+    <CycleUpdate>{0c85ccaa-73f8-47de-b4a1-3c7236d7d40b}</CycleUpdate>
+    <PostCycleUpdate>{f60eef54-00bc-43c6-8432-a2e1c31dca6d}</PostCycleUpdate>
   </Task>
 </TcPlcObject>

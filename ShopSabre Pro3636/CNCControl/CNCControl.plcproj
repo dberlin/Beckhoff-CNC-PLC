@@ -27,6 +27,9 @@
     <Compile Include="EveryHundredMilliseconds.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EveryMS.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MainCNCControl.TcTTO">
       <SubType>Code</SubType>
     </Compile>
