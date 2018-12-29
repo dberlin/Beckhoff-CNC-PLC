@@ -45,6 +45,9 @@
     <Compile Include="POUs\FB_MovingAverageInt.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_MovingAverageLReal.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_MovingAverageReal.TcPOU">
       <SubType>Code</SubType>
     </Compile>

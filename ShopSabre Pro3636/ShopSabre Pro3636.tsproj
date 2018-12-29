@@ -1318,6 +1318,11 @@
 							<CoeProfile ProfileNo="43914121" DisplayName="Licensing"/>
 						</EtherCAT>
 					</Box>
+					<Box BoxType="9099" Id="6">
+						<Name>Term 6 (EL9400)</Name>
+						<ImageId>1001</ImageId>
+						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x24b83050" InfoDataState="false" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9400 E-Bus Power Supplier" Desc="EL9400" PortABoxInfo="#x0100001a"/>
+					</Box>
 					<Box BoxType="9099" Id="27">
 						<Name>Term 27 (EL1262-0050)</Name>
 						<ImageId>7</ImageId>

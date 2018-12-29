@@ -11,8 +11,11 @@ VAR
 	TotalOffTime : UDINT;
 	DutyCycle : LREAL;
 	SpindleSpeeds : ARRAY[0..5] OF UINT;
+	DutyCycles : ARRAY[0..10] OF LREAL;
 	MovingAverage : FB_MovingAverageInt;
+	MovingAverage2 : FB_MovingAverageLReal;
 	Scaling : FB_ScaleBetween;
+	Scaling2 : FB_ScaleBetween;
 END_VAR
 VAR_TEMP 
 	I : UINT;	
@@ -50,19 +53,22 @@ IF (TotalOnTime + TotalOffTime) > UsInFrequency THEN
 	DutyCycle := TO_LREAL(TotalOnTime) / TO_LREAL(TotalOnTime + TotalOffTime);
 	TotalOnTime := 0;
 	TotalOffTime := 0;
+	// Average the duty cycle and then scale the average
+	MovingAverage2(ValueToAdd := DutyCycle, 
+				   AverageArray := DutyCycles);
+	Scaling2(RawValue:=MovingAverage2.CurrentValue, RawValueMin:=0.0, 
+							RawValueMax:=1, ScaledValueMin:=0,
+							ScaledValueMax:=24000);
+	DemandedSpeed := TO_UINT(Scaling2.ScaledValue);
+(* // Scale the duty cycle and then average the scaled values
 	Scaling(RawValue:=DutyCycle, RawValueMin:=0.0, 
 							RawValueMax:=1, ScaledValueMin:=0,
 							ScaledValueMax:=24000);
 	TempSpindleSpeed := TO_UINT(Scaling.ScaledValue);
 	MovingAverage(ValueToAdd := TempSpindleSpeed,
 				  AverageArray := SpindleSpeeds);
-(*
-	// Ignore changes < 50
-	IF (MovingAverage.CurrentValue - DemandedSpeed) < 50 THEN
-      RETURN;
-    END_IF
-*)
 	DemandedSpeed := MovingAverage.CurrentValue;
+	*)
 ELSIF (TotalOnTime + TotalOffTime) = 0 THEN
     DutyCycle := 0;
 END_IF
@@ -83,16 +89,17 @@ END_IF
       <LineId Id="146" Count="0" />
       <LineId Id="111" Count="0" />
       <LineId Id="142" Count="2" />
-      <LineId Id="151" Count="2" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="199" Count="0" />
+      <LineId Id="189" Count="0" />
+      <LineId Id="191" Count="3" />
+      <LineId Id="200" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="195" Count="1" />
       <LineId Id="182" Count="0" />
       <LineId Id="180" Count="1" />
-      <LineId Id="183" Count="0" />
-      <LineId Id="170" Count="0" />
-      <LineId Id="163" Count="0" />
-      <LineId Id="176" Count="0" />
-      <LineId Id="178" Count="0" />
-      <LineId Id="184" Count="0" />
       <LineId Id="165" Count="0" />
+      <LineId Id="198" Count="0" />
       <LineId Id="118" Count="0" />
       <LineId Id="123" Count="0" />
       <LineId Id="125" Count="0" />

@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM SpindleSpeedCalculator
 VAR
 	// Spindle speed in RPM
-	SpindleSpeed : REAL;
+	SpindleSpeed : LREAL;
 	// Current pulse count value from the counter
 	PulseCount: UINT;
 	// Counter value from previous time we read the counter
