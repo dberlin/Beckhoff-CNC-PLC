@@ -129,7 +129,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 	 IF NOT SpindleOnDebounced.Q THEN
 	 	oSpindleFrequency := 0;
 	 ELSE		  
-	 	oSpindleFrequency := (PWMDemandedSpeedCalculator.DemandedSpeed / Constants.RPMPerHZ) * Constants.VFDHZPrecision;
+	 	oSpindleFrequency := (PWMDemandedSpeedCalculator.DemandedSpeed * Constants.VFDHZPrecision) / Constants.RPMPerHZ;
 	 END_IF
 	 oSpindleControl.Stop := NOT SpindleOnDebounced.Q;
 	 oSpindleControl.Run := SpindleOnDebounced.Q;

@@ -7,6 +7,8 @@ VAR_GLOBAL CONSTANT
 	RPMPerHZ : UINT := 30;
 	// VFD frequency precision in 1/X of 1 HZ. So 10 means it can do 1/10th of a HZ
 	VFDHZPrecision : UINT := 10;
+	// Minimum VFD RPM increment based on RPM per HZ and precision
+	VFDMinRPMIncrement : UINT := TO_UINT(RPMPerHZ / VFDHZPrecision);
 	// PWM frequency
 	PWMFrequency : UINT := 20;
     // PWM period

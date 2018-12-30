@@ -58,6 +58,8 @@ IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency THEN
 					  RawValueMax:=1, ScaledValueMin:=0,
 					  ScaledValueMax:=24000);
 	DemandedSpeed := TO_UINT(Scaling.ScaledValue);
+	// Make sure demanded speed is some increment of what the VFD can do. 
+	DemandedSpeed := (DemandedSpeed / Constants.VFDMinRPMIncrement) * Constants.VFDMinRPMIncrement;
 ELSIF TotalOnTime = 0 THEN
     DutyCycle := 0;
 END_IF
@@ -86,7 +88,10 @@ END_IF
       <LineId Id="199" Count="0" />
       <LineId Id="189" Count="0" />
       <LineId Id="191" Count="2" />
-      <LineId Id="279" Count="1" />
+      <LineId Id="279" Count="0" />
+      <LineId Id="284" Count="0" />
+      <LineId Id="283" Count="0" />
+      <LineId Id="280" Count="0" />
       <LineId Id="123" Count="0" />
       <LineId Id="125" Count="0" />
       <LineId Id="122" Count="0" />
