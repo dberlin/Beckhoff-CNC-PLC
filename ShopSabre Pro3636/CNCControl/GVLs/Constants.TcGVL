@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <GVL Name="Constants" Id="{7b068a6d-cd30-425d-8e09-2b77bf8b449c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	// Number of RPM per HZ in the VFD
+	RPMPerHZ : UINT := 30;
+	// VFD frequency precision in 1/X of 1 HZ. So 10 means it can do 1/10th of a HZ
+	VFDHZPrecision : UINT := 10;
+	// PWM frequency
+	PWMFrequency : UINT := 20;
+    // PWM period
+	PWMPeriod : REAL := 1 / PWMFrequency;
+	// One second in microseconds
+	OneSecondInUs : UDINT := 1000000;
+	// Microseconds in Frequency
+	UsInFrequency : UDINT :=  OneSecondInUs / PWMFrequency;	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

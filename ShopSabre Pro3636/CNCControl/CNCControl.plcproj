@@ -30,6 +30,10 @@
     <Compile Include="EveryMS.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\Constants.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="MainCNCControl.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -43,9 +47,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_MovingAverageInt.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_MovingAverageLReal.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_MovingAverageReal.TcPOU">

@@ -12,31 +12,34 @@ VAR
 	// Counter value from counter
 	CounterValue AT %I*: UDINT;
 	// Array of spindle speeds
-	SpindleSpeeds : ARRAY[0..4] OF REAL;
+	SpindleSpeeds : ARRAY[0..4] OF LREAL;
 	MovingAverage : FB_MovingAverageReal;
 END_VAR
 VAR_TEMP
 	TempSpindleSpeed: REAL;
 END_VAR
+VAR CONSTANT
+	// Pulses per revolution of the spindle sensor
+	PulsesPerRevolution : UINT := 4;
+	// Task cycles per minute - task runs every 100ms
+	TaskCyclesPerMinute : UINT := 600;
+END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Spindle speed is 2 pulses per revolution.
-// Task runs every 100ms
-
-// Convert counter value to pulses
+      <ST><![CDATA[// Convert counter value to pulses since last cycle
 PulseCount := TO_UINT(CounterValue - LastCounterValue);
 LastCounterValue := CounterValue;
-TempSpindleSpeed := (TO_REAL(PulseCount)*600)/4;
+// Extrapolate how pulses many would have occurred in a minute, then divide by pulses per revolution to get RPM.
+TempSpindleSpeed := (TO_REAL(PulseCount) * TaskCyclesPerMinute) / PulsesPerRevolution;
 MovingAverage(ValueToAdd := TempSpindleSpeed,
 			  AverageArray := SpindleSpeeds);
 SpindleSpeed := MovingAverage.CurrentValue;]]></ST>
     </Implementation>
     <LineIds Name="SpindleSpeedCalculator">
-      <LineId Id="11" Count="1" />
-      <LineId Id="46" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="136" Count="0" />
+      <LineId Id="187" Count="0" />
       <LineId Id="55" Count="0" />
       <LineId Id="161" Count="1" />
       <LineId Id="57" Count="0" />

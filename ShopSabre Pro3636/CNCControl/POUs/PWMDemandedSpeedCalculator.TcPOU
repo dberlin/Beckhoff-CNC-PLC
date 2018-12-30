@@ -3,7 +3,7 @@
   <POU Name="PWMDemandedSpeedCalculator" Id="{d7b7f4ec-2f11-4936-85ca-0e73dfdbc7ef}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PWMDemandedSpeedCalculator
 VAR
-	iInputSpeedBits AT %I* : ARRAY [1..25] OF BYTE;
+	iInputSpeedBits AT %I* : ARRAY [1..BitArraySize] OF BYTE;
 	DemandedSpeed AT %Q* : UINT;
 	TempSpindleSpeed : UINT;
 	LastDemandedSpeed : UINT;
@@ -12,10 +12,8 @@ VAR
 	DutyCycle : LREAL;
 	SpindleSpeeds : ARRAY[0..5] OF UINT;
 	DutyCycles : ARRAY[0..10] OF LREAL;
-	MovingAverage : FB_MovingAverageInt;
-	MovingAverage2 : FB_MovingAverageLReal;
+	MovingAverage : FB_MovingAverageReal;
 	Scaling : FB_ScaleBetween;
-	Scaling2 : FB_ScaleBetween;
 END_VAR
 VAR_TEMP 
 	I : UINT;	
@@ -24,52 +22,43 @@ VAR_TEMP
 	MaskedBit : BOOL;
 END_VAR
 VAR CONSTANT
-	// PWM frequency
-	PWMFrequency : UINT := 20;
-    // PWM period
-	PWMPeriod : REAL := 1 / PWMFrequency;
-	// One second in microseconds
-	OneSecondInUs : UDINT := 1000000;
-	// Microseconds in Frequency
-	UsInFrequency : UDINT :=  OneSecondInUs / PWMFrequency;	
+
+	// Array Length
+	BitArraySize : UINT := 125;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// The input here is a PWM signal with a frequency of 200, a low of 1% duty, and a high of 95% duty.
 // Basic Calculation for PWM pulses
 
- FOR I := 1 TO 25 BY 1 DO
+ FOR I := 1 TO BitArraySize BY 1 DO
 	 FOR J := 0 TO 7 BY 1 DO
 		BitMask := SHL(1, J);
-		MaskedBit := (iInputSpeedBits[I] AND BitMask) > 0;
+		MaskedBit := TO_BOOL(iInputSpeedBits[I] AND BitMask);
 		IF MaskedBit THEN
 			TotalOnTime := TotalOnTime + 1;
 		ELSE
 			TotalOffTime := TotalOffTime + 1; 
 		END_IF
+		// Stop at the end of the period
+		IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency THEN
+			EXIT;
+		END_IF 
 	 END_FOR
  END_FOR
  
-IF (TotalOnTime + TotalOffTime) > UsInFrequency THEN
+// See if the period is up
+IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency THEN
 	DutyCycle := TO_LREAL(TotalOnTime) / TO_LREAL(TotalOnTime + TotalOffTime);
 	TotalOnTime := 0;
 	TotalOffTime := 0;
 	// Average the duty cycle and then scale the average
-	MovingAverage2(ValueToAdd := DutyCycle, 
-				   AverageArray := DutyCycles);
-	Scaling2(RawValue:=MovingAverage2.CurrentValue, RawValueMin:=0.0, 
-							RawValueMax:=1, ScaledValueMin:=0,
-							ScaledValueMax:=24000);
-	DemandedSpeed := TO_UINT(Scaling2.ScaledValue);
-(* // Scale the duty cycle and then average the scaled values
-	Scaling(RawValue:=DutyCycle, RawValueMin:=0.0, 
-							RawValueMax:=1, ScaledValueMin:=0,
-							ScaledValueMax:=24000);
-	TempSpindleSpeed := TO_UINT(Scaling.ScaledValue);
-	MovingAverage(ValueToAdd := TempSpindleSpeed,
-				  AverageArray := SpindleSpeeds);
-	DemandedSpeed := MovingAverage.CurrentValue;
-	*)
-ELSIF (TotalOnTime + TotalOffTime) = 0 THEN
+	MovingAverage(ValueToAdd := DutyCycle, 
+				  AverageArray := DutyCycles);
+	Scaling(RawValue:=MovingAverage.CurrentValue, RawValueMin:=0.0, 
+					  RawValueMax:=1, ScaledValueMin:=0,
+					  ScaledValueMax:=24000);
+	DemandedSpeed := TO_UINT(Scaling.ScaledValue);
+ELSIF TotalOnTime = 0 THEN
     DutyCycle := 0;
 END_IF
 ]]></ST>
@@ -84,23 +73,20 @@ END_IF
       <LineId Id="31" Count="0" />
       <LineId Id="89" Count="0" />
       <LineId Id="126" Count="2" />
+      <LineId Id="278" Count="0" />
+      <LineId Id="240" Count="1" />
+      <LineId Id="239" Count="0" />
       <LineId Id="45" Count="0" />
       <LineId Id="121" Count="0" />
       <LineId Id="146" Count="0" />
+      <LineId Id="277" Count="0" />
       <LineId Id="111" Count="0" />
       <LineId Id="142" Count="2" />
       <LineId Id="186" Count="0" />
       <LineId Id="199" Count="0" />
       <LineId Id="189" Count="0" />
-      <LineId Id="191" Count="3" />
-      <LineId Id="200" Count="0" />
-      <LineId Id="197" Count="0" />
-      <LineId Id="195" Count="1" />
-      <LineId Id="182" Count="0" />
-      <LineId Id="180" Count="1" />
-      <LineId Id="165" Count="0" />
-      <LineId Id="198" Count="0" />
-      <LineId Id="118" Count="0" />
+      <LineId Id="191" Count="2" />
+      <LineId Id="279" Count="1" />
       <LineId Id="123" Count="0" />
       <LineId Id="125" Count="0" />
       <LineId Id="122" Count="0" />

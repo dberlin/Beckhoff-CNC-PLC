@@ -3,16 +3,17 @@
   <POU Name="FB_MovingAverageReal" Id="{fda7e211-5c6c-492f-ac36-81cea3ee5c49}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MovingAverageReal
 VAR_INPUT
-	ValueToAdd : REAL;
+	ValueToAdd : LREAL;
 END_VAR
 VAR_IN_OUT
-	AverageArray  : ARRAY [*] OF REAL;
+	AverageArray  : ARRAY [*] OF LREAL;
 END_VAR
 VAR_OUTPUT
-	CurrentValue : REAL;
+	CurrentValue : LREAL;
 END_VAR
 VAR
 	CurrentIndex : UINT;
+	NumValues: UINT;
 END_VAR
 VAR_TEMP
 	I: DINT;
@@ -22,20 +23,29 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Compute average over array.
 // The order of this addition and MOD are important to avoid going out of bounds.
+// NOTE: We deliberately do not try to account for underfilling the array.
 ArrayLength := TO_UINT(UPPER_BOUND(AverageArray, 1) - LOWER_BOUND(AverageArray, 1) + 1);
 AverageArray[CurrentIndex] := ValueToAdd;
 CurrentIndex := CurrentIndex + 1;
 CurrentIndex := CurrentIndex MOD ArrayLength;
+NumValues := MIN(NumValues + 1 , ArrayLength);
+// This wastes a little time walking pointless values if the array is underfilled,
+// but they are zero initialized and thus should not afffect the calculation.
 FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
 	Sum := Sum + AverageArray[I];
 END_FOR
-CurrentValue := TO_REAL(Sum / ArrayLength);]]></ST>
+CurrentValue := TO_REAL(Sum / NumValues);]]></ST>
     </Implementation>
     <LineIds Name="FB_MovingAverageReal">
       <LineId Id="28" Count="1" />
+      <LineId Id="54" Count="0" />
       <LineId Id="35" Count="1" />
       <LineId Id="30" Count="0" />
-      <LineId Id="21" Count="2" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="22" Count="1" />
       <LineId Id="9" Count="0" />
       <LineId Id="31" Count="0" />
     </LineIds>
