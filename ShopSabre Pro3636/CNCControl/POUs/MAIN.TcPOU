@@ -126,13 +126,14 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 
 // Spindle control handling
 	 // The spindle frequency is in increments of 0.1hz
-	 IF NOT SpindleOnDebounced.Q THEN
+	 // NOTE: HSK-F63 spindles may not be spun while the tool is not present
+	 IF NOT (SpindleOnDebounced.Q AND iS1ToolPresence) THEN
 	 	oSpindleFrequency := 0;
 	 ELSE		  
 	 	oSpindleFrequency := (PWMDemandedSpeedCalculator.DemandedSpeed * Constants.VFDHZPrecision) / Constants.RPMPerHZ;
 	 END_IF
-	 oSpindleControl.Stop := NOT SpindleOnDebounced.Q;
-	 oSpindleControl.Run := SpindleOnDebounced.Q;
+	 oSpindleControl.Stop := NOT (SpindleOnDebounced.Q AND iS1ToolPresence);
+	 oSpindleControl.Run := SpindleOnDebounced.Q AND iS1ToolPresence;
 	
 // Spindle Tool Change handling
 	oPCToolPresence := iS1ToolPresence;
@@ -149,6 +150,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
       <LineId Id="4935" Count="0" />
       <LineId Id="4401" Count="0" />
       <LineId Id="4763" Count="0" />
+      <LineId Id="5018" Count="0" />
       <LineId Id="4845" Count="1" />
       <LineId Id="4849" Count="0" />
       <LineId Id="4847" Count="1" />

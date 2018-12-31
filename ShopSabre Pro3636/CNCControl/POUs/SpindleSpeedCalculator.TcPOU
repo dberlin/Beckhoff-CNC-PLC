@@ -20,7 +20,7 @@ VAR_TEMP
 END_VAR
 VAR CONSTANT
 	// Pulses per revolution of the spindle sensor
-	PulsesPerRevolution : UINT := 4;
+	PulsesPerRevolution : UINT := 2;
 	// Task cycles per minute - task runs every 100ms
 	TaskCyclesPerMinute : UINT := 600;
 END_VAR

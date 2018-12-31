@@ -10,8 +10,7 @@ VAR
 	TotalOnTime : UDINT;
 	TotalOffTime : UDINT;
 	DutyCycle : LREAL;
-	SpindleSpeeds : ARRAY[0..5] OF UINT;
-	DutyCycles : ARRAY[0..10] OF LREAL;
+	DutyCycles : ARRAY [0..20] OF LREAL;
 	MovingAverage : FB_MovingAverageReal;
 	Scaling : FB_ScaleBetween;
 END_VAR
@@ -47,7 +46,7 @@ END_VAR]]></Declaration>
  END_FOR
  
 // See if the period is up
-IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency THEN
+IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency  THEN
 	DutyCycle := TO_LREAL(TotalOnTime) / TO_LREAL(TotalOnTime + TotalOffTime);
 	TotalOnTime := 0;
 	TotalOffTime := 0;
@@ -60,8 +59,6 @@ IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency THEN
 	DemandedSpeed := TO_UINT(Scaling.ScaledValue);
 	// Make sure demanded speed is some increment of what the VFD can do. 
 	DemandedSpeed := (DemandedSpeed / Constants.VFDMinRPMIncrement) * Constants.VFDMinRPMIncrement;
-ELSIF TotalOnTime = 0 THEN
-    DutyCycle := 0;
 END_IF
 ]]></ST>
     </Implementation>
@@ -91,8 +88,6 @@ END_IF
       <LineId Id="279" Count="0" />
       <LineId Id="284" Count="0" />
       <LineId Id="283" Count="0" />
-      <LineId Id="280" Count="0" />
-      <LineId Id="123" Count="0" />
       <LineId Id="125" Count="0" />
       <LineId Id="122" Count="0" />
     </LineIds>
