@@ -112,7 +112,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 	oVacuumControl.RunFwd := VacuumOnDebounced.Q;
 	oVacuumControl.RunReverse := FALSE;
 	oVacuumControl.NetCtrl := TRUE;
-	oVacuumControl.NetRef := TRUE;
+	oVacuumControl.NetRef := FALSE;
 	oPCVacuumPressureGood := VacuumPressureGetter.VacuumPressure >= GoodVacuumPressure;
 	 		
 {endregion}

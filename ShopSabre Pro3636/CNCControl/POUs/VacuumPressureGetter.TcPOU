@@ -9,7 +9,6 @@ VAR
 	VacuumPressure: REAL;
 	GetVacuumPressure : FB_GET_ATTRIBUTE_SINGLE;
 	GVPErrorString: STRING(80);
-	VacuumNetID : T_AmsNetID;
 	GetVacuumAMSId : FB_GetVacuumAMSID := ();
 END_VAR
 VAR CONSTANT
@@ -26,7 +25,7 @@ IF GetVacuumAMSId.Busy THEN
 	RETURN;
 END_IF
 // Parameter 
-GetVacuumPressure(sNetId := VacuumNetId,
+GetVacuumPressure(sNetId := GetVacuumAMSId.VacuumNetID,
 		 		  sIPv4Addr := '192.168.1.9',
 			  	  bExecute := NOT GetVacuumPressure.bBusy,
 				  nClass := ODVAApplicationObject,

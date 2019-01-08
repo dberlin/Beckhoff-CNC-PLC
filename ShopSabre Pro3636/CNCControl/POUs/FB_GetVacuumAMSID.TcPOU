@@ -8,12 +8,13 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	Busy : BOOL := TRUE;
-	GetLocalAMSId : FB_GetLocalAmsNetId;
+	VacuumNetID : T_AmsNetID;
 END_VAR
 VAR
 	DoCallOnce : BOOL := TRUE;
 	DoOnce : BOOL := TRUE;
-	VacuumNetID : T_AmsNetID;
+	GetLocalAMSId : FB_GetLocalAmsNetId;	
+
 END_VAR
 VAR_TEMP
 	NetIDLen : INT;
