@@ -7,6 +7,9 @@
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>
+    <PouCall>
+      <Name>VacuumHandler</Name>
+    </PouCall>
     <TaskFBGuid>{0075c848-71e4-438f-aea1-f4aa716d96e4}</TaskFBGuid>
     <Fb_init>{74c57753-d8d0-4a98-8f3f-a29f703cf7db}</Fb_init>
     <Fb_exit>{252cee96-c440-4dea-ae30-849ec6c6a178}</Fb_exit>

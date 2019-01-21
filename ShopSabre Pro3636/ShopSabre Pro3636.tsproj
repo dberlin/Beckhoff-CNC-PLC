@@ -109,53 +109,6 @@
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{13D241F7-5B4E-448F-86D9-3B2397039B79}" PersistentType="true">CIPExtendedSpeedOut</Name>
-			<BitSize>32</BitSize>
-			<SubItem>
-				<Name>RunFwd</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>RunReverse</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>FaultReset</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NetCtrl</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NetRef</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DriveSpeed</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>16</BitOffs>
-			</SubItem>
-			<Hides>
-				<Hide GUID="{4BCD91E8-AAEC-4797-8B81-6A7FF865D1DE}"/>
-				<Hide GUID="{F049D61B-C264-4981-AE02-B19E03220CCB}"/>
-				<Hide GUID="{AAB94104-BEB2-4BEA-92DA-854FE74DE055}"/>
-				<Hide GUID="{9018A7BA-E0A9-4A67-9C40-D6B6EF26E009}"/>
-				<Hide GUID="{70F6D5F6-F59D-4447-B5F1-231966A2B22F}"/>
-			</Hides>
-		</DataType>
-		<DataType>
 			<Name GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}" PersistentType="true">DeltaVFDCommandWord</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
@@ -257,6 +210,40 @@
 			<Hides>
 				<Hide GUID="{362A5B7F-FA53-4029-AD30-7BD71E0AFB3B}"/>
 				<Hide GUID="{F2AAEBEF-0A0E-4A69-AC4C-D02C4ABA577F}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}" BitType="true" PersistentType="true">ATV71CommandWord</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>Forward</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Reverse</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>PidIntegralOff</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FaultReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{23D7E8E9-B252-4603-BF69-C00C483744D6}"/>
+				<Hide GUID="{B1C9BB6B-7E34-411B-965B-C2877D5BA667}"/>
+				<Hide GUID="{A59DBDD0-45DA-44EA-9035-906908E7817F}"/>
+				<Hide GUID="{5B786DD0-260B-4CB8-9B7E-46C47F05F3D2}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -504,17 +491,97 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
+			<Name GUID="{13D241F7-5B4E-448F-86D9-3B2397039B79}" PersistentType="true">CIPExtendedSpeedOut</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>RunFwd</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>RunReverse</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FaultReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NetCtrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NetRef</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DriveSpeed</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{4BCD91E8-AAEC-4797-8B81-6A7FF865D1DE}"/>
+				<Hide GUID="{F049D61B-C264-4981-AE02-B19E03220CCB}"/>
+				<Hide GUID="{AAB94104-BEB2-4BEA-92DA-854FE74DE055}"/>
+				<Hide GUID="{9018A7BA-E0A9-4A67-9C40-D6B6EF26E009}"/>
+				<Hide GUID="{70F6D5F6-F59D-4447-B5F1-231966A2B22F}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{8723C414-57A9-4F05-A677-2218E0C6A724}" PersistentType="true">NewType</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
 		</DataType>
+		<DataType>
+			<Name GUID="{A59DBDD0-45DA-44EA-9035-906908E7817F}" BitType="true" PersistentType="true">ATV71CommandWord</Name>
+			<BitSize>7</BitSize>
+			<SubItem>
+				<Name>Forward</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Reverse</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>PidIntegralOff</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FaultReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{23D7E8E9-B252-4603-BF69-C00C483744D6}"/>
+				<Hide GUID="{B1C9BB6B-7E34-411B-965B-C2877D5BA667}"/>
+			</Hides>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
-		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ff000000000000ff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ff000000000000ff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1000">424de6000000000000007600000028000000100000000e000000010004000000000070000000120b0000120b0000100000001000000000000000000080000080000000808000800000008000800080800000c0c0c000808080000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00fffffffffffffffffffffffffff00ffffffffffffff00fff0000000000000fff0000000000000fff000000000000099900000000000009990000000000000fff0000000000000ffffff00ffffff00fff00000ffffff00fff00000fffffffffffffffffffffffffffffffffffffffffff</ImageData>
+		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ff000000000000ff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ff000000000000ff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
 	<Project ProjectGUID="{F9211855-BB60-4BCA-B8F0-6C327B10B5F0}" TargetNetId="192.168.1.51.1.1" Target64Bit="true" AutoPrioManagement="true" ShowHideConfigurations="#x3c7">
 		<System>
@@ -528,8 +595,10 @@
 			</Settings>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="VE2507253">
+					<ManualSelect>{4989A799-AEEA-4FEE-88EF-666B99EEFB45}</ManualSelect>
 					<TargetSelect TargetId="2">{87DBEEFC-A548-4B37-9797-C9521D3A43A2}</TargetSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
+					<TargetSelect TargetId="2">{4989A799-AEEA-4FEE-88EF-666B99EEFB45}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302001a" DongleSystemId="{43D41E12-F694-15B0-FEC6-2821FEF2143F}"/>
 				</Target>
 			</Licenses>
@@ -540,17 +609,8 @@
 				<Task Id="4" Priority="4" CycleTime="10000" AmsPort="351" AdtTasks="true">
 					<Name>MainCNCControl</Name>
 				</Task>
-				<Task Id="5" Priority="6" CycleTime="10000" AmsPort="301">
+				<Task Id="5" Priority="6" CycleTime="10000" AmsPort="352" AdtTasks="true">
 					<Name>EveryMS</Name>
-					<Vars VarGrpType="1" InsertType="1">
-						<Name>Inputs</Name>
-					</Vars>
-					<Vars VarGrpType="2" InsertType="1">
-						<Name>Outputs</Name>
-					</Vars>
-					<Image Id="4" AddrType="1" ImageType="1">
-						<Name>Image</Name>
-					</Image>
 				</Task>
 			</Tasks>
 		</System>
@@ -609,13 +669,6 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.iPCVacuumOn</Name>
-							<Comment>
-								<![CDATA[ Turn on vacuum signal from PC]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.iSpindleToolReleaseButton</Name>
 							<Comment>
 								<![CDATA[ Tool Release Button on Spindle]]>
@@ -657,6 +710,25 @@
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>VacuumHandler.iPCVacuumOn</Name>
+							<Comment>
+								<![CDATA[ Turn on vacuum signal from PC]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iPIDRegulatorOutput</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iOutputFrequency</Name>
+							<Type>UINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>MainCNCControl Outputs</Name>
@@ -694,20 +766,6 @@
 								<![CDATA[ Control of NITRA Valves over ethernet/ip	 ]]>
 							</Comment>
 							<Type GUID="{2CDCCB26-9DC1-49EA-B036-768F14F7DD4F}">NitraValves</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.oVacuumControl</Name>
-							<Comment>
-								<![CDATA[ Vacuum Control Output]]>
-							</Comment>
-							<Type GUID="{13D241F7-5B4E-448F-86D9-3B2397039B79}">CIPExtendedSpeedOut</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.oPCVacuumPressureGood</Name>
-							<Comment>
-								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
-							</Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.oPCSpindleStopped</Name>
@@ -756,6 +814,27 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
+							<Name>VacuumHandler.oVacuumControl</Name>
+							<Comment>
+								<![CDATA[ Vacuum Control Output]]>
+							</Comment>
+							<Type GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}">ATV71CommandWord</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.oVacuumPressureRequested</Name>
+							<Comment>
+								<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
+							</Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.oPCVacuumPressureGood</Name>
+							<Comment>
+								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>PWMDemandedSpeedCalculator.DemandedSpeed</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -769,6 +848,18 @@
 					</Vars>
 					<Vars VarGrpType="1">
 						<Name>EveryHundredMilliseconds Inputs</Name>
+						<Var>
+							<Name>VacuumHandler.iStatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iOutputVelocity</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iAnalogInput2ScaledValue</Name>
+							<Type>UINT</Type>
+						</Var>
 						<Var>
 							<Name>SpindleSpeedCalculator.CounterValue</Name>
 							<Comment>
@@ -809,6 +900,29 @@
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-20T01:53:27">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 13 (IPE001Z)">
+								<Link VarA="MAIN.oVacuumControl" TypeA="CIPExtendedSpeedOut" InOutA="1" GuidA="{13D241F7-5B4E-448F-86D9-3B2397039B79}" VarB="Connection 2 (Input/Output)^Outputs^MAIN.oVacuumControl" RestoreInfo="TypeMismatch" OldTypeA="CIPExtendedSpeedOut" OldGuidA="{13D241F7-5B4E-448F-86D9-3B2397039B79}" NewTypeA="ATV71CommandWord" NewGuidA="{D8F90599-4520-4A9B-884B-11DAFBC2914A}"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-20T09:45:13">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+								<Link VarA="MAIN.oVacuumControl" TypeA="ATV71CommandWord" InOutA="1" GuidA="{D8F90599-4520-4A9B-884B-11DAFBC2914A}" VarB="Outputs^MAIN.oVacuumControl" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.oVacuumPressureRequested" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Outputs^MAIN.oVacuumPressureRequested" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 8 (EL2124)">
+								<Link VarA="MAIN.oPCVacuumPressureGood" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 4^MAIN.oPCVacuumPressureGood" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="InputDst" Prefix="TIPC^CNCControl^CNCControl Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
+								<Link VarA="MAIN.iPCVacuumOn" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^MAIN.iPCVacuumOn" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<TaskPouOids>
 						<TaskPouOid Prio="10" OTCID="#x08502003"/>
 						<TaskPouOid Prio="4" OTCID="#x08502001"/>
@@ -833,10 +947,80 @@
 				<Image Id="5" AddrType="10" ImageType="3">
 					<Name>Image-2</Name>
 				</Image>
+				<Box BoxType="9099" BoxFlags="#x00000020" Id="16">
+					<Name>Box 16 (ATV71 EtherCAT)</Name>
+					<ImageId>1000</ImageId>
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CfgModeSafeOp="true" CoeType="13" VendorId="#x0800005a" ProductCode="#x00000047" RevisionNo="#x00010001" InfoDataAddr="true" WdDivider0400="25000" DdTime0420="100" EnableWdDivider0400="true" EnableWdTime0420="true" TimeoutStateChange1="6000" TimeoutStateChange2="5000" TimeoutStateChange3="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="ATV71 EtherCAT" Desc="ATV71 EtherCAT" PortABoxInfo="#x00ffffff">
+						<SyncMan>001c20002600010001000000200020002000001c26010000</SyncMan>
+						<SyncMan>001e20002200010002000000200020002000001e22010000</SyncMan>
+						<SyncMan>001010006400010003000000000000000000001064010000</SyncMan>
+						<SyncMan>001610002000010004000000000000000000001620010000</SyncMan>
+						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
+						<Fmmu>0000000000000000001600010100000002000000000000000000000000000000</Fmmu>
+						<Pdo Name="Inputs" Index="#x1a00" Flags="#x0010" SyncMan="3">
+							<Entry Name="VacuumHandler.iStatusWord" Index="#x2061" Sub="#x2a">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="VacuumHandler.iOutputVelocity" Index="#x2061" Sub="#x2b">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="VacuumHandler.iAnalogInput2ScaledValue" Index="#x2061" Sub="#x2c">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="VacuumHandler.iPIDRegulatorFeedback" Index="#x2061" Sub="#x2d">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="VacuumHandler.iPIDRegulatorOutput" Index="#x2061" Sub="#x2e">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="VacuumHandler.iOutputFrequency" Index="#x2061" Sub="#x2f">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NM7" Index="#x2061" Sub="#x30">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NM8" Index="#x2061" Sub="#x31">
+								<Type>UINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="Outputs" Index="#x1600" InOut="1" Flags="#x0010" SyncMan="2">
+							<Entry Name="VacuumHandler.oVacuumControl" Index="#x2061" Sub="#x3e">
+								<Type>UINT</Type>
+								<Comment>
+									<![CDATA[ Vacuum Control Output]]>
+								</Comment>
+							</Entry>
+							<Entry Name="VacuumHandler.oVacuumPressureRequested" Index="#x2061" Sub="#x3f">
+								<Type>UINT</Type>
+								<Comment>
+									<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
+								</Comment>
+							</Entry>
+							<Entry Name="NC3" Index="#x2061" Sub="#x40">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NC4" Index="#x2061" Sub="#x41">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NC5" Index="#x2061" Sub="#x42">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NC6" Index="#x2061" Sub="#x43">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NC7" Index="#x2061" Sub="#x44">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="NC8" Index="#x2061" Sub="#x45">
+								<Type>UINT</Type>
+							</Entry>
+						</Pdo>
+					</EtherCAT>
+				</Box>
 				<Box BoxType="9099" Id="1">
 					<Name>Term 1 (EK1100)</Name>
-					<ImageId>1000</ImageId>
-					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" InfoDataDcTimes="true" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x00ffffff"/>
+					<ImageId>1001</ImageId>
+					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" InfoDataDcTimes="true" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x01000010"/>
 					<Box BoxType="9099" BoxFlags="#x00000020" Id="3">
 						<Name>Term 3 (EL1502)</Name>
 						<ImageId>7</ImageId>
@@ -1276,7 +1460,7 @@
 					</Box>
 					<Box BoxType="9099" Id="20">
 						<Name>Term 20 (EL9110)</Name>
-						<ImageId>1001</ImageId>
+						<ImageId>1002</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23963052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9110 Power Supplier with LED (24V, Diagnostics)" Desc="EL9110" PortABoxInfo="#x0100000f">
 							<SyncMan>001001000000010004000000000000000000001000000000</SyncMan>
 							<Fmmu>0000000000000000001000010100000002000000000000000000000000000000</Fmmu>
@@ -1289,7 +1473,7 @@
 					</Box>
 					<Box BoxType="9099" Id="19">
 						<Name>Term 19 (EL2622)</Name>
-						<ImageId>1002</ImageId>
+						<ImageId>1003</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0a3e3052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2622 2Ch. Relay Output, NO (230V AC / 30V DC)" Desc="EL2622" PortABoxInfo="#x01000014">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
 							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
@@ -1310,7 +1494,7 @@
 					</Box>
 					<Box BoxType="9099" BoxFlags="#x00000020" Id="26">
 						<Name>Term 26 (EL6070)</Name>
-						<ImageId>1003</ImageId>
+						<ImageId>1004</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="35" FoeType="1" VendorId="#x00000002" ProductCode="#x17b63052" RevisionNo="#x00120000" InfoDataAddr="true" RepeatSupport="true" TimeoutMailbox2="3000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6070 1Ch. Licensing-Terminal" Desc="EL6070" PortABoxInfo="#x01000013">
 							<SyncMan>001000012600010001000000300000010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000300000010001001122010000</SyncMan>
@@ -1320,7 +1504,7 @@
 					</Box>
 					<Box BoxType="9099" Id="6">
 						<Name>Term 6 (EL9400)</Name>
-						<ImageId>1001</ImageId>
+						<ImageId>1002</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x24b83050" InfoDataState="false" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9400 E-Bus Power Supplier" Desc="EL9400" PortABoxInfo="#x0100001a"/>
 					</Box>
 					<Box BoxType="9099" Id="27">
@@ -3821,7 +4005,7 @@
 					</Box>
 					<Box BoxType="9099" Id="7">
 						<Name>Term 7 (EL2124)</Name>
-						<ImageId>1002</ImageId>
+						<ImageId>1003</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x084c3052" RevisionNo="#x00110000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2124 4Ch. Dig. Output 5V, 20mA" Desc="EL2124" PortABoxInfo="#x0100001b">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
 							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
@@ -3852,7 +4036,7 @@
 					</Box>
 					<Box BoxType="9099" Id="8">
 						<Name>Term 8 (EL2124)</Name>
-						<ImageId>1002</ImageId>
+						<ImageId>1003</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x084c3052" RevisionNo="#x00110000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2124 4Ch. Dig. Output 5V, 20mA" Desc="EL2124" PortABoxInfo="#x01000007">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
 							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
@@ -3881,7 +4065,7 @@
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="MAIN.oPCVacuumPressureGood" Index="#x7030" Sub="#x01">
+								<Entry Name="VacuumHandler.oPCVacuumPressureGood" Index="#x7030" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment>
 										<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
@@ -3892,7 +4076,7 @@
 					</Box>
 					<Box BoxType="9099" Id="9">
 						<Name>Term 9 (EL2124)</Name>
-						<ImageId>1002</ImageId>
+						<ImageId>1003</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x084c3052" RevisionNo="#x00110000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2124 4Ch. Dig. Output 5V, 20mA" Desc="EL2124" PortABoxInfo="#x01000008">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
 							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
@@ -3973,7 +4157,7 @@
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
-								<Entry Name="MAIN.iPCVacuumOn" Index="#x6010" Sub="#x01">
+								<Entry Name="VacuumHandler.iPCVacuumOn" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment>
 										<![CDATA[ Turn on vacuum signal from PC]]>
@@ -4000,7 +4184,7 @@
 					</Box>
 					<Box BoxType="9099" Id="14">
 						<Name>Term 12 (EL9011)</Name>
-						<ImageId>1004</ImageId>
+						<ImageId>1005</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x0100000b"/>
 					</Box>
 				</Box>
@@ -4075,7 +4259,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\nitraethernetip.eds
 						</MasterConnection>
 					</EthernetIp>
 				</Box>
-				<Box BoxType="9134" Id="13">
+				<Box Disabled="true" BoxType="9134" Id="13">
 					<Name>Box 13 (IPE001Z)</Name>
 					<Comment>
 						<![CDATA[<INFO>
@@ -4169,7 +4353,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 ]]>
 							</Comment>
 							<Type>UINT</Type>
-							<BitOffs>64</BitOffs>
+							<BitOffs>16</BitOffs>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
@@ -4177,7 +4361,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 						<Var>
 							<Name>Ctrl</Name>
 							<Type>UINT</Type>
-							<BitOffs>80</BitOffs>
+							<BitOffs>32</BitOffs>
 						</Var>
 					</Vars>
 					<EthernetIp SlavePara="00000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" NewSlavePara="0200000000000000000000000000000000000000000000000000000000000000000000000c0000006c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d01a8c000000000000000000000800001001e000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" EdsFilePath="031F000C010400010001.eds">
@@ -4189,77 +4373,77 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 								<Var>
 									<Name>Error Code</Name>
 									<Type>UINT</Type>
-									<BitOffs>80</BitOffs>
+									<BitOffs>32</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved2101</Name>
 									<Type>UINT</Type>
-									<BitOffs>96</BitOffs>
+									<BitOffs>48</BitOffs>
 								</Var>
 								<Var>
 									<Name>Frequence Command</Name>
 									<Type>UINT</Type>
-									<BitOffs>112</BitOffs>
+									<BitOffs>64</BitOffs>
 								</Var>
 								<Var>
 									<Name>Output Frequence</Name>
 									<Type>UINT</Type>
-									<BitOffs>128</BitOffs>
+									<BitOffs>80</BitOffs>
 								</Var>
 								<Var>
 									<Name>Output Current</Name>
 									<Type>UINT</Type>
-									<BitOffs>144</BitOffs>
+									<BitOffs>96</BitOffs>
 								</Var>
 								<Var>
 									<Name>DC Bus Voltage</Name>
 									<Type>UINT</Type>
-									<BitOffs>160</BitOffs>
+									<BitOffs>112</BitOffs>
 								</Var>
 								<Var>
 									<Name>Output Voltage</Name>
 									<Type>UINT</Type>
-									<BitOffs>176</BitOffs>
+									<BitOffs>128</BitOffs>
 								</Var>
 								<Var>
 									<Name>Speed</Name>
 									<Type>UINT</Type>
-									<BitOffs>192</BitOffs>
+									<BitOffs>144</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved2108</Name>
 									<Type>UINT</Type>
-									<BitOffs>208</BitOffs>
+									<BitOffs>160</BitOffs>
 								</Var>
 								<Var>
 									<Name>Counter</Name>
 									<Type>UINT</Type>
-									<BitOffs>224</BitOffs>
+									<BitOffs>176</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved210A</Name>
 									<Type>UINT</Type>
-									<BitOffs>240</BitOffs>
+									<BitOffs>192</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved210B</Name>
 									<Type>UINT</Type>
-									<BitOffs>256</BitOffs>
+									<BitOffs>208</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved210C</Name>
 									<Type>UINT</Type>
-									<BitOffs>272</BitOffs>
+									<BitOffs>224</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved210D</Name>
 									<Type>UINT</Type>
-									<BitOffs>288</BitOffs>
+									<BitOffs>240</BitOffs>
 								</Var>
 								<Var>
 									<Name>Reserved210E</Name>
 									<Type>UINT</Type>
-									<BitOffs>304</BitOffs>
+									<BitOffs>256</BitOffs>
 								</Var>
 							</Vars>
 							<Vars VarGrpType="2" InsertType="1">
@@ -4270,13 +4454,13 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 										<![CDATA[ Delta VFD control for the spindle]]>
 									</Comment>
 									<Type GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}">DeltaVFDCommandWord</Type>
-									<BitOffs>96</BitOffs>
+									<BitOffs>48</BitOffs>
 									<ExternalAddress>12</ExternalAddress>
 								</Var>
 								<Var>
 									<Name>MAIN.oSpindleFrequency</Name>
 									<Type>UINT</Type>
-									<BitOffs>112</BitOffs>
+									<BitOffs>64</BitOffs>
 								</Var>
 							</Vars>
 						</MasterConnection>
@@ -4288,16 +4472,26 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{08502003-0010-0304-0020-500810000403}" Id="#x02030040" Watchdog="00000000000000000000000000000000"/>
+		<MappingInfo Identifier="{08502003-0010-0304-0020-500810000403}" Id="#x02030030" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-2002-0850-0120-500851000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500851000403}" Id="#x02030040"/>
 		<OwnerA Name="TIPC^CNCControl^CNCControl Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iAnalogInput2ScaledValue" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue"/>
+				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iOutputVelocity" VarB="Inputs^VacuumHandler.iOutputVelocity"/>
+				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iStatusWord" VarB="Inputs^VacuumHandler.iStatusWord"/>
+				<Link VarA="MainCNCControl Inputs^VacuumHandler.iOutputFrequency" VarB="Inputs^VacuumHandler.iOutputFrequency"/>
+				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorFeedback" VarB="Inputs^VacuumHandler.iPIDRegulatorFeedback"/>
+				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorOutput" VarB="Inputs^VacuumHandler.iPIDRegulatorOutput"/>
+				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumControl" VarB="Outputs^VacuumHandler.oVacuumControl"/>
+				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumPressureRequested" VarB="Outputs^VacuumHandler.oVacuumPressureRequested"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 4^MAIN.iPCCoolantOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleOn" VarB="Channel 1^MAIN.iPCSpindleOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCToolRelease" VarB="Channel 3^MAIN.iPCToolRelease"/>
-				<Link VarA="MainCNCControl Inputs^MAIN.iPCVacuumOn" VarB="Channel 2^MAIN.iPCVacuumOn"/>
+				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPCVacuumOn" VarB="Channel 2^VacuumHandler.iPCVacuumOn"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 15 (EL1018)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iProbe" VarB="Channel 1^MAIN.iProbe"/>
@@ -4456,7 +4650,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCColletOpen" VarB="Channel 2^MAIN.oPCColletOpen"/>
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCServoAlarm" VarB="Channel 1^MAIN.oPCServoAlarm"/>
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCSpindleStopped" VarB="Channel 3^MAIN.oPCSpindleStopped"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.oPCVacuumPressureGood" VarB="Channel 4^MAIN.oPCVacuumPressureGood"/>
+				<Link VarA="MainCNCControl Outputs^VacuumHandler.oPCVacuumPressureGood" VarB="Channel 4^VacuumHandler.oPCVacuumPressureGood"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 9 (EL2124)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCAirPressure" VarB="Channel 1^MAIN.oPCAirPressure"/>
@@ -4466,9 +4660,6 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 12 (Nitra CMV EtherNet/IP)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oValveControl" VarB="Connection 1 (Input/Output)^Outputs^MAIN.oValveControl"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 13 (IPE001Z)">
-				<Link VarA="MainCNCControl Outputs^MAIN.oVacuumControl" VarB="Connection 2 (Input/Output)^Outputs^MAIN.oVacuumControl"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 2 (CMM-EIP01)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oSpindleControl" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleControl"/>

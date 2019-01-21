@@ -16,7 +16,7 @@ VAR
 	// Relay output controlling Z Axis Brake
 	oZAxisBrakeRelay AT %Q*: BOOL;
     {endregion}
-	{region "Probe, Air Pressure, Coolant, Vacuum"}
+	{region "Probe, Air Pressure, Coolant"}
 	// Digital Probe Trigger output to PC pin 29
 	oPCProbe AT %Q*: BOOL;
 	// Digital Probe Input (Normally Closed)
@@ -29,12 +29,6 @@ VAR
 	oValveControl AT %Q* : NitraValves; 
 	// Turn on coolant signal from PC
 	iPCCoolantOn AT %I* : BOOL;
-	// Turn on vacuum signal from PC
-	iPCVacuumOn AT %I* : BOOL;
-	// Vacuum Control Output
-	oVacuumControl AT %Q* : CIPExtendedSpeedOut;
-	// Vacuum Pressure good output to PC Pin 7
-	oPCVacuumPressureGood AT %Q*: BOOL;
 	{endregion}
 	{region "Spindle variables"}
 	{region "Spindle Speed Handling"}
@@ -74,19 +68,13 @@ VAR
 	   Therefore, we debounce it *)
 	CoolantOnDebounced : TON;
 	SpindleOnDebounced : TON;
-	VacuumOnDebounced : TON;
 	ToolReleaseDebounced : TON;	
 	{endregion}
 END_VAR
-
-VAR CONSTANT
-	// Minimum PSI at which vacuum holding is viable for workpiece
-	GoodVacuumPressure : REAL := 10.0;
-END_VAR]]></Declaration>
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[CoolantOnDebounced(IN := iPCCoolantOn, PT := T#3MS);
 SpindleOnDebounced(IN := iPCSpindleOn, PT := T#3MS);
-VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 
 {region "Servo handling"}
@@ -108,13 +96,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 // Colant control
 	oValveControl.Coolant := CoolantOnDebounced.Q;
 
-// Vacuum control	
-	oVacuumControl.RunFwd := VacuumOnDebounced.Q;
-	oVacuumControl.RunReverse := FALSE;
-	oVacuumControl.NetCtrl := TRUE;
-	oVacuumControl.NetRef := FALSE;
-	oPCVacuumPressureGood := VacuumPressureGetter.VacuumPressure >= GoodVacuumPressure;
-	 		
+
 {endregion}
 {region "Spindle handling"}
 // Spindle Speed Handling
@@ -145,21 +127,9 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 {endregion}]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="4360" Count="34" />
-      <LineId Id="4397" Count="3" />
-      <LineId Id="4935" Count="0" />
-      <LineId Id="4401" Count="0" />
-      <LineId Id="4763" Count="0" />
-      <LineId Id="5018" Count="0" />
-      <LineId Id="4845" Count="1" />
-      <LineId Id="4849" Count="0" />
-      <LineId Id="4847" Count="1" />
-      <LineId Id="4678" Count="0" />
-      <LineId Id="4681" Count="0" />
-      <LineId Id="4680" Count="0" />
-      <LineId Id="4402" Count="4" />
-      <LineId Id="4662" Count="0" />
-      <LineId Id="4423" Count="0" />
+      <LineId Id="5100" Count="1" />
+      <LineId Id="5103" Count="20" />
+      <LineId Id="5130" Count="27" />
       <LineId Id="3416" Count="0" />
     </LineIds>
   </POU>

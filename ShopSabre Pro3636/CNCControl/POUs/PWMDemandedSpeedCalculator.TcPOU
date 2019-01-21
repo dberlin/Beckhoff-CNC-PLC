@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM PWMDemandedSpeedCalculator
 VAR
 	iInputSpeedBits AT %I* : ARRAY [1..BitArraySize] OF BYTE;
+	{attribute 'UserUnit' := '<AngularVelocity, RPM, RPM, 9.549296596425, 0, 0 >'}
 	DemandedSpeed AT %Q* : UINT;
 	TempSpindleSpeed : UINT;
 	LastDemandedSpeed : UINT;

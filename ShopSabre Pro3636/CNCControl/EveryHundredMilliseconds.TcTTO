@@ -5,9 +5,6 @@
     <CycleTime>100000</CycleTime>
     <Priority>10</Priority>
     <PouCall>
-      <Name>VacuumPressureGetter</Name>
-    </PouCall>
-    <PouCall>
       <Name>SpindleSpeedCalculator</Name>
     </PouCall>
     <TaskFBGuid>{25956e70-a6c1-471b-8774-f78a175ee6a9}</TaskFBGuid>

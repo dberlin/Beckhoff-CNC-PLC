@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
-  <Task Name="EveryMS" Id="{5367acbe-3bb9-4255-84d2-131016a30a17}">
+  <Task Name="EveryMS" Id="{68386a6f-ec1b-4b9b-afda-7d9ef7a25127}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>1000</CycleTime>
     <Priority>6</Priority>
     <PouCall>
       <Name>PWMDemandedSpeedCalculator</Name>
     </PouCall>
-    <TaskFBGuid>{ad4aaec0-ed65-4517-8259-89b495165ca6}</TaskFBGuid>
-    <Fb_init>{dbd9e419-9560-4df0-a2d6-3a69a71575ac}</Fb_init>
-    <Fb_exit>{a26f3472-9a5f-4ef5-b666-695186323f7d}</Fb_exit>
-    <CycleUpdate>{dcada9f2-13ca-420a-8d91-c039f4f413c5}</CycleUpdate>
-    <PostCycleUpdate>{00d1ffba-2be7-416b-a70c-2a54c1d82fa6}</PostCycleUpdate>
+    <TaskFBGuid>{57b29e69-deca-4e15-a25b-9ed0b22df6b5}</TaskFBGuid>
+    <Fb_init>{1c5f0a0a-a026-4439-b1ee-36e46abb64a0}</Fb_init>
+    <Fb_exit>{2d19ac71-549c-4689-95ba-04fb4ad21cc7}</Fb_exit>
+    <CycleUpdate>{75e6041d-f63c-4441-8e1c-8d099c4100fd}</CycleUpdate>
+    <PostCycleUpdate>{c7ba84d1-23d8-4a6c-9dff-5edc48230b70}</PostCycleUpdate>
   </Task>
 </TcPlcObject>

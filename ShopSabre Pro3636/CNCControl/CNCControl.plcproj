@@ -64,7 +64,10 @@
     <Compile Include="POUs\SpindleSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\VacuumPressureGetter.TcPOU">
+    <Compile Include="POUs\EIPVacuumPressureGetter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\VacuumHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
