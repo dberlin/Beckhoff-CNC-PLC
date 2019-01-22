@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="FB_OptimizePID" Id="{626227d0-9b37-4afe-a71a-fd287754eb95}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_OptimizePID
+
+VAR_INPUT
+	// Starts the sequence on the rising edge
+	Enable : BOOL; 
+	// Set point 
+	SetPoint : REAL; 
+	// Process measurement 
+	ProcessValue : REAL;
+	// Number of automatic adjustment cycles (minimum 2) 
+	NumCycles : INT := 2; 
+	// Reset
+	Reset : BOOL;
+	// Low value for the square wave output
+	ControlLowVal : REAL;
+	// High value for the square wave output
+	ControlHighVal: REAL;
+	// PID constants to use
+	// 0 = fast, 1 = normal, 2 = slow
+	PIDType: INT;
+END_VAR
+VAR_OUTPUT
+	// End sequence
+	TuningDone: BOOL;
+	// Square wave output for the exitation of the process
+	ControlValue: REAL; 
+	// Proportional gain
+	Kp: REAL;
+	// Integral time in S
+	Ki: REAL;
+	// Derivative time in s
+	Kd: REAL;
+END_VAR
+VAR
+	// Enable trigger
+	rTrigEnable : R_TRIG;
+	// Ultimate Gain 
+	Ku: REAL;
+	// Ultimate Period
+	Tu: REAL;
+	// Amplitude of process variable
+	b: REAL;
+	// Amplitude of control variable
+	a: REAL;
+    TuFreq: FB_FreqMeasure;      
+    b_Min: REAL;
+    b_Max: REAL;
+    EdgeEnd: BOOL;
+    FlagEnd: BOOL;
+    End: BOOL;
+    
+    TuningSequence: INT;
+    CycleNumber: INT;
+    RstFreq: BOOL;
+    PerFreq: INT;
+END_VAR
+VAR CONSTANT
+    PI : REAL := REAL#3.14159265358979323846264338327950288;
+	REAL_MAX : REAL :=  3.402823E+38;
+	REAL_MIN : REAL :=-3.402823E+38;
+END_VAR 
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+(*** Séquence autotune ***)
+
+IF Reset THEN
+    TuningSequence:=0;
+END_IF;
+
+CASE TuningSequence OF
+0: (* Attente Démarrage autotune *)
+    ControlValue := ControlLowVal;
+    IF rTrigEnable.Q THEN
+        RstFreq:=TRUE;
+        b_Min := REAL_MAX ;
+        b_Max := REAL_MIN ;
+        KP := 0;
+        Ki := 0;
+        Kd := 0;
+        CycleNumber := 0;
+        TuningDone:=FALSE;
+        TuningSequence:=1;
+        End:=FALSE;
+    END_IF;
+
+1: (* Onde carrée haute *)
+    ControlValue := ControlHighVal;
+    IF ProcessValue > SetPoint THEN
+        ControlValue := ControlLowVal;
+        CycleNumber:=CycleNumber+1;
+        TuningSequence:=2;
+    END_IF;
+
+2: (* Onde carrée basse et fin de séquence *)
+    IF ProcessValue < SetPoint THEN
+        CycleNumber := CycleNumber+1;
+        IF CycleNumber >= NumCycles THEN
+            TuningSequence:=1;
+            End:=TRUE;
+        ELSE
+            TuningSequence:=1;
+        END_IF;
+    END_IF;
+
+END_CASE;
+rTrigEnable(CLK := Enable);
+
+(*** Calcul des paramètres ***)
+
+(* min/max et freq de PV  *)
+
+b_Min := MIN(b_Min, ProcessValue);
+b_Max := MAX(b_Max, ProcessValue);
+
+// Calculate number of periods to use
+PerFreq:=(NumCycles / 2) - 1;
+PerFreq:=LIMIT(1,  PerFreq, 10);
+
+TuFreq(
+    IN := ProcessValue > SetPoint,
+    PERIODS :=PerFreq,
+    RESET := RstFreq); 
+    
+RstFreq := FALSE;  
+
+(* Calcul sur front montant de End et valeur de sortie de FREQ_MEASURE ok *)
+EdgeEnd:= End AND TuFreq.OUT <> 0 AND NOT FlagEnd; 
+FlagEnd:= End AND TuFreq.OUT <> 0; 
+
+IF EdgeEnd THEN
+    
+    // Calculate amplitude of control variable
+    a:=ControlHighVal - ControlLowVal;
+
+	// Calculate amplitude of process variable
+    b:=b_Max - b_Min;
+
+    // Calculate ultimate period and gain
+    Ku := (4 * b)/(PI * a);
+    Tu := 1 / TuFreq.OUT;
+
+    CASE PIDType OF
+    0:(* Performances rapides *)
+        Kp := 0.7 * Ku;
+        Ki := (1.75 * Ku) / Tu;
+        Kd := (14 * Ku * Tu) / 3.0; // Double check this
+
+    1:(* Performances normales *)
+        Kp := Ku /3.0;
+        Ki := (2/3.0) * Ku / Tu ;
+        Kd := Ku * Tu  / 10.0;
+
+    2:(* Performances lentes *)
+        Kp := 0.2 * Ku ;
+        Ki := 2 * Ku / Tu  / 5.0;
+        Kd := 2* Ku * Tu / 3.0;
+    END_CASE;
+    
+    TuningDone := TRUE;
+    TuningSequence := 0;
+
+END_IF;
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_OptimizePID">
+      <LineId Id="4097" Count="99" />
+      <LineId Id="3703" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

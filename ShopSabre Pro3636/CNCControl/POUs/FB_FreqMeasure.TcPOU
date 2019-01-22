@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="FB_FreqMeasure" Id="{3d6d3d65-e18a-4fc3-a773-f23be8247d43}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_FreqMeasure
+// This function is the equivalent of FREQ_MEASURE from codesys's utility library
+VAR_INPUT
+	// Input signal
+    IN: BOOL;
+	// Number of periods to average the frequency over.
+	// Must be between 1 and 10
+    PERIODS: INT :=1;
+	// Reset all parameters to 0
+    RESET: BOOL;
+END_VAR
+VAR_OUTPUT
+	// Frequency in HZ
+    OUT: REAL;
+	// FALSE until we've measured at least PERIODS periods, or if distance between two rising edges is > 3 * OUT
+    VALID: BOOL;
+END_VAR
+VAR
+    LASTIN: BOOL;
+    INIT: BOOL;
+    LASTTIME: TIME;
+	// Difference in time between current and last rising edge
+    DIFF: DINT;
+	// Array of time differences for each period
+    TIMEDIFF: ARRAY[0..9] OF DINT;
+	// How many periods we have counted so far
+    COUNT: INT;
+	// Current place in the array of time differences
+    IDX: INT;
+    I: INT;
+	SUM: DINT;
+	SYSTIMEMS : TIME;          
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+IF RESET THEN
+    VALID := FALSE;
+    COUNT := 0;
+    IDX := 0;
+    INIT := FALSE;
+    OUT := 0;
+    RETURN;
+END_IF
+
+SYSTIMEMS := DINT_TO_TIME(Tc2_Utilities.GETSYSTEMTIME() * TC2_Utilities.SYSTEMTIME_TICKSPERMSEC);
+IF IN AND NOT LASTIN THEN    (*rising edge *)
+    IF INIT THEN
+        DIFF := TIME_TO_DINT(SYSTIMEMS-LASTTIME);
+        IF Diff > 0 THEN
+            TIMEDIFF[IDX] := DIFF;
+            IDX := (IDX + 1) MOD PERIODS;
+            COUNT := MIN(COUNT + 1, PERIODS);
+            IF COUNT = PERIODS THEN
+                SUM := 0;
+                FOR I :=0 TO PERIODS-1 DO
+                    SUM := SUM + TIMEDIFF[I];
+                END_FOR
+                OUT := 1000.0 * PERIODS / DINT_TO_REAL(SUM);
+                VALID := TRUE;
+            ELSE 
+                VALID := FALSE;
+            END_IF
+        END_IF
+    END_IF
+    INIT := TRUE;
+    LASTTIME := SYSTIMEMS;
+ELSIF INIT AND VALID AND TIME_TO_DINT(SYSTIMEMS-LASTTIME) > 3000*REAL_TO_DINT(OUT) THEN
+    VALID := FALSE;
+    COUNT := 0;
+    IDX := 0;
+END_IF
+
+LASTIN:=IN;
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_FreqMeasure">
+      <LineId Id="32" Count="3" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="36" Count="2" />
+      <LineId Id="40" Count="1" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="43" Count="27" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
