@@ -24,6 +24,12 @@
     </DeploymentEvents>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_PIDOptimizationStage.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_PIDOptimizationType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="EveryHundredMilliseconds.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +49,9 @@
     <Compile Include="POUs\AnalogPrescaledSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_FreqMeasure.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_GetVacuumAMSID.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -50,6 +59,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_MovingAverageReal.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_OptimizePID.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ScaleBetween.TcPOU">

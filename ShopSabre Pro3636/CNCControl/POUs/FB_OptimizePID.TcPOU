@@ -7,7 +7,7 @@ VAR_INPUT
 	// Starts the sequence on the rising edge
 	Enable : BOOL; 
 	// Set point 
-	SetPoint : REAL; 
+	ProcessSetpoint : REAL; 
 	// Process measurement 
 	ProcessValue : REAL;
 	// Number of automatic adjustment cycles (minimum 2) 
@@ -19,8 +19,7 @@ VAR_INPUT
 	// High value for the square wave output
 	ControlHighVal: REAL;
 	// PID constants to use
-	// 0 = fast, 1 = normal, 2 = slow
-	PIDType: INT;
+	PIDType: E_PIDOptimizationType;
 END_VAR
 VAR_OUTPUT
 	// End sequence
@@ -33,14 +32,14 @@ VAR_OUTPUT
 	Ki: REAL;
 	// Derivative time in s
 	Kd: REAL;
-END_VAR
-VAR
-	// Enable trigger
-	rTrigEnable : R_TRIG;
 	// Ultimate Gain 
 	Ku: REAL;
 	// Ultimate Period
 	Tu: REAL;
+END_VAR
+VAR
+	// Enable trigger
+	rTrigEnable : R_TRIG;
 	// Amplitude of process variable
 	b: REAL;
 	// Amplitude of control variable
@@ -48,14 +47,9 @@ VAR
     TuFreq: FB_FreqMeasure;      
     b_Min: REAL;
     b_Max: REAL;
-    EdgeEnd: BOOL;
-    FlagEnd: BOOL;
-    End: BOOL;
-    
-    TuningSequence: INT;
+	EndTrigger : R_TRIG;    
+    TuningSequence: E_PIDOptimizationStage;
     CycleNumber: INT;
-    RstFreq: BOOL;
-    PerFreq: INT;
 END_VAR
 VAR CONSTANT
     PI : REAL := REAL#3.14159265358979323846264338327950288;
@@ -66,74 +60,72 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-(*** Séquence autotune ***)
-
 IF Reset THEN
-    TuningSequence:=0;
+    TuningSequence := E_PIDOptimizationStage.Init;
+	TuningDone := FALSE;
 END_IF;
+IF TuningDone THEN
+	RETURN;
+END_IF
 
 CASE TuningSequence OF
-0: (* Attente Démarrage autotune *)
-    ControlValue := ControlLowVal;
-    IF rTrigEnable.Q THEN
-        RstFreq:=TRUE;
-        b_Min := REAL_MAX ;
-        b_Max := REAL_MIN ;
-        KP := 0;
-        Ki := 0;
-        Kd := 0;
-        CycleNumber := 0;
-        TuningDone:=FALSE;
-        TuningSequence:=1;
-        End:=FALSE;
-    END_IF;
+	// Startup - initialize and set to ramp up to setpoint
+	E_PIDOptimizationStage.Init: 
+		ControlValue := ControlLowVal;
+		IF rTrigEnable.Q THEN
+			TuFreq(
+				IN := FALSE,
+				PERIODS := NumCycles,
+				RESET := TRUE); 
+			b_Min := REAL_MAX ;
+			b_Max := REAL_MIN ;
+			KP := 0;
+			Ki := 0;
+			Kd := 0;
+			CycleNumber := 0;
+			TuningSequence := E_PIDOptimizationStage.RampingUp;
+		END_IF;
 
-1: (* Onde carrée haute *)
-    ControlValue := ControlHighVal;
-    IF ProcessValue > SetPoint THEN
-        ControlValue := ControlLowVal;
-        CycleNumber:=CycleNumber+1;
-        TuningSequence:=2;
-    END_IF;
-
-2: (* Onde carrée basse et fin de séquence *)
-    IF ProcessValue < SetPoint THEN
-        CycleNumber := CycleNumber+1;
-        IF CycleNumber >= NumCycles THEN
-            TuningSequence:=1;
-            End:=TRUE;
-        ELSE
-            TuningSequence:=1;
-        END_IF;
-    END_IF;
+	// Ramp to setpoint
+	E_PIDOptimizationStage.RampingUp:
+		ControlValue := ControlHighVal;
+		// If we hit the setpoint, transition to ramping down
+		IF ProcessValue > ProcessSetpoint THEN
+			ControlValue := ControlLowVal;
+			CycleNumber := CycleNumber + 1;
+			TuningSequence := E_PIDOptimizationStage.RampingDown;
+		END_IF;
+		
+	// Wait for process value to fall below setpoint
+	E_PIDOptimizationStage.RampingDown:
+		// Once process value falls, either we are done if we hit the cycle count,
+		// or we need to start the next cycle.
+		IF ProcessValue < ProcessSetpoint THEN
+			IF CycleNumber > NumCycles THEN
+				TuningSequence := E_PIDOptimizationStage.Done;
+			ELSE
+				TuningSequence := E_PIDOptimizationStage.RampingUp;
+			END_IF;
+		END_IF;
 
 END_CASE;
-rTrigEnable(CLK := Enable);
 
-(*** Calcul des paramètres ***)
 
-(* min/max et freq de PV  *)
+(*Only Start Measuring Min/Max once we've crossed setpoint once this is to make sure we don't take 0 as value*)
+IF CycleNumber  > 0  THEN
+	b_Min := MIN(b_Min, ProcessValue);
+	b_Max := MAX(b_Max, ProcessValue);
+	
+	
+	TuFreq(
+		IN := ProcessValue > ProcessSetpoint,
+		PERIODS := NumCycles,
+		RESET := FALSE); 
+	// We don't check the error becuase i'm lazy. In a real system, if the TuFreq goes invalid, it means the data is screwed up and you need to do something.
 
-b_Min := MIN(b_Min, ProcessValue);
-b_Max := MAX(b_Max, ProcessValue);
-
-// Calculate number of periods to use
-PerFreq:=(NumCycles / 2) - 1;
-PerFreq:=LIMIT(1,  PerFreq, 10);
-
-TuFreq(
-    IN := ProcessValue > SetPoint,
-    PERIODS :=PerFreq,
-    RESET := RstFreq); 
-    
-RstFreq := FALSE;  
-
-(* Calcul sur front montant de End et valeur de sortie de FREQ_MEASURE ok *)
-EdgeEnd:= End AND TuFreq.OUT <> 0 AND NOT FlagEnd; 
-FlagEnd:= End AND TuFreq.OUT <> 0; 
-
-IF EdgeEnd THEN
-    
+END_IF
+EndTrigger(CLK := TuningSequence = E_PIDOptimizationStage.Done AND TuFreq.OUT <> 0);
+IF EndTrigger.Q THEN
     // Calculate amplitude of control variable
     a:=ControlHighVal - ControlLowVal;
 
@@ -145,30 +137,56 @@ IF EdgeEnd THEN
     Tu := 1 / TuFreq.OUT;
 
     CASE PIDType OF
-    0:(* Performances rapides *)
+    E_PIDOptimizationType.FastRamp:
         Kp := 0.7 * Ku;
         Ki := (1.75 * Ku) / Tu;
         Kd := (14 * Ku * Tu) / 3.0; // Double check this
 
-    1:(* Performances normales *)
+    E_PIDOptimizationType.SomeOvershoot:
         Kp := Ku /3.0;
         Ki := (2/3.0) * Ku / Tu ;
         Kd := Ku * Tu  / 10.0;
 
-    2:(* Performances lentes *)
+    E_PIDOptimizationType.NoOvershoot:
         Kp := 0.2 * Ku ;
         Ki := 2 * Ku / Tu  / 5.0;
         Kd := 2* Ku * Tu / 3.0;
     END_CASE;
     
     TuningDone := TRUE;
-    TuningSequence := 0;
+    TuningSequence := E_PIDOptimizationStage.Init;
 
 END_IF;
+rTrigEnable(CLK := Enable);
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_OptimizePID">
-      <LineId Id="4097" Count="99" />
+      <LineId Id="4730" Count="2" />
+      <LineId Id="4892" Count="0" />
+      <LineId Id="4733" Count="1" />
+      <LineId Id="4882" Count="2" />
+      <LineId Id="4735" Count="1" />
+      <LineId Id="4885" Count="0" />
+      <LineId Id="4737" Count="1" />
+      <LineId Id="4896" Count="3" />
+      <LineId Id="4740" Count="5" />
+      <LineId Id="4747" Count="0" />
+      <LineId Id="4749" Count="2" />
+      <LineId Id="4886" Count="0" />
+      <LineId Id="4752" Count="0" />
+      <LineId Id="4887" Count="0" />
+      <LineId Id="4753" Count="4" />
+      <LineId Id="4888" Count="0" />
+      <LineId Id="4758" Count="2" />
+      <LineId Id="4889" Count="0" />
+      <LineId Id="4891" Count="0" />
+      <LineId Id="4762" Count="1" />
+      <LineId Id="4765" Count="5" />
+      <LineId Id="4894" Count="0" />
+      <LineId Id="4771" Count="5" />
+      <LineId Id="4780" Count="7" />
+      <LineId Id="4822" Count="0" />
+      <LineId Id="4788" Count="32" />
       <LineId Id="3703" Count="0" />
     </LineIds>
   </POU>

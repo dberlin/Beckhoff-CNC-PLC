@@ -17,7 +17,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[ScaledValue :=  (((ScaledValueMax-ScaledValueMin) * (RawValue - RawValueMin)) / (RawValueMax - RawValueMin)) + ScaledValueMin;
-ScaledValue := MIN(ScaledValueMax, MAX(ScaledValueMin, ScaledValue));]]></ST>
+ScaledValue := LIMIT(ScaledValueMin, ScaledValue, ScaledValueMax);]]></ST>
     </Implementation>
     <LineIds Name="FB_ScaleBetween">
       <LineId Id="9" Count="0" />

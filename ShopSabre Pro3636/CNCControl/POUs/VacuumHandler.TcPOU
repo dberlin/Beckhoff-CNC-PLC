@@ -30,6 +30,8 @@ VAR
 	{endregion}
 	Blah : UINT;
 	Blah2 : UINT;
+	oMotorFrequency AT %Q* : UINT;
+	PidOptimizer : FB_OptimizePID;
 END_VAR
 
 VAR CONSTANT
@@ -55,16 +57,46 @@ VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 	oPCVacuumPressureGood := iPIDRegulatorFeedback >= (GoodVacuumPressure * 100);
 	Blah := iPIDRegulatorOutput;
 	Blah2 := iOutputFrequency;
-
-	 		]]></ST>
+	IF VacuumOnDebounced.Q THEN
+		IF NOT PidOptimizer.TuningDone THEN
+			PidOptimizer(Enable := TRUE,
+						 ProcessSetpoint := 2200,
+						 ProcessValue := iAnalogInput2ScaledValue,
+						 NumCycles := 10,
+						 Reset := FALSE,
+						 ControlLowVal := 5,
+						 ControlHighVal := 60,
+						 PIDType := E_PIDOptimizationType.FastRamp);
+			oMotorFrequency := TO_UINT(PidOptimizer.ControlValue*10);
+			IF PidOptimizer.TuningDone THEN
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Kp value is %f', PidOptimizer.Kp);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Ki value is %f', PidOptimizer.Ki);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Kd value is %f', PidOptimizer.Kd);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Ku value is %f', PidOptimizer.Ku);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Tu value is %f', PidOptimizer.Tu);
+			END_IF
+		END_IF
+	END_IF]]></ST>
     </Implementation>
     <LineIds Name="VacuumHandler">
       <LineId Id="22" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="24" Count="12" />
-      <LineId Id="73" Count="1" />
-      <LineId Id="37" Count="0" />
-      <LineId Id="23" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="117" Count="1" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="122" Count="4" />
+      <LineId Id="128" Count="1" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="171" Count="1" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="219" Count="0" />
+      <LineId Id="116" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

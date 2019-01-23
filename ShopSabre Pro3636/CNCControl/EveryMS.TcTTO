@@ -3,7 +3,7 @@
   <Task Name="EveryMS" Id="{68386a6f-ec1b-4b9b-afda-7d9ef7a25127}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>1000</CycleTime>
-    <Priority>6</Priority>
+    <Priority>4</Priority>
     <PouCall>
       <Name>PWMDemandedSpeedCalculator</Name>
     </PouCall>

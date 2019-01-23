@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM SpindleSpeedCalculator
 VAR
 	// Spindle speed in RPM
+	{attribute 'UserUnit' := '<AngularVelocity, RPM, RPM, 9.549296596425, 0, 0 >'}
 	SpindleSpeed : LREAL;
 	// Current pulse count value from the counter
 	PulseCount: UINT;

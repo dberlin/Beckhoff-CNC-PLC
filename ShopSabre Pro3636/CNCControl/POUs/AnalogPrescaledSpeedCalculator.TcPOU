@@ -13,7 +13,7 @@ VAR_OUTPUT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[DemandedSpeed := TO_UINT(MIN(24000, MAX(0, iAnalogSpeed)));]]></ST>
+      <ST><![CDATA[DemandedSpeed := TO_UINT(LIMIT(0, iAnalogSpeed, 24000))]]></ST>
     </Implementation>
     <LineIds Name="AnalogPrescaledSpeedCalculator">
       <LineId Id="5" Count="0" />

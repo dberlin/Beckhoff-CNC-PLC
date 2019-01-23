@@ -2,6 +2,15 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.27">
 	<DataTypes>
 		<DataType>
+			<Name GUID="{C856AA0D-14BB-8BF2-F586-356956191E1B}" IecBaseType="true" AutoDeleteType="true">ARRAY [1..125] OF BYTE</Name>
+			<BitSize>1000</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>1</LBound>
+				<Elements>125</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
 			<Name GUID="{2CDCCB26-9DC1-49EA-B036-768F14F7DD4F}" PersistentType="true">NitraValves</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
@@ -245,15 +254,6 @@
 				<Hide GUID="{A59DBDD0-45DA-44EA-9035-906908E7817F}"/>
 				<Hide GUID="{5B786DD0-260B-4CB8-9B7E-46C47F05F3D2}"/>
 			</Hides>
-		</DataType>
-		<DataType>
-			<Name GUID="{C856AA0D-14BB-8BF2-F586-356956191E1B}" IecBaseType="true" AutoDeleteType="true">ARRAY [1..125] OF BYTE</Name>
-			<BitSize>1000</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>1</LBound>
-				<Elements>125</Elements>
-			</ArrayInfo>
 		</DataType>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
@@ -595,10 +595,8 @@
 			</Settings>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="VE2507253">
-					<ManualSelect>{4989A799-AEEA-4FEE-88EF-666B99EEFB45}</ManualSelect>
 					<TargetSelect TargetId="2">{87DBEEFC-A548-4B37-9797-C9521D3A43A2}</TargetSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
-					<TargetSelect TargetId="2">{4989A799-AEEA-4FEE-88EF-666B99EEFB45}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302001a" DongleSystemId="{43D41E12-F694-15B0-FEC6-2821FEF2143F}"/>
 				</Target>
 			</Licenses>
@@ -606,10 +604,10 @@
 				<Task Id="3" Priority="10" CycleTime="1000000" AmsPort="350" AdtTasks="true">
 					<Name>EveryHundredMilliseconds</Name>
 				</Task>
-				<Task Id="4" Priority="4" CycleTime="10000" AmsPort="351" AdtTasks="true">
+				<Task Id="4" Priority="6" CycleTime="10000" AmsPort="351" AdtTasks="true">
 					<Name>MainCNCControl</Name>
 				</Task>
-				<Task Id="5" Priority="6" CycleTime="10000" AmsPort="352" AdtTasks="true">
+				<Task Id="5" Priority="4" CycleTime="10000" AmsPort="352" AdtTasks="true">
 					<Name>EveryMS</Name>
 				</Task>
 			</Tasks>
@@ -619,6 +617,20 @@
 				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" AutoReloadTmc="true" TmcPath="CNCControl\CNCControl.tmc">
 					<Name>CNCControl Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>EveryMS Inputs</Name>
+						<Var>
+							<Name>PWMDemandedSpeedCalculator.iInputSpeedBits</Name>
+							<Type GUID="{C856AA0D-14BB-8BF2-F586-356956191E1B}">ARRAY [1..125] OF BYTE</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>EveryMS Outputs</Name>
+						<Var>
+							<Name>PWMDemandedSpeedCalculator.DemandedSpeed</Name>
+							<Type>UINT</Type>
+						</Var>
+					</Vars>
 					<Vars VarGrpType="1">
 						<Name>MainCNCControl Inputs</Name>
 						<Var>
@@ -716,6 +728,10 @@
 								<![CDATA[ Turn on vacuum signal from PC]]>
 							</Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iAnalogInput2ScaledValue</Name>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
@@ -821,13 +837,6 @@
 							<Type GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}">ATV71CommandWord</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.oVacuumPressureRequested</Name>
-							<Comment>
-								<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
-							</Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>VacuumHandler.oPCVacuumPressureGood</Name>
 							<Comment>
 								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
@@ -835,19 +844,26 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>PWMDemandedSpeedCalculator.DemandedSpeed</Name>
+							<Name>VacuumHandler.oVacuumPressureRequested</Name>
+							<Comment>
+								<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
+							</Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.oMotorFrequency</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
-						<Name>EveryMS Inputs</Name>
-						<Var>
-							<Name>PWMDemandedSpeedCalculator.iInputSpeedBits</Name>
-							<Type GUID="{C856AA0D-14BB-8BF2-F586-356956191E1B}">ARRAY [1..125] OF BYTE</Type>
-						</Var>
-					</Vars>
-					<Vars VarGrpType="1">
 						<Name>EveryHundredMilliseconds Inputs</Name>
+						<Var>
+							<Name>SpindleSpeedCalculator.CounterValue</Name>
+							<Comment>
+								<![CDATA[ Counter value from counter]]>
+							</Comment>
+							<Type>UDINT</Type>
+						</Var>
 						<Var>
 							<Name>VacuumHandler.iStatusWord</Name>
 							<Type>UINT</Type>
@@ -855,17 +871,6 @@
 						<Var>
 							<Name>VacuumHandler.iOutputVelocity</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iAnalogInput2ScaledValue</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>SpindleSpeedCalculator.CounterValue</Name>
-							<Comment>
-								<![CDATA[ Counter value from counter]]>
-							</Comment>
-							<Type>UDINT</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2018-11-19T16:02:17">
@@ -996,7 +1001,7 @@
 									<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
 								</Comment>
 							</Entry>
-							<Entry Name="NC3" Index="#x2061" Sub="#x40">
+							<Entry Name="VacuumHandler.oMotorFrequency" Index="#x2061" Sub="#x40">
 								<Type>UINT</Type>
 							</Entry>
 							<Entry Name="NC4" Index="#x2061" Sub="#x41">
@@ -4472,18 +4477,19 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{08502003-0010-0304-0020-500810000403}" Id="#x02030030" Watchdog="00000000000000000000000000000000"/>
+		<MappingInfo Identifier="{08502003-0050-0304-0020-500850000403}" Id="#x02030040" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030020"/>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-2002-0850-0120-500851000403}" Id="#x02030040"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500830000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500851000403}" Id="#x02030030"/>
 		<OwnerA Name="TIPC^CNCControl^CNCControl Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
-				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iAnalogInput2ScaledValue" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue"/>
 				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iOutputVelocity" VarB="Inputs^VacuumHandler.iOutputVelocity"/>
 				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iStatusWord" VarB="Inputs^VacuumHandler.iStatusWord"/>
+				<Link VarA="MainCNCControl Inputs^VacuumHandler.iAnalogInput2ScaledValue" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue"/>
 				<Link VarA="MainCNCControl Inputs^VacuumHandler.iOutputFrequency" VarB="Inputs^VacuumHandler.iOutputFrequency"/>
 				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorFeedback" VarB="Inputs^VacuumHandler.iPIDRegulatorFeedback"/>
 				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorOutput" VarB="Inputs^VacuumHandler.iPIDRegulatorOutput"/>
+				<Link VarA="MainCNCControl Outputs^VacuumHandler.oMotorFrequency" VarB="Outputs^VacuumHandler.oMotorFrequency"/>
 				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumControl" VarB="Outputs^VacuumHandler.oVacuumControl"/>
 				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumPressureRequested" VarB="Outputs^VacuumHandler.oVacuumPressureRequested"/>
 			</OwnerB>

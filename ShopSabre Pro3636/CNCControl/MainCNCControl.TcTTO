@@ -3,7 +3,7 @@
   <Task Name="MainCNCControl" Id="{5f69dbb3-90e8-4523-919a-61ad686f795c}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>1000</CycleTime>
-    <Priority>4</Priority>
+    <Priority>6</Priority>
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>

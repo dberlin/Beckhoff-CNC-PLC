@@ -7,7 +7,7 @@ VAR_INPUT
 	// Input signal
     IN: BOOL;
 	// Number of periods to average the frequency over.
-	// Must be between 1 and 10
+	// Must be between 1 and 100
     PERIODS: INT :=1;
 	// Reset all parameters to 0
     RESET: BOOL;
@@ -19,13 +19,14 @@ VAR_OUTPUT
     VALID: BOOL;
 END_VAR
 VAR
-    LASTIN: BOOL;
-    INIT: BOOL;
-    LASTTIME: TIME;
+	RisingEnableEdge: R_TRIG;
+	FallingEnableEdge : F_TRIG;
+    STARTED: BOOL;
+    RISETIME: TIME;
 	// Difference in time between current and last rising edge
     DIFF: DINT;
 	// Array of time differences for each period
-    TIMEDIFF: ARRAY[0..9] OF DINT;
+    TIMEDIFF: ARRAY[0..99] OF DINT;
 	// How many periods we have counted so far
     COUNT: INT;
 	// Current place in the array of time differences
@@ -36,24 +37,37 @@ VAR
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-
 IF RESET THEN
     VALID := FALSE;
     COUNT := 0;
     IDX := 0;
-    INIT := FALSE;
+    STARTED := FALSE;
     OUT := 0;
     RETURN;
 END_IF
 
-SYSTIMEMS := DINT_TO_TIME(Tc2_Utilities.GETSYSTEMTIME() * TC2_Utilities.SYSTEMTIME_TICKSPERMSEC);
-IF IN AND NOT LASTIN THEN    (*rising edge *)
-    IF INIT THEN
-        DIFF := TIME_TO_DINT(SYSTIMEMS-LASTTIME);
+RisingEnableEdge(CLK := IN);
+FallingEnableEdge(CLK := IN);
+IF RisingEnableEdge.Q OR FallingEnableEdge.Q THEN
+	SYSTIMEMS := ULINT_TO_TIME(F_GetTaskTime() / TC2_Utilities.SYSTEMTIME_TICKSPERMSEC64);
+    IF FallingEnableEdge.Q AND STARTED THEN
+		DIFF := TIME_TO_DINT(SYSTIMEMS - RISETIME);
+		AdsLogStr(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'System time is %s', TIME_TO_STRING(SYSTIMEMS));
+		AdsLogStr(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Rise TIME is %s', TIME_TO_STRING(RISETIME));
+		AdsLogStr(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Difference in  time is %s', DINT_TO_STRING(DIFF));	
+		// We assume time never goes backwards for real.
         IF Diff > 0 THEN
+			// Emulate the weird behavior of CODESYS FREQ_MEASURE
+			IF VALID AND Diff > 3000 * REAL_TO_DINT(OUT) THEN
+				VALID := FALSE;
+				COUNT := 0;
+				IDX := 0;
+				RETURN;
+			END_IF
             TIMEDIFF[IDX] := DIFF;
             IDX := (IDX + 1) MOD PERIODS;
             COUNT := MIN(COUNT + 1, PERIODS);
+			// Go valid once we have the minimum number of periods to average over.
             IF COUNT = PERIODS THEN
                 SUM := 0;
                 FOR I :=0 TO PERIODS-1 DO
@@ -65,26 +79,42 @@ IF IN AND NOT LASTIN THEN    (*rising edge *)
                 VALID := FALSE;
             END_IF
         END_IF
+		STARTED := FALSE;
+		RETURN;
     END_IF
-    INIT := TRUE;
-    LASTTIME := SYSTIMEMS;
-ELSIF INIT AND VALID AND TIME_TO_DINT(SYSTIMEMS-LASTTIME) > 3000*REAL_TO_DINT(OUT) THEN
-    VALID := FALSE;
-    COUNT := 0;
-    IDX := 0;
+    STARTED := TRUE;
+    RISETIME := SYSTIMEMS;
 END_IF
 
-LASTIN:=IN;
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_FreqMeasure">
-      <LineId Id="32" Count="3" />
+      <LineId Id="33" Count="2" />
       <LineId Id="117" Count="0" />
       <LineId Id="36" Count="2" />
       <LineId Id="40" Count="1" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="116" Count="0" />
-      <LineId Id="43" Count="27" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="198" Count="0" />
+      <LineId Id="202" Count="2" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="219" Count="0" />
+      <LineId Id="221" Count="1" />
+      <LineId Id="224" Count="2" />
+      <LineId Id="223" Count="0" />
+      <LineId Id="47" Count="2" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="50" Count="10" />
+      <LineId Id="207" Count="1" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="70" Count="0" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>
