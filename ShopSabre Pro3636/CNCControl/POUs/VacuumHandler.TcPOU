@@ -28,8 +28,6 @@ VAR
 	{attribute 'BaseUnit' := '<Frequency, 0.1, 0, 0>'}
 	iOutputFrequency AT %I* : UINT;
 	{endregion}
-	Blah : UINT;
-	Blah2 : UINT;
 	oMotorFrequency AT %Q* : UINT;
 	PidOptimizer : FB_OptimizePID;
 END_VAR
@@ -55,12 +53,12 @@ VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 	oVacuumControl.PidIntegralOff := FALSE;
 	oVacuumPressureRequested := 1400;
 	oPCVacuumPressureGood := iPIDRegulatorFeedback >= (GoodVacuumPressure * 100);
-	Blah := iPIDRegulatorOutput;
-	Blah2 := iOutputFrequency;
+	
+	(* PID optimization
 	IF VacuumOnDebounced.Q THEN
 		IF NOT PidOptimizer.TuningDone THEN
 			PidOptimizer(Enable := TRUE,
-						 ProcessSetpoint := 2200,
+						 ProcessSetpoint := 2500,
 						 ProcessValue := iAnalogInput2ScaledValue,
 						 NumCycles := 10,
 						 Reset := FALSE,
@@ -76,14 +74,15 @@ VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Tu value is %f', PidOptimizer.Tu);
 			END_IF
 		END_IF
-	END_IF]]></ST>
+	END_IF
+	*)]]></ST>
     </Implementation>
     <LineIds Name="VacuumHandler">
       <LineId Id="22" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="24" Count="12" />
-      <LineId Id="78" Count="0" />
-      <LineId Id="74" Count="0" />
+      <LineId Id="259" Count="0" />
+      <LineId Id="257" Count="0" />
       <LineId Id="130" Count="0" />
       <LineId Id="117" Count="1" />
       <LineId Id="120" Count="0" />
@@ -97,6 +96,7 @@ VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
       <LineId Id="181" Count="0" />
       <LineId Id="219" Count="0" />
       <LineId Id="116" Count="0" />
+      <LineId Id="258" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

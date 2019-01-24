@@ -48,14 +48,14 @@ END_IF
 
 RisingEnableEdge(CLK := IN);
 FallingEnableEdge(CLK := IN);
+
+// We care only about whether we are the beginning or the end of the signal
 IF RisingEnableEdge.Q OR FallingEnableEdge.Q THEN
 	SYSTIMEMS := ULINT_TO_TIME(F_GetTaskTime() / TC2_Utilities.SYSTEMTIME_TICKSPERMSEC64);
     IF FallingEnableEdge.Q AND STARTED THEN
 		DIFF := TIME_TO_DINT(SYSTIMEMS - RISETIME);
-		AdsLogStr(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'System time is %s', TIME_TO_STRING(SYSTIMEMS));
-		AdsLogStr(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Rise TIME is %s', TIME_TO_STRING(RISETIME));
-		AdsLogStr(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Difference in  time is %s', DINT_TO_STRING(DIFF));	
-		// We assume time never goes backwards for real.
+		// We assume time never goes backwards for real. Unfortunately, the API of this call does
+		// not give us a way to express errors easily.
         IF Diff > 0 THEN
 			// Emulate the weird behavior of CODESYS FREQ_MEASURE
 			IF VALID AND Diff > 3000 * REAL_TO_DINT(OUT) THEN
@@ -70,6 +70,7 @@ IF RisingEnableEdge.Q OR FallingEnableEdge.Q THEN
 			// Go valid once we have the minimum number of periods to average over.
             IF COUNT = PERIODS THEN
                 SUM := 0;
+				// Sum first, then convert to real, to minimize error.
                 FOR I :=0 TO PERIODS-1 DO
                     SUM := SUM + TIMEDIFF[I];
                 END_FOR
@@ -96,20 +97,24 @@ END_IF
       <LineId Id="194" Count="0" />
       <LineId Id="43" Count="0" />
       <LineId Id="193" Count="0" />
+      <LineId Id="299" Count="0" />
+      <LineId Id="298" Count="0" />
       <LineId Id="191" Count="0" />
       <LineId Id="201" Count="0" />
       <LineId Id="44" Count="0" />
-      <LineId Id="198" Count="0" />
-      <LineId Id="202" Count="2" />
+      <LineId Id="204" Count="0" />
       <LineId Id="210" Count="0" />
-      <LineId Id="46" Count="0" />
+      <LineId Id="300" Count="0" />
+      <LineId Id="297" Count="0" />
       <LineId Id="219" Count="0" />
       <LineId Id="221" Count="1" />
       <LineId Id="224" Count="2" />
       <LineId Id="223" Count="0" />
       <LineId Id="47" Count="2" />
       <LineId Id="261" Count="0" />
-      <LineId Id="50" Count="10" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="301" Count="0" />
+      <LineId Id="52" Count="8" />
       <LineId Id="207" Count="1" />
       <LineId Id="61" Count="1" />
       <LineId Id="197" Count="0" />

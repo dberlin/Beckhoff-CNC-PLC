@@ -127,20 +127,20 @@ END_IF
 EndTrigger(CLK := TuningSequence = E_PIDOptimizationStage.Done AND TuFreq.OUT <> 0);
 IF EndTrigger.Q THEN
     // Calculate amplitude of control variable
-    a:=ControlHighVal - ControlLowVal;
+    a := ControlHighVal - ControlLowVal;
 
 	// Calculate amplitude of process variable
-    b:=b_Max - b_Min;
+    b := b_Max - b_Min;
 
     // Calculate ultimate period and gain
     Ku := (4 * b)/(PI * a);
     Tu := 1 / TuFreq.OUT;
 
     CASE PIDType OF
-    E_PIDOptimizationType.FastRamp:
+    E_PIDOptimizationType.PessenIntegralRule:
         Kp := 0.7 * Ku;
-        Ki := (1.75 * Ku) / Tu;
-        Kd := (14 * Ku * Tu) / 3.0; // Double check this
+        Ki := (1.75 * Kp) / Tu;
+        Kd := 3* Kp * (Tu/20.0);
 
     E_PIDOptimizationType.SomeOvershoot:
         Kp := Ku /3.0;
@@ -168,7 +168,9 @@ rTrigEnable(CLK := Enable);
       <LineId Id="4735" Count="1" />
       <LineId Id="4885" Count="0" />
       <LineId Id="4737" Count="1" />
-      <LineId Id="4896" Count="3" />
+      <LineId Id="4896" Count="0" />
+      <LineId Id="4956" Count="0" />
+      <LineId Id="4898" Count="1" />
       <LineId Id="4740" Count="5" />
       <LineId Id="4747" Count="0" />
       <LineId Id="4749" Count="2" />

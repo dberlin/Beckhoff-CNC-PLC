@@ -730,19 +730,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.iAnalogInput2ScaledValue</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iPIDRegulatorOutput</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iOutputFrequency</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
@@ -837,13 +825,6 @@
 							<Type GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}">ATV71CommandWord</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.oPCVacuumPressureGood</Name>
-							<Comment>
-								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>VacuumHandler.oVacuumPressureRequested</Name>
 							<Comment>
 								<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
@@ -851,12 +832,35 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.oMotorFrequency</Name>
-							<Type>UINT</Type>
+							<Name>VacuumHandler.oPCVacuumPressureGood</Name>
+							<Comment>
+								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
+							</Comment>
+							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
 						<Name>EveryHundredMilliseconds Inputs</Name>
+						<Var>
+							<Name>VacuumHandler.iStatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iOutputVelocity</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iAnalogInput2ScaledValue</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iPIDRegulatorOutput</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>VacuumHandler.iOutputFrequency</Name>
+							<Type>UINT</Type>
+						</Var>
 						<Var>
 							<Name>SpindleSpeedCalculator.CounterValue</Name>
 							<Comment>
@@ -864,12 +868,11 @@
 							</Comment>
 							<Type>UDINT</Type>
 						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>EveryHundredMilliseconds Outputs</Name>
 						<Var>
-							<Name>VacuumHandler.iStatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iOutputVelocity</Name>
+							<Name>VacuumHandler.oMotorFrequency</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
@@ -4483,13 +4486,13 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 		<MappingInfo Identifier="{00000000-2002-0850-0120-500851000403}" Id="#x02030030"/>
 		<OwnerA Name="TIPC^CNCControl^CNCControl Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iAnalogInput2ScaledValue" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue"/>
+				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iOutputFrequency" VarB="Inputs^VacuumHandler.iOutputFrequency"/>
 				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iOutputVelocity" VarB="Inputs^VacuumHandler.iOutputVelocity"/>
+				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iPIDRegulatorOutput" VarB="Inputs^VacuumHandler.iPIDRegulatorOutput"/>
 				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iStatusWord" VarB="Inputs^VacuumHandler.iStatusWord"/>
-				<Link VarA="MainCNCControl Inputs^VacuumHandler.iAnalogInput2ScaledValue" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue"/>
-				<Link VarA="MainCNCControl Inputs^VacuumHandler.iOutputFrequency" VarB="Inputs^VacuumHandler.iOutputFrequency"/>
+				<Link VarA="EveryHundredMilliseconds Outputs^VacuumHandler.oMotorFrequency" VarB="Outputs^VacuumHandler.oMotorFrequency"/>
 				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorFeedback" VarB="Inputs^VacuumHandler.iPIDRegulatorFeedback"/>
-				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorOutput" VarB="Inputs^VacuumHandler.iPIDRegulatorOutput"/>
-				<Link VarA="MainCNCControl Outputs^VacuumHandler.oMotorFrequency" VarB="Outputs^VacuumHandler.oMotorFrequency"/>
 				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumControl" VarB="Outputs^VacuumHandler.oVacuumControl"/>
 				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumPressureRequested" VarB="Outputs^VacuumHandler.oVacuumPressureRequested"/>
 			</OwnerB>

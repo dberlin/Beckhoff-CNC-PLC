@@ -7,7 +7,7 @@ TYPE E_PIDOptimizationType :
 (
 	NoOvershoot,
 	SomeOvershoot,
-	FastRamp
+	PessenIntegralRule
 );
 END_TYPE
 ]]></Declaration>
