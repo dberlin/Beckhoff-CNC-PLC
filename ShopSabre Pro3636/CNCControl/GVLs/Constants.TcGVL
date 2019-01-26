@@ -3,12 +3,6 @@
   <GVL Name="Constants" Id="{7b068a6d-cd30-425d-8e09-2b77bf8b449c}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL CONSTANT
-	// Number of RPM per HZ in the VFD
-	RPMPerHZ : UINT := 30;
-	// VFD frequency precision in 1/X of 1 HZ. So 10 means it can do 1/10th of a HZ
-	VFDHZPrecision : UINT := 10;
-	// Minimum VFD RPM increment based on RPM per HZ and precision
-	VFDMinRPMIncrement : UINT := TO_UINT(RPMPerHZ / VFDHZPrecision);
 	// One second in microseconds
 	OneSecondInUs : UDINT := 1000000;
 END_VAR]]></Declaration>

@@ -68,8 +68,6 @@ IF (TotalOnTime + TotalOffTime) > UsInFrequency  THEN
 					  RawValueMax:=1, ScaledValueMin:=0,
 					  ScaledValueMax:=24000);
 	LastDemandedSpeed := TO_UINT(Scaling.ScaledValue);
-	// Make sure demanded speed is some increment of what the VFD can do. 
-	LastDemandedSpeed := (LastDemandedSpeed / Constants.VFDMinRPMIncrement) * Constants.VFDMinRPMIncrement;
 END_IF
 GetSpeed := LastDemandedSpeed;]]></ST>
       </Implementation>
@@ -78,7 +76,8 @@ GetSpeed := LastDemandedSpeed;]]></ST>
       <LineId Id="122" Count="0" />
     </LineIds>
     <LineIds Name="PWMDemandedSpeedCalculator.GetSpeed">
-      <LineId Id="5" Count="33" />
+      <LineId Id="5" Count="29" />
+      <LineId Id="37" Count="1" />
       <LineId Id="46" Count="0" />
     </LineIds>
   </POU>
