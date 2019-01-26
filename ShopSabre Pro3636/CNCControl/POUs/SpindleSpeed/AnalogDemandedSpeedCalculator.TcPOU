@@ -14,7 +14,7 @@ END_VAR]]></Declaration>
 VAR_INST
 	// Array of spindle speeds
 	SpindleSpeeds : ARRAY[0..10] OF UINT;
-	MovingAverage : FB_MovingAverageInt;
+	MovingAverage : FB_MovingAverageUInt;
 	Scaling : FB_ScaleBetween;
 END_VAR]]></Declaration>
       <Implementation>
