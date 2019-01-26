@@ -6,7 +6,7 @@ VAR
 	// Turn on vacuum signal from PC
 	iPCVacuumOn AT %I* : BOOL;
 	// Vacuum Control Output
-	oVacuumControl AT %Q* : ATV71CommandWord;	
+	oVacuumControl AT %Q* : ST_ATV71CommandWord;	
 	// Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450
 	oVacuumPressureRequested AT %Q* : UINT;
 	// Vacuum Pressure good output to PC Pin 7

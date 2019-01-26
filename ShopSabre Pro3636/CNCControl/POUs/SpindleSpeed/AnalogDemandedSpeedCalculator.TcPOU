@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="AnalogDemandedSpeedCalculator" Id="{a5e7bf90-8d78-486c-b7af-951c7a51c7ec}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK AnalogDemandedSpeedCalculator IMPLEMENTS DemandedSpeedInterface
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL AnalogDemandedSpeedCalculator IMPLEMENTS DemandedSpeedInterface
 VAR_INPUT
 	// Analog speed as 0-10v from PC Pin 13
 	iAnalogSpeedVoltage AT %I*: UINT;

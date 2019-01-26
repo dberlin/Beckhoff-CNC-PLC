@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="SpindleCIA402Velocity" Id="{02da1002-7a44-4285-a82f-82c9814ffe90}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleCIA402Velocity IMPLEMENTS SpindleControl
+
+VAR
+	oControlWord AT %Q*: ST_CIA402ControlWord;
+	iStatusWord AT %I*: UINT;
+	oTargetVelocity AT %Q* : INT;
+	CurrentState : E_CIA402State;
+	// Forward/backward is specified by positive or negative speed
+	VelocityMultiplier : INT := 1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetState" Id="{44dd01bf-ad1a-4ea7-92f3-3cd85851766f}">
+      <Declaration><![CDATA[METHOD GetState : E_CIA402State
+VAR CONSTANT
+	NotReadyToSwitchOnValue : UINT := 2#0000_0000_0000_0000;
+	NotReadyToSwitchOnMask : UINT := 2#0000_0000_0100_1111;
+	SwitchOnDisabledValue : UINT := 2#0000_0000_0100_0000;
+	SwitchOnDisabledMask : UINT := NotReadyToSwitchOnMask;
+	ReadyToSwitchOnValue : UINT := 2#0000_0000_0010_0001;
+	ReadyToSwitchOnMask : UINT := 2#0000_0000_0110_1111;
+	SwitchedOnValue : UINT := 2#0000_0000_0010_0011;
+	SwitchedOnMask : UINT := ReadyToSwitchOnMask;
+	OperationEnabledValue : UINT := 2#0000_0000_0010_0111;
+	OperationEnabledMask : UINT := ReadyToSwitchOnMask;
+	QuickStopActiveValue : UINT := 2#0000_0000_0000_0111;
+	QuickStopActiveMask : UINT := ReadyToSwitchOnMask;
+	FaultReactionActiveValue : UINT := 2#0000_0000_0000_1111;
+	FaultReactionActiveMask : UINT := 2#0000_0000_0100_1111;
+	FaultValue : UINT := 2#0000_0000_0000_1000;
+	FaultMask : UINT := FaultReactionActiveMask;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (iStatusWord AND NotReadyToSwitchOnMask) = NotReadyToSwitchOnValue THEN
+	GetState := E_CIA402State.NotReadyToSwitchOn;
+ELSIF (iStatusWord AND SwitchOnDisabledMask) = SwitchOnDisabledValue THEN
+	GetState := E_CIA402State.SwitchOnDisabled;
+ELSIF (iStatusWord AND ReadyToSwitchOnMask) = ReadyToSwitchOnValue THEN
+	GetState := E_CIA402State.ReadyToSwitchOn;
+ELSIF (iStatusWord AND SwitchedOnMask) = SwitchedOnValue THEN
+	GetState := E_CIA402State.SwitchedOn;
+ELSIF (iStatusWord AND OperationEnabledMask) = OperationEnabledValue THEN
+	GetState := E_CIA402State.OperationEnabled;
+ELSIF (iStatusWord AND QuickStopActiveMask) = QuickStopActiveValue THEN
+	GetState := E_CIA402State.QuickStopActive;
+ELSIF (iStatusWord AND FaultReactionActiveMask) = FaultReactionActiveValue THEN
+	GetState := E_CIA402State.FaultReactionActive;
+ELSIF (iStatusWord AND FaultMask) = FaultValue THEN
+	GetState := E_CIA402State.Fault;
+ELSE
+	GetState := E_CIA402State.Unknown_State;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStatus" Id="{775a00c1-3448-42d6-a5d4-d881a1dfc52a}">
+      <Declaration><![CDATA[METHOD GetStatus : ST_CIA402StatusWord
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMCPY(ADR(GetStatus), ADR(iStatusWord), SIZEOF(iStatusWord));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{ab0e9766-94b8-40b4-9cd9-43564953bb58}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE GetState() OF
+	E_CIA402State.SwitchOnDisabled:
+		oControlWord.EnableVoltage := TRUE;
+	E_CIA402State.ReadyToSwitchOn:
+		oControlWord.SwitchOn := TRUE;
+	E_CIA402State.SwitchedOn:
+		oControlWord.EnableOperation := TRUE;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDirection" Id="{1e6d5a6f-1a48-4509-80a2-a0cebaa7cf13}">
+      <Declaration><![CDATA[METHOD SetDirection : BOOL
+VAR_INPUT
+	(* Set the spindle rotation direction*)
+	Reverse	: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Reverse THEN
+	VelocityMultiplier := -1;
+ELSE
+	VelocityMultiplier := 1;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetSpeed" Id="{e83d68c2-492a-4627-9d7b-c922fc6b440f}">
+      <Declaration><![CDATA[METHOD SetSpeed : BOOL
+VAR_INPUT
+	Speed	: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oTargetVelocity := TO_INT(LIMIT(0, Speed, 32767)) * VelocityMultiplier;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{9ff9307c-602f-4dec-9675-6a17c3115b1e}">
+      <Declaration><![CDATA[METHOD Stop : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE GetState() OF
+	E_CIA402State.ReadyToSwitchOn:
+		oControlWord.EnableVoltage := FALSE;
+	E_CIA402State.SwitchedOn:
+		oControlWord.SwitchOn := FALSE;
+	E_CIA402State.OperationEnabled :
+		oControlWord.EnableOperation := FALSE;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="SpindleCIA402Velocity">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.GetState">
+      <LineId Id="47" Count="2" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="45" Count="1" />
+      <LineId Id="41" Count="1" />
+      <LineId Id="39" Count="1" />
+      <LineId Id="36" Count="2" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="54" Count="1" />
+      <LineId Id="53" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.GetStatus">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.Run">
+      <LineId Id="19" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.SetDirection">
+      <LineId Id="8" Count="1" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="14" Count="1" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.SetSpeed">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.Stop">
+      <LineId Id="6" Count="6" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

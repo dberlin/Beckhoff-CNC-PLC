@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="SpindleDeltaVFDOverEIP" Id="{6020789a-138f-4f2b-90da-86ac6f55afbb}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK SpindleDeltaVFDOverEIP IMPLEMENTS SpindleControl
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleDeltaVFDOverEIP IMPLEMENTS SpindleControl
 VAR
 	// Delta VFD control for the spindle
-	oSpindleControl AT %Q* : DeltaVFDCommandWord;
+	oSpindleControl AT %Q* : ST_DeltaVFDCommandWord;
 	oSpindleFrequency AT %Q* : UINT;
 END_VAR
 ]]></Declaration>
@@ -19,6 +19,24 @@ END_VAR
 oSpindleControl.Run := TRUE;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetDirection" Id="{1359955e-6c76-49de-b255-f132b5eba728}">
+      <Declaration><![CDATA[METHOD SetDirection : BOOL
+VAR_INPUT
+	// Set the spindle rotation direction
+	Reverse	: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Reverse THEN
+	oSpindleControl.Reverse := TRUE;
+	oSpindleControl.Forward := FALSE;
+ELSE
+	oSpindleControl.Reverse := FALSE;
+	oSpindleControl.Forward := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetSpeed" Id="{551c4af6-92c1-4681-a2be-40253c4c3b04}">
       <Declaration><![CDATA[METHOD SetSpeed : BOOL
 VAR_INPUT
@@ -26,7 +44,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[oSpindleFrequency := (SPEED * Constants.VFDHZPrecision) / Constants.RPMPerHZ;]]></ST>
+        <ST><![CDATA[// The spindle frequency is in increments of 0.1hz
+oSpindleFrequency := (SPEED * Constants.VFDHZPrecision) / Constants.RPMPerHZ;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stop" Id="{089f55cd-61cf-48b3-8afe-f2aa50859904}">
@@ -43,8 +62,17 @@ oSpindleControl.Run := FALSE;]]></ST>
     <LineIds Name="SpindleDeltaVFDOverEIP.Run">
       <LineId Id="5" Count="1" />
     </LineIds>
+    <LineIds Name="SpindleDeltaVFDOverEIP.SetDirection">
+      <LineId Id="8" Count="1" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
     <LineIds Name="SpindleDeltaVFDOverEIP.SetSpeed">
       <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="0" />
     </LineIds>
     <LineIds Name="SpindleDeltaVFDOverEIP.Stop">
       <LineId Id="5" Count="0" />

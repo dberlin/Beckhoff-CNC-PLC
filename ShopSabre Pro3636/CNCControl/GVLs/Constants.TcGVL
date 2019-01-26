@@ -9,14 +9,8 @@ VAR_GLOBAL CONSTANT
 	VFDHZPrecision : UINT := 10;
 	// Minimum VFD RPM increment based on RPM per HZ and precision
 	VFDMinRPMIncrement : UINT := TO_UINT(RPMPerHZ / VFDHZPrecision);
-	// PWM frequency
-		PWMFrequency : UINT := 200;
-    // PWM period
-	PWMPeriod : REAL := 1 / PWMFrequency;
 	// One second in microseconds
 	OneSecondInUs : UDINT := 1000000;
-	// Microseconds in Frequency
-	UsInFrequency : UDINT :=  OneSecondInUs / PWMFrequency;	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

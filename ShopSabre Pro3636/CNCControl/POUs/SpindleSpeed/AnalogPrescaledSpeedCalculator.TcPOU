@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="AnalogPrescaledSpeedCalculator" Id="{331e867a-d9f4-4f14-8847-df60cde98080}" SpecialFunc="None">
     <Declaration><![CDATA[// This version uses the EL3161 and it's built in IIR filter
-FUNCTION_BLOCK AnalogPrescaledSpeedCalculator IMPLEMENTS DemandedSpeedInterface; 
+FUNCTION_BLOCK FINAL AnalogPrescaledSpeedCalculator IMPLEMENTS DemandedSpeedInterface; 
 VAR_INPUT
 	// Analog speed as 0-10v from PC Pin 13
 	iAnalogSpeed AT %I*: INT;

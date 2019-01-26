@@ -118,7 +118,7 @@
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}" BitType="true" PersistentType="true">ATV71CommandWord</Name>
+			<Name GUID="{D197F349-720D-460F-BD12-ED58DF810310}" BitType="true" PersistentType="true">ST_ATV71CommandWord</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
 				<Name>Forward</Name>
@@ -149,110 +149,65 @@
 				<Hide GUID="{B1C9BB6B-7E34-411B-965B-C2877D5BA667}"/>
 				<Hide GUID="{A59DBDD0-45DA-44EA-9035-906908E7817F}"/>
 				<Hide GUID="{5B786DD0-260B-4CB8-9B7E-46C47F05F3D2}"/>
+				<Hide GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}"/>
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}" PersistentType="true">DeltaVFDCommandWord</Name>
+			<Name GUID="{21C7F6B5-3C21-4B40-9089-DB64F45BA590}" PersistentType="true">ST_CIA402ControlWord</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
-				<Name>Stop</Name>
+				<Name>SwitchOn</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Run</Name>
+				<Name>EnableVoltage</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>1</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>ReservedBit1</Name>
+				<Name>NoQuickStop</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>2</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>ReservedBit2</Name>
+				<Name>EnableOperation</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>3</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Forward</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Reverse</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Accel1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Accel2</Name>
+				<Name>FaultReset</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>7</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>FreqStage1</Name>
+				<Name>Stop</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
 				<BitSize>1</BitSize>
 				<BitOffs>8</BitOffs>
 			</SubItem>
-			<SubItem>
-				<Name>FreqStage2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>FreqStage3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>FreqStage4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>EnableAccelAndFreq</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>KeypadOperation</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>ParameterOperation</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>ReservedBit3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
-			</SubItem>
 			<Hides>
-				<Hide GUID="{362A5B7F-FA53-4029-AD30-7BD71E0AFB3B}"/>
-				<Hide GUID="{F2AAEBEF-0A0E-4A69-AC4C-D02C4ABA577F}"/>
+				<Hide GUID="{08CA5157-1076-4BC0-B170-B241715CBC14}"/>
+				<Hide GUID="{1744FCD1-D8D3-4F52-820C-21BA169E6342}"/>
+				<Hide GUID="{A1081FCC-8049-4F24-9940-1A3D8695E80D}"/>
+				<Hide GUID="{632D2AB3-D711-4648-9F21-5FFE96670FB2}"/>
+				<Hide GUID="{1C3FB6E7-5251-4B84-A7C9-1C87BF502844}"/>
+				<Hide GUID="{7FFD7DAE-2333-42E1-861F-EA1B7663BD43}"/>
+				<Hide GUID="{5554C213-D385-40D7-8DFA-81E7C9EA898D}"/>
+				<Hide GUID="{64879111-3BB8-4B84-9120-1A5E5A1A8B85}"/>
+				<Hide GUID="{90A7CECA-6E67-4367-A3E8-2430DF5146B4}"/>
+				<Hide GUID="{6796B2BD-49C2-401E-B584-4A25EDA565B4}"/>
+				<Hide GUID="{76CEDC8F-9CC2-48FA-A67F-DA1F87341E27}"/>
+				<Hide GUID="{63BC71FF-5E1F-4EC5-BD42-D9C7F915FA91}"/>
+				<Hide GUID="{03F88C52-15C2-4A4F-8A6F-54EB324AE182}"/>
+				<Hide GUID="{08BB29E6-CB1F-4DAE-AB34-03FE2BBFC5F2}"/>
+				<Hide GUID="{4A7C093C-3050-4950-BFC4-74CED8D71363}"/>
+				<Hide GUID="{0A57146B-CC08-42AF-8F67-5216859BF58F}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -491,7 +446,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{13D241F7-5B4E-448F-86D9-3B2397039B79}" PersistentType="true">CIPExtendedSpeedOut</Name>
+			<Name GUID="{13D241F7-5B4E-448F-86D9-3B2397039B79}" AutoDeleteType="true">CIPExtendedSpeedOut</Name>
 			<BitSize>32</BitSize>
 			<SubItem>
 				<Name>RunFwd</Name>
@@ -538,6 +493,195 @@
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}" AutoDeleteType="true">DeltaVFDCommandWord</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>Stop</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Run</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ReservedBit1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ReservedBit2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Forward</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Reverse</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Accel1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Accel2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>EnableAccelAndFreq</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>KeypadOperation</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ParameterOperation</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>14</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ReservedBit3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>15</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{362A5B7F-FA53-4029-AD30-7BD71E0AFB3B}"/>
+				<Hide GUID="{F2AAEBEF-0A0E-4A69-AC4C-D02C4ABA577F}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{090A27B9-8DA7-46B3-8726-48D480DA9365}" BitType="true" PersistentType="true">ST_CIA402StatusWord</Name>
+			<BitSize>12</BitSize>
+			<SubItem>
+				<Name>ReadyToSwitchOn</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>SwitchedOn</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>OperationEnabled</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Fault</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>VoltageEnabled</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NoQuickStop</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>SwitchOnDisabled</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Warning</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Remote</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TargetReached</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>InternalLimitsActive</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{B9C761C3-E25B-4089-8791-5C8692B38720}"/>
+				<Hide GUID="{A9BA03BE-721C-4C4F-B8F9-3C06C1BAA2DC}"/>
+				<Hide GUID="{F33C7171-06BC-42AB-A63A-DC45D6677A79}"/>
+				<Hide GUID="{E852C289-0206-4BE6-A52F-18F1C1360397}"/>
+				<Hide GUID="{AAE0D53F-D5E6-4CB2-A0EA-B2CE7AD5B261}"/>
+				<Hide GUID="{BE7B0746-7ADC-4BBA-905B-34F288FD2FB9}"/>
+				<Hide GUID="{3B1A76CB-4401-42E1-B283-A4DAE928842B}"/>
+				<Hide GUID="{EE956E17-6C49-41D2-B643-02B55DD31486}"/>
+				<Hide GUID="{F596FEE8-BE78-4A2B-8844-F9A217C9CAF9}"/>
+				<Hide GUID="{ABD195BB-D335-4218-ABF3-8B3292C5F8BD}"/>
+				<Hide GUID="{DD267B5C-7D0E-4BEA-A471-A49CDDB9EFF5}"/>
+				<Hide GUID="{44A7C60D-D698-4A13-A235-41955AC53D56}"/>
+				<Hide GUID="{9DBEB8A0-F450-4B7D-94E7-598E230E6BAD}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{8723C414-57A9-4F05-A677-2218E0C6A724}" PersistentType="true">NewType</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
@@ -574,6 +718,159 @@
 				<Hide GUID="{B1C9BB6B-7E34-411B-965B-C2877D5BA667}"/>
 			</Hides>
 		</DataType>
+		<DataType>
+			<Name GUID="{468E867D-95BA-44CB-9637-4A10AC30ADC6}" PersistentType="true">ST_CIPExtendedSpeedOut</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>RunFwd</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>RunReverse</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FaultReset</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NetCtrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NetRef</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DriveSpeed</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{4BCD91E8-AAEC-4797-8B81-6A7FF865D1DE}"/>
+				<Hide GUID="{F049D61B-C264-4981-AE02-B19E03220CCB}"/>
+				<Hide GUID="{AAB94104-BEB2-4BEA-92DA-854FE74DE055}"/>
+				<Hide GUID="{9018A7BA-E0A9-4A67-9C40-D6B6EF26E009}"/>
+				<Hide GUID="{70F6D5F6-F59D-4447-B5F1-231966A2B22F}"/>
+				<Hide GUID="{13D241F7-5B4E-448F-86D9-3B2397039B79}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{E5540F53-A34B-45ED-A4CC-3CB16671840A}" PersistentType="true">ST_DeltaVFDCommandWord</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>Stop</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Run</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ReservedBit1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ReservedBit2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Forward</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Reverse</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Accel1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Accel2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>FreqStage4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>EnableAccelAndFreq</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>KeypadOperation</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ParameterOperation</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>14</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ReservedBit3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>15</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{362A5B7F-FA53-4029-AD30-7BD71E0AFB3B}"/>
+				<Hide GUID="{F2AAEBEF-0A0E-4A69-AC4C-D02C4ABA577F}"/>
+				<Hide GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}"/>
+			</Hides>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424de6000000000000007600000028000000100000000e000000010004000000000070000000120b0000120b0000100000001000000000000000000080000080000000808000800000008000800080800000c0c0c000808080000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00fffffffffffffffffffffffffff00ffffffffffffff00fff0000000000000fff0000000000000fff000000000000099900000000000009990000000000000fff0000000000000ffffff00ffffff00fff00000ffffff00fff00000fffffffffffffffffffffffffffffffffffffffffff</ImageData>
@@ -592,7 +889,7 @@
 				<Cpu CpuId="6"/>
 				<Cpu CpuId="7"/>
 				<Debugger Priority="61"/>
-				<IoIdleTask Priority="8"/>
+				<IoIdleTask Priority="8" Affinity="#x00000040"/>
 			</Settings>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="VE2507253">
@@ -602,13 +899,13 @@
 				</Target>
 			</Licenses>
 			<Tasks>
-				<Task Id="3" Priority="10" CycleTime="1000000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="10" CycleTime="1000000" AmsPort="350" Affinity="#x00000080" AdtTasks="true">
 					<Name>EveryHundredMilliseconds</Name>
 				</Task>
 				<Task Id="4" Priority="6" CycleTime="10000" AmsPort="351" AdtTasks="true">
 					<Name>MainCNCControl</Name>
 				</Task>
-				<Task Id="5" Priority="4" CycleTime="10000" AmsPort="352" AdtTasks="true">
+				<Task Id="5" Priority="4" CycleTime="10000" AmsPort="352" Affinity="#x00000020" AdtTasks="true">
 					<Name>EveryMS</Name>
 				</Task>
 			</Tasks>
@@ -727,6 +1024,10 @@
 							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
 							<Type>UINT</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.SpindleController.iStatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>MainCNCControl Outputs</Name>
@@ -805,7 +1106,7 @@
 							<Comment>
 								<![CDATA[ Vacuum Control Output]]>
 							</Comment>
-							<Type GUID="{D8F90599-4520-4A9B-884B-11DAFBC2914A}">ATV71CommandWord</Type>
+							<Type GUID="{D197F349-720D-460F-BD12-ED58DF810310}">ST_ATV71CommandWord</Type>
 						</Var>
 						<Var>
 							<Name>VacuumHandler.oVacuumPressureRequested</Name>
@@ -822,15 +1123,12 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SpindleController.oSpindleControl</Name>
-							<Comment>
-								<![CDATA[ Delta VFD control for the spindle]]>
-							</Comment>
-							<Type GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}">DeltaVFDCommandWord</Type>
+							<Name>MAIN.SpindleController.oControlWord</Name>
+							<Type GUID="{21C7F6B5-3C21-4B40-9089-DB64F45BA590}">ST_CIA402ControlWord</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SpindleController.oSpindleFrequency</Name>
-							<Type>UINT</Type>
+							<Name>MAIN.SpindleController.oTargetVelocity</Name>
+							<Type>INT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
@@ -1067,6 +1365,21 @@
 								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[98]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 97^Ch1 Input" RestoreInfo="ANotFound"/>
 								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[99]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 98^Ch1 Input" RestoreInfo="ANotFound"/>
 								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[9]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 8^Ch1 Input" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-25T22:32:53">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 2 (CMM-EIP01)">
+								<Link VarA="MAIN.SpindleController.oSpindleControl" TypeA="DeltaVFDCommandWord" InOutA="1" GuidA="{947264E6-A302-4491-95F8-4C53521EBCAE}" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleControl" OldTypeA="DeltaVFDCommandWord" OldGuidA="{947264E6-A302-4491-95F8-4C53521EBCAE}" NewTypeA="ST_DeltaVFDCommandWord" NewGuidA="{E5540F53-A34B-45ED-A4CC-3CB16671840A}" RestoreInfo="BNotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-25T23:23:43">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 2 (CMM-EIP01)">
+								<Link VarA="MAIN.SpindleController.oSpindleControl" TypeA="ST_DeltaVFDCommandWord" InOutA="1" GuidA="{E5540F53-A34B-45ED-A4CC-3CB16671840A}" VarB="Connection 3 (Input/Output)^Outputs^MAIN.SpindleController.oSpindleControl" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.SpindleController.oSpindleFrequency" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Connection 3 (Input/Output)^Outputs^MAIN.SpindleController.oSpindleFrequency" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -4632,7 +4945,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 							<Vars VarGrpType="2" InsertType="1">
 								<Name>Outputs</Name>
 								<Var>
-									<Name>MAIN.oSpindleControl</Name>
+									<Name>MAIN.SpindleController.oSpindleControl</Name>
 									<Comment>
 										<![CDATA[ Delta VFD control for the spindle]]>
 									</Comment>
@@ -4641,7 +4954,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 									<ExternalAddress>12</ExternalAddress>
 								</Var>
 								<Var>
-									<Name>MAIN.oSpindleFrequency</Name>
+									<Name>MAIN.SpindleController.oSpindleFrequency</Name>
 									<Type>UINT</Type>
 									<BitOffs>64</BitOffs>
 								</Var>
@@ -4670,6 +4983,11 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorFeedback" VarB="Inputs^VacuumHandler.iPIDRegulatorFeedback"/>
 				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumControl" VarB="Outputs^VacuumHandler.oVacuumControl"/>
 				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumPressureRequested" VarB="Outputs^VacuumHandler.oVacuumPressureRequested"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^HITECO UE-1F 6.6 Spindle">
+				<Link VarA="MainCNCControl Inputs^MAIN.SpindleController.iStatusWord" VarB="Inputs^statusword [0x6041.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oControlWord" VarB="Outputs^controlword [0x6040.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oTargetVelocity" VarB="Outputs^vl target velocity [0x6042.0]"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 4^MAIN.iPCCoolantOn"/>
@@ -4844,10 +5162,6 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 12 (Nitra CMV EtherNet/IP)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oValveControl" VarB="Connection 1 (Input/Output)^Outputs^MAIN.oValveControl"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 2 (CMM-EIP01)">
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oSpindleControl" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleControl"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oSpindleFrequency" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleFrequency"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

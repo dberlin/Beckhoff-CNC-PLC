@@ -24,6 +24,9 @@
     </DeploymentEvents>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_CIA402State.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_PIDOptimizationStage.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +67,9 @@
     <Compile Include="POUs\SpindleSpeed\SpindleSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Spindle\SpindleCIA402Velocity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Spindle\SpindleControl.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -73,7 +79,7 @@
     <Compile Include="POUs\Utilities\FB_FreqMeasure.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Utilities\FB_MovingAverageInt.TcPOU">
+    <Compile Include="POUs\Utilities\FB_MovingAverageUInt.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Utilities\FB_MovingAverageReal.TcPOU">

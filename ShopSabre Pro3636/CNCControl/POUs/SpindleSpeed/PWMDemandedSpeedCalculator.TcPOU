@@ -1,13 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="PWMDemandedSpeedCalculator" Id="{d7b7f4ec-2f11-4936-85ca-0e73dfdbc7ef}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PWMDemandedSpeedCalculator IMPLEMENTS DemandedSpeedInterface
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL PWMDemandedSpeedCalculator IMPLEMENTS DemandedSpeedInterface
 VAR
 	iInputSpeedBits AT %I* : ARRAY [1..BitArraySize] OF BYTE;
 END_VAR
 VAR CONSTANT
 	// Array Length
 	BitArraySize : UINT := 125;
+	// PWM frequency
+	PWMFrequency : UINT := 200;
+    // PWM period
+	PWMPeriod : REAL := 1 / PWMFrequency;
+	// Microseconds in Frequency
+	UsInFrequency : UDINT :=  Constants.OneSecondInUs / PWMFrequency;	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -44,14 +50,14 @@ END_VAR]]></Declaration>
 			TotalOffTime := TotalOffTime + 1; 
 		END_IF
 		// Stop at the end of the period
-		IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency THEN
+		IF (TotalOnTime + TotalOffTime) > UsInFrequency THEN
 			EXIT;
 		END_IF 
 	 END_FOR
  END_FOR
  
 // See if the period is up
-IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency  THEN
+IF (TotalOnTime + TotalOffTime) > UsInFrequency  THEN
 	DutyCycle := TO_LREAL(TotalOnTime) / TO_LREAL(TotalOnTime + TotalOffTime);
 	TotalOnTime := 0;
 	TotalOffTime := 0;
