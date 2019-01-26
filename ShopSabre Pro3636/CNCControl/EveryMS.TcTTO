@@ -5,7 +5,7 @@
     <CycleTime>1000</CycleTime>
     <Priority>4</Priority>
     <PouCall>
-      <Name>PWMDemandedSpeedCalculator</Name>
+      <Name>DemandedSpeedTask</Name>
     </PouCall>
     <TaskFBGuid>{57b29e69-deca-4e15-a25b-9ed0b22df6b5}</TaskFBGuid>
     <Fb_init>{1c5f0a0a-a026-4439-b1ee-36e46abb64a0}</Fb_init>

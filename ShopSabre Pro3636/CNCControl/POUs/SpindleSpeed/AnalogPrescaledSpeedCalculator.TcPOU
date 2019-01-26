@@ -2,21 +2,27 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="AnalogPrescaledSpeedCalculator" Id="{331e867a-d9f4-4f14-8847-df60cde98080}" SpecialFunc="None">
     <Declaration><![CDATA[// This version uses the EL3161 and it's built in IIR filter
-PROGRAM AnalogPrescaledSpeedCalculator
+FUNCTION_BLOCK AnalogPrescaledSpeedCalculator IMPLEMENTS DemandedSpeedInterface; 
 VAR_INPUT
 	// Analog speed as 0-10v from PC Pin 13
 	iAnalogSpeed AT %I*: INT;
 END_VAR
-VAR_OUTPUT
-	// Demanded spindle speed in RPM
-	DemandedSpeed : UINT;
-END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[DemandedSpeed := TO_UINT(LIMIT(0, iAnalogSpeed, 24000))]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="GetSpeed" Id="{429766ce-4476-4106-9e75-9aee13cef53d}">
+      <Declaration><![CDATA[METHOD GetSpeed : UINT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetSpeed := TO_UINT(LIMIT(0, iAnalogSpeed, 24000))]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="AnalogPrescaledSpeedCalculator">
       <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="AnalogPrescaledSpeedCalculator.GetSpeed">
+      <LineId Id="4" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -52,6 +52,12 @@
     <Compile Include="POUs\SpindleSpeed\AnalogPrescaledSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\SpindleSpeed\DemandedSpeedInterface.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\SpindleSpeed\DemandedSpeedTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\SpindleSpeed\PWMDemandedSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>

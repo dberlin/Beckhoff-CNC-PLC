@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="DemandedSpeedTask" Id="{2c74394b-eed0-495f-90ea-7d865744d37f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM DemandedSpeedTask
+VAR
+	{attribute 'UserUnit' := '<AngularVelocity, RPM, RPM, 9.549296596425, 0, 0 >'}
+	DemandedSpeed : UINT;
+	DemandedSpeedImpl : PWMDemandedSpeedCalculator;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[DemandedSpeed := DemandedSpeedImpl.GetSpeed();]]></ST>
+    </Implementation>
+    <LineIds Name="DemandedSpeedTask">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

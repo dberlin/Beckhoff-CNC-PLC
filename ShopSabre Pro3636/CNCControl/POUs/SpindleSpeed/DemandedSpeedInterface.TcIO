@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <Itf Name="DemandedSpeedInterface" Id="{a53454b6-6512-444b-84d7-3c5467799a66}">
+    <Declaration><![CDATA[INTERFACE DemandedSpeedInterface
+]]></Declaration>
+    <Method Name="GetSpeed" Id="{b05dbdd3-659d-45cb-acd6-5f0a0bcfc42e}">
+      <Declaration><![CDATA[METHOD GetSpeed : UINT
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

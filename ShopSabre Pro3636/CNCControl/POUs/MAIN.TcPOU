@@ -102,7 +102,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 	SpindleStopped := SpindleSpeedCalculator.SpindleSpeed <= 1.0;
 	oPCSpindleStopped := SpindleStopped;
 	// Calculate whether spindle is up to speed.  We will only say it is up to speed if it is on.
-	oPCSpindleSpeedOK := SpindleOnDebounced.Q AND_THEN (SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(PWMDemandedSpeedCalculator.DemandedSpeed)));
+	oPCSpindleSpeedOK := SpindleOnDebounced.Q AND_THEN (SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(DemandedSpeedTask.DemandedSpeed)));
 
 // Spindle control handling
 	 // The spindle frequency is in increments of 0.1hz
@@ -111,7 +111,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 	 	SpindleController.SetSpeed(0);
 		SpindleController.Stop();
 	 ELSIF SpindleOnDebounced.Q AND iS1ToolPresence THEN	  
-	 	SpindleController.SetSpeed(PWMDemandedSpeedCalculator.DemandedSpeed);
+	 	SpindleController.SetSpeed(DemandedSpeedTask.DemandedSpeed);
 		SpindleController.Run();
 	 END_IF
 		  

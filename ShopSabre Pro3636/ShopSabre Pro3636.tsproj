@@ -621,15 +621,8 @@
 					<Vars VarGrpType="1">
 						<Name>EveryMS Inputs</Name>
 						<Var>
-							<Name>PWMDemandedSpeedCalculator.iInputSpeedBits</Name>
+							<Name>DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits</Name>
 							<Type GUID="{C856AA0D-14BB-8BF2-F586-356956191E1B}">ARRAY [1..125] OF BYTE</Type>
-						</Var>
-					</Vars>
-					<Vars VarGrpType="2">
-						<Name>EveryMS Outputs</Name>
-						<Var>
-							<Name>PWMDemandedSpeedCalculator.DemandedSpeed</Name>
-							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
@@ -829,14 +822,14 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SpindleControl.oSpindleControl</Name>
+							<Name>MAIN.SpindleController.oSpindleControl</Name>
 							<Comment>
 								<![CDATA[ Delta VFD control for the spindle]]>
 							</Comment>
 							<Type GUID="{947264E6-A302-4491-95F8-4C53521EBCAE}">DeltaVFDCommandWord</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SpindleControl.oSpindleFrequency</Name>
+							<Name>MAIN.SpindleController.oSpindleFrequency</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
@@ -940,6 +933,143 @@
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-25T21:06:12">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 2 (CMM-EIP01)">
+								<Link VarA="MAIN.SpindleControl.oSpindleControl" TypeA="DeltaVFDCommandWord" InOutA="1" GuidA="{947264E6-A302-4491-95F8-4C53521EBCAE}" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleControl" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.SpindleControl.oSpindleFrequency" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleFrequency" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="InputDst" Prefix="TIPC^CNCControl^CNCControl Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 27 (EL1262-0050)">
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[100]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 99^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[101]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 100^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[102]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 101^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[103]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 102^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[104]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 103^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[105]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 104^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[106]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 105^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[107]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 106^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[108]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 107^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[109]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 108^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[10]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 9^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[110]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 109^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[111]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 110^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[112]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 111^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[113]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 112^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[114]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 113^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[115]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 114^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[116]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 115^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[117]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 116^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[118]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 117^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[119]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 118^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[11]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 10^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[120]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 119^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[121]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 120^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[122]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 121^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[123]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 122^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[124]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 123^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[125]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 124^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[12]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 11^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[13]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 12^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[14]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 13^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[15]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 14^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[16]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 15^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[17]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 16^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[18]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 17^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[19]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 18^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[1]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 0^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[20]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 19^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[21]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 20^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[22]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 21^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[23]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 22^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[24]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 23^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[25]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 24^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[26]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 25^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[27]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 26^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[28]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 27^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[29]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 28^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[2]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 1^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[30]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 29^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[31]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 30^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[32]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 31^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[33]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 32^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[34]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 33^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[35]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 34^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[36]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 35^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[37]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 36^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[38]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 37^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[39]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 38^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[3]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 2^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[40]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 39^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[41]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 40^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[42]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 41^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[43]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 42^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[44]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 43^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[45]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 44^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[46]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 45^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[47]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 46^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[48]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 47^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[49]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 48^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[4]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 3^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[50]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 49^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[51]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 50^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[52]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 51^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[53]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 52^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[54]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 53^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[55]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 54^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[56]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 55^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[57]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 56^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[58]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 57^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[59]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 58^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[5]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 4^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[60]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 59^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[61]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 60^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[62]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 61^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[63]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 62^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[64]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 63^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[65]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 64^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[66]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 65^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[67]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 66^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[68]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 67^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[69]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 68^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[6]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 5^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[70]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 69^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[71]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 70^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[72]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 71^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[73]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 72^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[74]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 73^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[75]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 74^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[76]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 75^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[77]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 76^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[78]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 77^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[79]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 78^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[7]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 6^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[80]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 79^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[81]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 80^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[82]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 81^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[83]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 82^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[84]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 83^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[85]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 84^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[86]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 85^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[87]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 86^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[88]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 87^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[89]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 88^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[8]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 7^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[90]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 89^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[91]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 90^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[92]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 91^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[93]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 92^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[94]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 93^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[95]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 94^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[96]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 95^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[97]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 96^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[98]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 97^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[99]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 98^Ch1 Input" RestoreInfo="ANotFound"/>
+								<Link VarA="PWMDemandedSpeedCalculator.iInputSpeedBits[9]" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Ch1 Input 8^Ch1 Input" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<TaskPouOids>
 						<TaskPouOid Prio="10" OTCID="#x08502003"/>
 						<TaskPouOid Prio="4" OTCID="#x08502001"/>
@@ -1037,7 +1167,7 @@
 				<Box BoxType="9099" BoxFlags="#x00000020" Id="18">
 					<Name>HITECO UE-1F 6.6 Spindle</Name>
 					<ImageId>1001</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0080" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="13" VendorId="#x00000014" ProductCode="#x00600000" RevisionNo="#x000005b4" InfoDataAddr="true" InfoDataSoeDS401="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="KEB_F6_drive_unit_EtherCAT" Desc="F6_drive_unit_EtherCAT" PortABoxInfo="#x01000010">
+					<EtherCAT SlaveType="2" PdiType="#x0080" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="13" VendorId="#x00000014" ProductCode="#x00600000" RevisionNo="#x000005b4" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="KEB_F6_drive_unit_EtherCAT" Desc="F6_drive_unit_EtherCAT" PortABoxInfo="#x01000010">
 						<SyncMan>001840002600010001000000100000014000001826010000</SyncMan>
 						<SyncMan>001940002200010002000000100000014000001922010000</SyncMan>
 						<SyncMan>001004007400010003000000000000000000001074010000</SyncMan>
@@ -1045,6 +1175,7 @@
 						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001100010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+						<DcData>0003000000000000000000000000000001000000010000000000000000000000</DcData>
 						<DcMode>4173796e63000000000000000000000044432d6f66660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>53796e6300000000000000000000000044432d73796e6368726f6e6f7573000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<Pdo Name="Inputs" Index="#x1a00" Flags="#x0200" SyncMan="3">
@@ -4553,131 +4684,131 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 				<Link VarA="MainCNCControl Outputs^MAIN.oZAxisBrakeRelay" VarB="Channel 1^MAIN.oZAxisBrakeRelay"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 27 (EL1262-0050)">
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[100]" VarB="Ch1 Input 99^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[101]" VarB="Ch1 Input 100^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[102]" VarB="Ch1 Input 101^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[103]" VarB="Ch1 Input 102^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[104]" VarB="Ch1 Input 103^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[105]" VarB="Ch1 Input 104^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[106]" VarB="Ch1 Input 105^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[107]" VarB="Ch1 Input 106^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[108]" VarB="Ch1 Input 107^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[109]" VarB="Ch1 Input 108^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[10]" VarB="Ch1 Input 9^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[110]" VarB="Ch1 Input 109^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[111]" VarB="Ch1 Input 110^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[112]" VarB="Ch1 Input 111^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[113]" VarB="Ch1 Input 112^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[114]" VarB="Ch1 Input 113^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[115]" VarB="Ch1 Input 114^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[116]" VarB="Ch1 Input 115^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[117]" VarB="Ch1 Input 116^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[118]" VarB="Ch1 Input 117^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[119]" VarB="Ch1 Input 118^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[11]" VarB="Ch1 Input 10^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[120]" VarB="Ch1 Input 119^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[121]" VarB="Ch1 Input 120^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[122]" VarB="Ch1 Input 121^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[123]" VarB="Ch1 Input 122^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[124]" VarB="Ch1 Input 123^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[125]" VarB="Ch1 Input 124^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[12]" VarB="Ch1 Input 11^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[13]" VarB="Ch1 Input 12^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[14]" VarB="Ch1 Input 13^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[15]" VarB="Ch1 Input 14^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[16]" VarB="Ch1 Input 15^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[17]" VarB="Ch1 Input 16^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[18]" VarB="Ch1 Input 17^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[19]" VarB="Ch1 Input 18^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[1]" VarB="Ch1 Input 0^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[20]" VarB="Ch1 Input 19^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[21]" VarB="Ch1 Input 20^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[22]" VarB="Ch1 Input 21^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[23]" VarB="Ch1 Input 22^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[24]" VarB="Ch1 Input 23^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[25]" VarB="Ch1 Input 24^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[26]" VarB="Ch1 Input 25^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[27]" VarB="Ch1 Input 26^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[28]" VarB="Ch1 Input 27^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[29]" VarB="Ch1 Input 28^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[2]" VarB="Ch1 Input 1^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[30]" VarB="Ch1 Input 29^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[31]" VarB="Ch1 Input 30^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[32]" VarB="Ch1 Input 31^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[33]" VarB="Ch1 Input 32^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[34]" VarB="Ch1 Input 33^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[35]" VarB="Ch1 Input 34^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[36]" VarB="Ch1 Input 35^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[37]" VarB="Ch1 Input 36^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[38]" VarB="Ch1 Input 37^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[39]" VarB="Ch1 Input 38^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[3]" VarB="Ch1 Input 2^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[40]" VarB="Ch1 Input 39^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[41]" VarB="Ch1 Input 40^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[42]" VarB="Ch1 Input 41^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[43]" VarB="Ch1 Input 42^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[44]" VarB="Ch1 Input 43^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[45]" VarB="Ch1 Input 44^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[46]" VarB="Ch1 Input 45^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[47]" VarB="Ch1 Input 46^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[48]" VarB="Ch1 Input 47^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[49]" VarB="Ch1 Input 48^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[4]" VarB="Ch1 Input 3^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[50]" VarB="Ch1 Input 49^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[51]" VarB="Ch1 Input 50^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[52]" VarB="Ch1 Input 51^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[53]" VarB="Ch1 Input 52^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[54]" VarB="Ch1 Input 53^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[55]" VarB="Ch1 Input 54^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[56]" VarB="Ch1 Input 55^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[57]" VarB="Ch1 Input 56^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[58]" VarB="Ch1 Input 57^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[59]" VarB="Ch1 Input 58^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[5]" VarB="Ch1 Input 4^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[60]" VarB="Ch1 Input 59^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[61]" VarB="Ch1 Input 60^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[62]" VarB="Ch1 Input 61^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[63]" VarB="Ch1 Input 62^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[64]" VarB="Ch1 Input 63^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[65]" VarB="Ch1 Input 64^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[66]" VarB="Ch1 Input 65^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[67]" VarB="Ch1 Input 66^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[68]" VarB="Ch1 Input 67^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[69]" VarB="Ch1 Input 68^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[6]" VarB="Ch1 Input 5^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[70]" VarB="Ch1 Input 69^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[71]" VarB="Ch1 Input 70^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[72]" VarB="Ch1 Input 71^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[73]" VarB="Ch1 Input 72^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[74]" VarB="Ch1 Input 73^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[75]" VarB="Ch1 Input 74^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[76]" VarB="Ch1 Input 75^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[77]" VarB="Ch1 Input 76^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[78]" VarB="Ch1 Input 77^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[79]" VarB="Ch1 Input 78^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[7]" VarB="Ch1 Input 6^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[80]" VarB="Ch1 Input 79^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[81]" VarB="Ch1 Input 80^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[82]" VarB="Ch1 Input 81^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[83]" VarB="Ch1 Input 82^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[84]" VarB="Ch1 Input 83^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[85]" VarB="Ch1 Input 84^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[86]" VarB="Ch1 Input 85^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[87]" VarB="Ch1 Input 86^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[88]" VarB="Ch1 Input 87^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[89]" VarB="Ch1 Input 88^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[8]" VarB="Ch1 Input 7^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[90]" VarB="Ch1 Input 89^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[91]" VarB="Ch1 Input 90^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[92]" VarB="Ch1 Input 91^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[93]" VarB="Ch1 Input 92^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[94]" VarB="Ch1 Input 93^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[95]" VarB="Ch1 Input 94^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[96]" VarB="Ch1 Input 95^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[97]" VarB="Ch1 Input 96^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[98]" VarB="Ch1 Input 97^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[99]" VarB="Ch1 Input 98^Ch1 Input"/>
-				<Link VarA="EveryMS Inputs^PWMDemandedSpeedCalculator.iInputSpeedBits[9]" VarB="Ch1 Input 8^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[100]" VarB="Ch1 Input 99^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[101]" VarB="Ch1 Input 100^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[102]" VarB="Ch1 Input 101^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[103]" VarB="Ch1 Input 102^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[104]" VarB="Ch1 Input 103^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[105]" VarB="Ch1 Input 104^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[106]" VarB="Ch1 Input 105^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[107]" VarB="Ch1 Input 106^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[108]" VarB="Ch1 Input 107^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[109]" VarB="Ch1 Input 108^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[10]" VarB="Ch1 Input 9^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[110]" VarB="Ch1 Input 109^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[111]" VarB="Ch1 Input 110^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[112]" VarB="Ch1 Input 111^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[113]" VarB="Ch1 Input 112^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[114]" VarB="Ch1 Input 113^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[115]" VarB="Ch1 Input 114^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[116]" VarB="Ch1 Input 115^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[117]" VarB="Ch1 Input 116^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[118]" VarB="Ch1 Input 117^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[119]" VarB="Ch1 Input 118^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[11]" VarB="Ch1 Input 10^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[120]" VarB="Ch1 Input 119^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[121]" VarB="Ch1 Input 120^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[122]" VarB="Ch1 Input 121^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[123]" VarB="Ch1 Input 122^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[124]" VarB="Ch1 Input 123^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[125]" VarB="Ch1 Input 124^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[12]" VarB="Ch1 Input 11^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[13]" VarB="Ch1 Input 12^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[14]" VarB="Ch1 Input 13^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[15]" VarB="Ch1 Input 14^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[16]" VarB="Ch1 Input 15^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[17]" VarB="Ch1 Input 16^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[18]" VarB="Ch1 Input 17^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[19]" VarB="Ch1 Input 18^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[1]" VarB="Ch1 Input 0^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[20]" VarB="Ch1 Input 19^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[21]" VarB="Ch1 Input 20^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[22]" VarB="Ch1 Input 21^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[23]" VarB="Ch1 Input 22^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[24]" VarB="Ch1 Input 23^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[25]" VarB="Ch1 Input 24^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[26]" VarB="Ch1 Input 25^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[27]" VarB="Ch1 Input 26^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[28]" VarB="Ch1 Input 27^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[29]" VarB="Ch1 Input 28^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[2]" VarB="Ch1 Input 1^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[30]" VarB="Ch1 Input 29^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[31]" VarB="Ch1 Input 30^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[32]" VarB="Ch1 Input 31^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[33]" VarB="Ch1 Input 32^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[34]" VarB="Ch1 Input 33^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[35]" VarB="Ch1 Input 34^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[36]" VarB="Ch1 Input 35^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[37]" VarB="Ch1 Input 36^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[38]" VarB="Ch1 Input 37^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[39]" VarB="Ch1 Input 38^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[3]" VarB="Ch1 Input 2^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[40]" VarB="Ch1 Input 39^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[41]" VarB="Ch1 Input 40^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[42]" VarB="Ch1 Input 41^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[43]" VarB="Ch1 Input 42^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[44]" VarB="Ch1 Input 43^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[45]" VarB="Ch1 Input 44^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[46]" VarB="Ch1 Input 45^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[47]" VarB="Ch1 Input 46^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[48]" VarB="Ch1 Input 47^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[49]" VarB="Ch1 Input 48^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[4]" VarB="Ch1 Input 3^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[50]" VarB="Ch1 Input 49^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[51]" VarB="Ch1 Input 50^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[52]" VarB="Ch1 Input 51^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[53]" VarB="Ch1 Input 52^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[54]" VarB="Ch1 Input 53^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[55]" VarB="Ch1 Input 54^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[56]" VarB="Ch1 Input 55^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[57]" VarB="Ch1 Input 56^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[58]" VarB="Ch1 Input 57^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[59]" VarB="Ch1 Input 58^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[5]" VarB="Ch1 Input 4^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[60]" VarB="Ch1 Input 59^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[61]" VarB="Ch1 Input 60^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[62]" VarB="Ch1 Input 61^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[63]" VarB="Ch1 Input 62^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[64]" VarB="Ch1 Input 63^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[65]" VarB="Ch1 Input 64^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[66]" VarB="Ch1 Input 65^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[67]" VarB="Ch1 Input 66^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[68]" VarB="Ch1 Input 67^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[69]" VarB="Ch1 Input 68^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[6]" VarB="Ch1 Input 5^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[70]" VarB="Ch1 Input 69^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[71]" VarB="Ch1 Input 70^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[72]" VarB="Ch1 Input 71^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[73]" VarB="Ch1 Input 72^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[74]" VarB="Ch1 Input 73^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[75]" VarB="Ch1 Input 74^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[76]" VarB="Ch1 Input 75^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[77]" VarB="Ch1 Input 76^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[78]" VarB="Ch1 Input 77^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[79]" VarB="Ch1 Input 78^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[7]" VarB="Ch1 Input 6^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[80]" VarB="Ch1 Input 79^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[81]" VarB="Ch1 Input 80^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[82]" VarB="Ch1 Input 81^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[83]" VarB="Ch1 Input 82^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[84]" VarB="Ch1 Input 83^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[85]" VarB="Ch1 Input 84^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[86]" VarB="Ch1 Input 85^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[87]" VarB="Ch1 Input 86^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[88]" VarB="Ch1 Input 87^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[89]" VarB="Ch1 Input 88^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[8]" VarB="Ch1 Input 7^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[90]" VarB="Ch1 Input 89^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[91]" VarB="Ch1 Input 90^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[92]" VarB="Ch1 Input 91^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[93]" VarB="Ch1 Input 92^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[94]" VarB="Ch1 Input 93^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[95]" VarB="Ch1 Input 94^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[96]" VarB="Ch1 Input 95^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[97]" VarB="Ch1 Input 96^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[98]" VarB="Ch1 Input 97^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[99]" VarB="Ch1 Input 98^Ch1 Input"/>
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iInputSpeedBits[9]" VarB="Ch1 Input 8^Ch1 Input"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 3 (EL1502)">
 				<Link VarA="EveryHundredMilliseconds Inputs^SpindleSpeedCalculator.CounterValue" VarB="CNT Inputs Channel 1^Counter value"/>
@@ -4715,8 +4846,8 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 				<Link VarA="MainCNCControl Outputs^MAIN.oValveControl" VarB="Connection 1 (Input/Output)^Outputs^MAIN.oValveControl"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 2 (CMM-EIP01)">
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oSpindleControl" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleControl"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oSpindleFrequency" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleFrequency"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oSpindleControl" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleControl"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oSpindleFrequency" VarB="Connection 3 (Input/Output)^Outputs^MAIN.oSpindleFrequency"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

@@ -1,11 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="PWMDemandedSpeedCalculator" Id="{d7b7f4ec-2f11-4936-85ca-0e73dfdbc7ef}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM PWMDemandedSpeedCalculator
+    <Declaration><![CDATA[FUNCTION_BLOCK PWMDemandedSpeedCalculator IMPLEMENTS DemandedSpeedInterface
 VAR
 	iInputSpeedBits AT %I* : ARRAY [1..BitArraySize] OF BYTE;
-	{attribute 'UserUnit' := '<AngularVelocity, RPM, RPM, 9.549296596425, 0, 0 >'}
-	DemandedSpeed AT %Q* : UINT;
+END_VAR
+VAR CONSTANT
+	// Array Length
+	BitArraySize : UINT := 125;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetSpeed" Id="{213d3359-88cd-493d-995f-9cc6a93b1330}">
+      <Declaration><![CDATA[METHOD GetSpeed : UINT
+VAR_INST
 	TempSpindleSpeed : UINT;
 	LastDemandedSpeed : UINT;
 	TotalOnTime : UDINT;
@@ -15,19 +24,14 @@ VAR
 	MovingAverage : FB_MovingAverageReal;
 	Scaling : FB_ScaleBetween;
 END_VAR
-VAR_TEMP 
+VAR
 	I : UINT;	
 	J: UINT;
 	BitMask : UINT;
 	MaskedBit : BOOL;
-END_VAR
-VAR CONSTANT
-
-	// Array Length
-	BitArraySize : UINT := 125;
 END_VAR]]></Declaration>
-    <Implementation>
-      <ST><![CDATA[// The input here is a PWM signal with a frequency of 200, a low of 1% duty, and a high of 95% duty.
+      <Implementation>
+        <ST><![CDATA[// The input here is a PWM signal with a frequency of 200, a low of 1% duty, and a high of 95% duty.
 // Basic Calculation for PWM pulses
 
  FOR I := 1 TO BitArraySize BY 1 DO
@@ -57,40 +61,19 @@ IF (TotalOnTime + TotalOffTime) > Constants.UsInFrequency  THEN
 	Scaling(RawValue:=MovingAverage.CurrentValue, RawValueMin:=0.0, 
 					  RawValueMax:=1, ScaledValueMin:=0,
 					  ScaledValueMax:=24000);
-	DemandedSpeed := TO_UINT(Scaling.ScaledValue);
+	LastDemandedSpeed := TO_UINT(Scaling.ScaledValue);
 	// Make sure demanded speed is some increment of what the VFD can do. 
-	DemandedSpeed := (DemandedSpeed / Constants.VFDMinRPMIncrement) * Constants.VFDMinRPMIncrement;
+	LastDemandedSpeed := (LastDemandedSpeed / Constants.VFDMinRPMIncrement) * Constants.VFDMinRPMIncrement;
 END_IF
-]]></ST>
-    </Implementation>
+GetSpeed := LastDemandedSpeed;]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="PWMDemandedSpeedCalculator">
-      <LineId Id="64" Count="0" />
-      <LineId Id="66" Count="0" />
-      <LineId Id="145" Count="0" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="95" Count="0" />
-      <LineId Id="103" Count="1" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="89" Count="0" />
-      <LineId Id="126" Count="2" />
-      <LineId Id="278" Count="0" />
-      <LineId Id="240" Count="1" />
-      <LineId Id="239" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="146" Count="0" />
-      <LineId Id="277" Count="0" />
-      <LineId Id="111" Count="0" />
-      <LineId Id="142" Count="2" />
-      <LineId Id="186" Count="0" />
-      <LineId Id="199" Count="0" />
-      <LineId Id="189" Count="0" />
-      <LineId Id="191" Count="2" />
-      <LineId Id="279" Count="0" />
-      <LineId Id="284" Count="0" />
-      <LineId Id="283" Count="0" />
-      <LineId Id="125" Count="0" />
       <LineId Id="122" Count="0" />
+    </LineIds>
+    <LineIds Name="PWMDemandedSpeedCalculator.GetSpeed">
+      <LineId Id="5" Count="33" />
+      <LineId Id="46" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
