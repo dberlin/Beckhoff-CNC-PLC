@@ -20,6 +20,7 @@ VAR_TEMP
 	I: DINT;
 	Sum: UDINT;
 	ArrayLength : UINT;
+	Counted: UINT;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Compute average over array.
@@ -28,12 +29,16 @@ ArrayLength := TO_UINT(UPPER_BOUND(AverageArray, 1) - LOWER_BOUND(AverageArray, 
 AverageArray[CurrentIndex] := ValueToAdd;
 CurrentIndex := CurrentIndex + 1;
 CurrentIndex := CurrentIndex MOD ArrayLength;
-NumValues := MIN(NumValues + 1 , ArrayLength);
-// This wastes a little time walking pointless values if the array is underfilled,
-// but they are zero initialized and thus should not afffect the calculation.
-FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
-	Sum := Sum + AverageArray[I];
-END_FOR
+NumValues := MIN(NumValues + 1 , ArrayLength)
+IF NumValues > 0 THEN
+	FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
+		Sum := Sum + AverageArray[I];
+		// Don't count more than the number of values
+		IF Counted > NumValues THEN
+			EXIT;
+		END_IF
+	END_FOR
+END_IF
 CurrentValue := TO_UINT(Sum / NumValues);]]></ST>
     </Implementation>
     <LineIds Name="FB_MovingAverageUInt">
@@ -41,9 +46,14 @@ CurrentValue := TO_UINT(Sum / NumValues);]]></ST>
       <LineId Id="35" Count="1" />
       <LineId Id="30" Count="0" />
       <LineId Id="21" Count="0" />
-      <LineId Id="76" Count="2" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="102" Count="0" />
       <LineId Id="22" Count="1" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="99" Count="1" />
+      <LineId Id="98" Count="0" />
       <LineId Id="9" Count="0" />
+      <LineId Id="103" Count="0" />
       <LineId Id="31" Count="0" />
     </LineIds>
   </POU>

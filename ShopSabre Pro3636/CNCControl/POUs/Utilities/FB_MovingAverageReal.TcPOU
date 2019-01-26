@@ -16,6 +16,7 @@ VAR
 	NumValues: UINT;
 END_VAR
 VAR_TEMP
+	Counted : UINT;
 	I: DINT;
 	Sum: LREAL;
 	ArrayLength : UINT;
@@ -29,11 +30,16 @@ AverageArray[CurrentIndex] := ValueToAdd;
 CurrentIndex := CurrentIndex + 1;
 CurrentIndex := CurrentIndex MOD ArrayLength;
 NumValues := MIN(NumValues + 1 , ArrayLength);
-// This wastes a little time walking pointless values if the array is underfilled,
-// but they are zero initialized and thus should not afffect the calculation.
-FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
-	Sum := Sum + AverageArray[I];
-END_FOR
+IF NumValues > 0 THEN
+	FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
+		Sum := Sum + AverageArray[I];
+		Counted := Counted + 1;
+		// Don't count more than the number of values
+		IF Counted > NumValues THEN
+			EXIT;
+		END_IF
+	END_FOR
+END_IF
 CurrentValue := TO_REAL(Sum / NumValues);]]></ST>
     </Implementation>
     <LineIds Name="FB_MovingAverageReal">
@@ -42,11 +48,14 @@ CurrentValue := TO_REAL(Sum / NumValues);]]></ST>
       <LineId Id="35" Count="1" />
       <LineId Id="30" Count="0" />
       <LineId Id="21" Count="0" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="78" Count="0" />
       <LineId Id="76" Count="0" />
+      <LineId Id="100" Count="0" />
       <LineId Id="22" Count="1" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="103" Count="2" />
       <LineId Id="9" Count="0" />
+      <LineId Id="101" Count="0" />
       <LineId Id="31" Count="0" />
     </LineIds>
   </POU>
