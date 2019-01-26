@@ -58,9 +58,7 @@ VAR
 	iSpindleOverTemp AT %I* : BOOL;
 	// Turn spindle on input from PC
 	iPCSpindleOn AT %I* : BOOL;
-	// Delta VFD control for the spindle
-	oSpindleControl AT %Q* : DeltaVFDCommandWord;
-	oSpindleFrequency AT %Q* : UINT;
+	SpindleController : SpindleDeltaVFDOverEIP;
 	{endregion}
 	{endregion}
 	{region "Input Debouncers"}
@@ -110,13 +108,13 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 	 // The spindle frequency is in increments of 0.1hz
 	 // NOTE: HSK-F63 spindles may not be spun while the tool is not present
 	 IF NOT (SpindleOnDebounced.Q AND iS1ToolPresence) THEN
-	 	oSpindleFrequency := 0;
-	 ELSE		  
-	 	oSpindleFrequency := (PWMDemandedSpeedCalculator.DemandedSpeed * Constants.VFDHZPrecision) / Constants.RPMPerHZ;
+	 	SpindleController.SetSpeed(0);
+		SpindleController.Stop();
+	 ELSIF SpindleOnDebounced.Q AND iS1ToolPresence THEN	  
+	 	SpindleController.SetSpeed(PWMDemandedSpeedCalculator.DemandedSpeed);
+		SpindleController.Run();
 	 END_IF
-	 oSpindleControl.Stop := NOT (SpindleOnDebounced.Q AND iS1ToolPresence);
-	 oSpindleControl.Run := SpindleOnDebounced.Q AND iS1ToolPresence;
-	
+		  
 // Spindle Tool Change handling
 	oPCToolPresence := iS1ToolPresence;
 	oPCColletOpen := iS2ColletOpen;
@@ -129,7 +127,15 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
     <LineIds Name="MAIN">
       <LineId Id="5100" Count="1" />
       <LineId Id="5103" Count="20" />
-      <LineId Id="5130" Count="27" />
+      <LineId Id="5130" Count="10" />
+      <LineId Id="5228" Count="0" />
+      <LineId Id="5142" Count="2" />
+      <LineId Id="5297" Count="0" />
+      <LineId Id="5145" Count="1" />
+      <LineId Id="5298" Count="0" />
+      <LineId Id="5149" Count="0" />
+      <LineId Id="5299" Count="0" />
+      <LineId Id="5151" Count="6" />
       <LineId Id="3416" Count="0" />
     </LineIds>
   </POU>

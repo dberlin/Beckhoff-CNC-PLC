@@ -43,49 +43,59 @@
     <Compile Include="MainCNCControl.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\AnalogDemandedSpeedCalculator.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\AnalogPrescaledSpeedCalculator.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_FreqMeasure.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_GetVacuumAMSID.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_MovingAverageInt.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_MovingAverageReal.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_OptimizePID.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_ScaleBetween.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\PWMDemandedSpeedCalculator.TcPOU">
+    <Compile Include="POUs\SpindleSpeed\AnalogDemandedSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\SpindleSpeedCalculator.TcPOU">
+    <Compile Include="POUs\SpindleSpeed\AnalogPrescaledSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\EIPVacuumPressureGetter.TcPOU">
+    <Compile Include="POUs\SpindleSpeed\PWMDemandedSpeedCalculator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\VacuumHandler.TcPOU">
+    <Compile Include="POUs\SpindleSpeed\SpindleSpeedCalculator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Spindle\SpindleControl.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Spindle\SpindleDeltaVFDOverEIP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Utilities\FB_FreqMeasure.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Utilities\FB_MovingAverageInt.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Utilities\FB_MovingAverageReal.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Utilities\FB_OptimizePID.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Utilities\FB_ScaleBetween.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Vacuum\EIPVacuumPressureGetter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Vacuum\FB_GetVacuumAMSID.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Vacuum\VacuumHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\Spindle" />
+    <Folder Include="POUs\Utilities" />
+    <Folder Include="POUs\Vacuum" />
+    <Folder Include="POUs\SpindleSpeed" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

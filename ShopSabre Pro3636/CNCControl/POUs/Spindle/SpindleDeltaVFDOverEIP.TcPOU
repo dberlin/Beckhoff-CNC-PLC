@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="SpindleDeltaVFDOverEIP" Id="{6020789a-138f-4f2b-90da-86ac6f55afbb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SpindleDeltaVFDOverEIP IMPLEMENTS SpindleControl
+VAR
+	// Delta VFD control for the spindle
+	oSpindleControl AT %Q* : DeltaVFDCommandWord;
+	oSpindleFrequency AT %Q* : UINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Run" Id="{f7dbc088-ec96-4dc7-82a4-4e3a10cc37b0}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oSpindleControl.Stop := FALSE;
+oSpindleControl.Run := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetSpeed" Id="{551c4af6-92c1-4681-a2be-40253c4c3b04}">
+      <Declaration><![CDATA[METHOD SetSpeed : BOOL
+VAR_INPUT
+	Speed: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oSpindleFrequency := (SPEED * Constants.VFDHZPrecision) / Constants.RPMPerHZ;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{089f55cd-61cf-48b3-8afe-f2aa50859904}">
+      <Declaration><![CDATA[METHOD Stop : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oSpindleControl.Stop := TRUE;
+oSpindleControl.Run := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="SpindleDeltaVFDOverEIP">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleDeltaVFDOverEIP.Run">
+      <LineId Id="5" Count="1" />
+    </LineIds>
+    <LineIds Name="SpindleDeltaVFDOverEIP.SetSpeed">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleDeltaVFDOverEIP.Stop">
+      <LineId Id="5" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
