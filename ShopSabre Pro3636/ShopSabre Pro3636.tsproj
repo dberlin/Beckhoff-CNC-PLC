@@ -1021,11 +1021,11 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
+							<Name>MAIN.SpindleController.iStatusWord</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SpindleController.iStatusWord</Name>
+							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>

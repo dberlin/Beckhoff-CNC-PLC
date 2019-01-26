@@ -7,7 +7,6 @@ VAR
 	oControlWord AT %Q*: ST_CIA402ControlWord;
 	iStatusWord AT %I*: UINT;
 	oTargetVelocity AT %Q* : INT;
-	CurrentState : E_CIA402State;
 	// Forward/backward is specified by positive or negative speed
 	VelocityMultiplier : INT := 1;
 END_VAR
