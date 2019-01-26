@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
-  <Itf Name="SpindleControl" Id="{df9af8cd-f926-49bc-9ede-9a0faf189bc9}">
-    <Declaration><![CDATA[INTERFACE SpindleControl
+  <Itf Name="SpindleController" Id="{df9af8cd-f926-49bc-9ede-9a0faf189bc9}">
+    <Declaration><![CDATA[INTERFACE SpindleController
 ]]></Declaration>
     <Method Name="Run" Id="{bde1c9a9-ee7f-4e70-897d-f6e0e05beb6a}">
       <Declaration><![CDATA[METHOD Run : BOOL]]></Declaration>

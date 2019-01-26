@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="SpindleCIA402Velocity" Id="{02da1002-7a44-4285-a82f-82c9814ffe90}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleCIA402Velocity IMPLEMENTS SpindleControl
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleCIA402Velocity IMPLEMENTS SpindleController
 
 VAR
 	oControlWord AT %Q*: ST_CIA402ControlWord;

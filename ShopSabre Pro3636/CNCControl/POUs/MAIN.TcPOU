@@ -30,6 +30,15 @@ VAR
 	// Turn on coolant signal from PC
 	iPCCoolantOn AT %I* : BOOL;
 	{endregion}
+	{region "Vacuum"}
+	VacuumControl: VacuumATV71Ethercat;
+	 // Turn on vacuum signal from PC
+	iPCVacuumOn AT %I* : BOOL;
+	// Vacuum Pressure good output to PC Pin 7
+	oPCVacuumPressureGood AT %Q*: BOOL;
+	{endregion}
+	{endregion}
+	{endregion}
 	{region "Spindle variables"}
 	{region "Spindle Speed Handling"}
 	// True if spindle is at less than 1 RPM
@@ -58,7 +67,7 @@ VAR
 	iSpindleOverTemp AT %I* : BOOL;
 	// Turn spindle on input from PC
 	iPCSpindleOn AT %I* : BOOL;
-	SpindleController : SpindleCIA402Velocity;
+	SpindleControl : SpindleCIA402Velocity;
 	{endregion}
 	{endregion}
 	{region "Input Debouncers"}
@@ -67,13 +76,18 @@ VAR
 	CoolantOnDebounced : TON;
 	SpindleOnDebounced : TON;
 	ToolReleaseDebounced : TON;	
+	VacuumOnDebounced : TON;
 	{endregion}
 END_VAR
-]]></Declaration>
+VAR CONSTANT
+	// Minimum PSI at which vacuum holding is viable for workpiece
+	GoodVacuumPressure : REAL := 10.0;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CoolantOnDebounced(IN := iPCCoolantOn, PT := T#3MS);
 SpindleOnDebounced(IN := iPCSpindleOn, PT := T#3MS);
 ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
+VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 
 {region "Servo handling"}
 // Servo Alarm
@@ -91,9 +105,16 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 // Pressure Control
 	oPCAirPressure := iAirPressureSensor;
 
-// Colant control
+// Coolant control
 	oValveControl.Coolant := CoolantOnDebounced.Q;
 
+// Vacuum Control
+	IF VacuumOnDebounced.Q THEN
+		VacuumControl.Run();
+	ELSE 
+		VacuumControl.Stop();
+	END_IF
+	oPCVacuumPressureGood := VacuumControl.GetCurrentPressure() >= GoodVacuumPressure;
 
 {endregion}
 {region "Spindle handling"}
@@ -107,11 +128,11 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 // Spindle control handling
 	 // NOTE: HSK-F63 spindles may not be spun while the tool is not present
 	 IF NOT (SpindleOnDebounced.Q AND iS1ToolPresence) THEN
-	 	SpindleController.SetSpeed(0);
-		SpindleController.Stop();
+	 	SpindleControl.SetSpeed(0);
+		SpindleControl.Stop();
 	 ELSIF SpindleOnDebounced.Q AND iS1ToolPresence THEN	  
-	 	SpindleController.SetSpeed(DemandedSpeedTask.DemandedSpeed);
-		SpindleController.Run();
+	 	SpindleControl.SetSpeed(DemandedSpeedTask.DemandedSpeed);
+		SpindleControl.Run();
 	 END_IF
 		  
 // Spindle Tool Change handling
@@ -124,16 +145,7 @@ ToolReleaseDebounced(IN := iPCToolRelease, PT := T#3MS);
 {endregion}]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="5100" Count="1" />
-      <LineId Id="5103" Count="20" />
-      <LineId Id="5130" Count="10" />
-      <LineId Id="5142" Count="2" />
-      <LineId Id="5297" Count="0" />
-      <LineId Id="5145" Count="1" />
-      <LineId Id="5298" Count="0" />
-      <LineId Id="5149" Count="0" />
-      <LineId Id="5299" Count="0" />
-      <LineId Id="5151" Count="6" />
+      <LineId Id="5471" Count="57" />
       <LineId Id="3416" Count="0" />
     </LineIds>
   </POU>

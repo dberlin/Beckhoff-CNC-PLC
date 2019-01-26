@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="VacuumATV71Ethercat" Id="{ee040125-b2c7-4959-adf0-342ff456e436}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK VacuumATV71Ethercat IMPLEMENTS  VacuumController
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	// Vacuum Control Output
+	oVacuumControl AT %Q* : ST_ATV71CommandWord;	
+	// Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450
+	oVacuumPressureRequested AT %Q* : UINT;
+		 
+	{region "Input Vacuum Data"}
+	iStatusWord AT %I* : UINT;
+	{attribute 'BaseUnit' := '<RPM, 1, 0, 0>'}
+	iOutputVelocity AT %I* : UINT;
+	iAnalogInput2ScaledValue AT %I* : UINT;
+	{attribute 'UserUnit' := '<Pressure, PSI, PSI, 6894.7572932, 0, centi>'}
+	iPIDRegulatorFeedback AT %I* : UINT;
+	iPIDRegulatorOutput AT %I* : UINT;
+	{attribute 'BaseUnit' := '<Frequency, 0.1, 0, 0>'}
+	iOutputFrequency AT %I* : UINT;
+	{endregion}
+	oMotorFrequency AT %Q* : UINT;
+	//	PidOptimizer : FB_OptimizePID;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetCurrentPressure" Id="{7b7f5c1e-bb5e-42ef-95a6-e601b661fde2}">
+      <Declaration><![CDATA[METHOD GetCurrentPressure : REAL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCurrentPressure := TO_REAL(iPIDRegulatorFeedback) / 100;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{3f85e6d0-f089-4100-a791-aefe6f4490d6}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oVacuumControl.Forward := TRUE;
+oVacuumControl.Reverse := FALSE;
+oVacuumControl.PidIntegralOff := FALSE;
+	
+	(* PID optimization
+	IF VacuumOnDebounced.Q THEN
+		IF NOT PidOptimizer.TuningDone THEN
+			PidOptimizer(Enable := TRUE,
+						 ProcessSetpoint := 2500,
+						 ProcessValue := iAnalogInput2ScaledValue,
+						 NumCycles := 10,
+						 Reset := FALSE,
+						 ControlLowVal := 5,
+						 ControlHighVal := 60,
+						 PIDType := E_PIDOptimizationType.FastRamp);
+			oMotorFrequency := TO_UINT(PidOptimizer.ControlValue*10);
+			IF PidOptimizer.TuningDone THEN
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Kp value is %f', PidOptimizer.Kp);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Ki value is %f', PidOptimizer.Ki);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Kd value is %f', PidOptimizer.Kd);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Ku value is %f', PidOptimizer.Ku);
+				ADSLOGLREAL(TC2_Utilities.ADSLOG_MSGTYPE_LOG, 'Tu value is %f', PidOptimizer.Tu);
+			END_IF
+		END_IF
+	END_IF
+	*)]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetPressureRequired" Id="{25253860-3634-4a29-a03c-7cf77c3b55be}">
+      <Declaration><![CDATA[METHOD SetPressureRequired : BOOL
+VAR_INPUT
+	Pressure	: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oVacuumPressureRequested := TO_UINT(Pressure * 100);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{2f36d44e-3702-47b8-ad9c-2558becfbd62}">
+      <Declaration><![CDATA[METHOD Stop : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[oVacuumControl.Forward := TRUE;
+oVacuumControl.Reverse := FALSE;
+oVacuumControl.PidIntegralOff := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="VacuumATV71Ethercat">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="VacuumATV71Ethercat.GetCurrentPressure">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="VacuumATV71Ethercat.Run">
+      <LineId Id="5" Count="1" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="8" Count="21" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="VacuumATV71Ethercat.SetPressureRequired">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="VacuumATV71Ethercat.Stop">
+      <LineId Id="5" Count="1" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

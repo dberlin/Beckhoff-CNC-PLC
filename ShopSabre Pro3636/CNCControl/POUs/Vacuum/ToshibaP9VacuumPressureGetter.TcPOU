@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
-  <POU Name="EIPVacuumPressureGetter" Id="{b57d29a8-c9f4-4d9b-9b4c-1a2f1394aa81}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM EIPVacuumPressureGetter
+  <POU Name="ToshibaP9VacuumPressureGetter" Id="{b57d29a8-c9f4-4d9b-9b4c-1a2f1394aa81}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ToshibaP9VacuumPressureGetter
 VAR
 	// Vacuum PSI on VFD. The VFD gives it to us without decimal points.
 	VacuumPressureFromVFD : WORD;
@@ -38,7 +38,7 @@ IF  NOT GetVacuumPressure.bBusy AND GetVacuumPressure.bError THEN
 END_IF
 VacuumPressure := TO_REAL(VacuumPressureFromVFD) / 10;]]></ST>
     </Implementation>
-    <LineIds Name="EIPVacuumPressureGetter">
+    <LineIds Name="ToshibaP9VacuumPressureGetter">
       <LineId Id="12" Count="0" />
       <LineId Id="148" Count="0" />
       <LineId Id="82" Count="0" />

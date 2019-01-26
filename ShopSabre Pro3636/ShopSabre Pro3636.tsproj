@@ -889,7 +889,7 @@
 				<Cpu CpuId="6"/>
 				<Cpu CpuId="7"/>
 				<Debugger Priority="61"/>
-				<IoIdleTask Priority="8" Affinity="#x00000040"/>
+				<IoIdleTask Priority="8"/>
 			</Settings>
 			<Licenses CacheOrCheckLicensesOnStartup="true">
 				<Target BkhfOrder="VE2507253">
@@ -899,13 +899,13 @@
 				</Target>
 			</Licenses>
 			<Tasks>
-				<Task Id="3" Priority="10" CycleTime="1000000" AmsPort="350" Affinity="#x00000080" AdtTasks="true">
+				<Task Id="3" Priority="10" CycleTime="1000000" AmsPort="350" AdtTasks="true">
 					<Name>EveryHundredMilliseconds</Name>
 				</Task>
 				<Task Id="4" Priority="6" CycleTime="10000" AmsPort="351" AdtTasks="true">
 					<Name>MainCNCControl</Name>
 				</Task>
-				<Task Id="5" Priority="4" CycleTime="10000" AmsPort="352" Affinity="#x00000020" AdtTasks="true">
+				<Task Id="5" Priority="4" CycleTime="10000" AmsPort="352" AdtTasks="true">
 					<Name>EveryMS</Name>
 				</Task>
 			</Tasks>
@@ -972,6 +972,37 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>MAIN.iPCVacuumOn</Name>
+							<Comment>
+								<![CDATA[ Turn on vacuum signal from PC]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.iStatusWord</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.iOutputVelocity</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.iAnalogInput2ScaledValue</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.iPIDRegulatorFeedback</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.iPIDRegulatorOutput</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.iOutputFrequency</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.iSpindleToolReleaseButton</Name>
 							<Comment>
 								<![CDATA[ Tool Release Button on Spindle]]>
@@ -1014,18 +1045,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.iPCVacuumOn</Name>
-							<Comment>
-								<![CDATA[ Turn on vacuum signal from PC]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.SpindleController.iStatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iPIDRegulatorFeedback</Name>
+							<Name>MAIN.SpindleControl.iStatusWord</Name>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
@@ -1067,6 +1087,13 @@
 							<Type GUID="{2CDCCB26-9DC1-49EA-B036-768F14F7DD4F}">NitraValves</Type>
 						</Var>
 						<Var>
+							<Name>MAIN.oPCVacuumPressureGood</Name>
+							<Comment>
+								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.oPCSpindleStopped</Name>
 							<Comment>
 								<![CDATA[ Spindle stopped output to PC pin 1]]>
@@ -1079,6 +1106,24 @@
 								<![CDATA[ Spindle within 5% of speed to PC Pin 28]]>
 							</Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.oVacuumControl</Name>
+							<Comment>
+								<![CDATA[ Vacuum Control Output]]>
+							</Comment>
+							<Type GUID="{D197F349-720D-460F-BD12-ED58DF810310}">ST_ATV71CommandWord</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.oVacuumPressureRequested</Name>
+							<Comment>
+								<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
+							</Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.VacuumControl.oMotorFrequency</Name>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.oPCToolPresence</Name>
@@ -1102,70 +1147,22 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>VacuumHandler.oVacuumControl</Name>
-							<Comment>
-								<![CDATA[ Vacuum Control Output]]>
-							</Comment>
-							<Type GUID="{D197F349-720D-460F-BD12-ED58DF810310}">ST_ATV71CommandWord</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.oVacuumPressureRequested</Name>
-							<Comment>
-								<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
-							</Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.oPCVacuumPressureGood</Name>
-							<Comment>
-								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.SpindleController.oControlWord</Name>
+							<Name>MAIN.SpindleControl.oControlWord</Name>
 							<Type GUID="{21C7F6B5-3C21-4B40-9089-DB64F45BA590}">ST_CIA402ControlWord</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SpindleController.oTargetVelocity</Name>
+							<Name>MAIN.SpindleControl.oTargetVelocity</Name>
 							<Type>INT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
 						<Name>EveryHundredMilliseconds Inputs</Name>
 						<Var>
-							<Name>VacuumHandler.iStatusWord</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iOutputVelocity</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iAnalogInput2ScaledValue</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iPIDRegulatorOutput</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>VacuumHandler.iOutputFrequency</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>SpindleSpeedCalculator.CounterValue</Name>
 							<Comment>
 								<![CDATA[ Counter value from counter]]>
 							</Comment>
 							<Type>UDINT</Type>
-						</Var>
-					</Vars>
-					<Vars VarGrpType="2">
-						<Name>EveryHundredMilliseconds Outputs</Name>
-						<Var>
-							<Name>VacuumHandler.oMotorFrequency</Name>
-							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2018-11-19T16:02:17">
@@ -1212,14 +1209,6 @@
 							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
 								<Link VarA="MAIN.oVacuumControl" TypeA="ATV71CommandWord" InOutA="1" GuidA="{D8F90599-4520-4A9B-884B-11DAFBC2914A}" VarB="Outputs^MAIN.oVacuumControl" RestoreInfo="ANotFound"/>
 								<Link VarA="MAIN.oVacuumPressureRequested" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Outputs^MAIN.oVacuumPressureRequested" RestoreInfo="ANotFound"/>
-							</OwnerB>
-							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 8 (EL2124)">
-								<Link VarA="MAIN.oPCVacuumPressureGood" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 4^MAIN.oPCVacuumPressureGood" Size="1" RestoreInfo="ANotFound"/>
-							</OwnerB>
-						</OwnerA>
-						<OwnerA Name="InputDst" Prefix="TIPC^CNCControl^CNCControl Instance" Type="1">
-							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
-								<Link VarA="MAIN.iPCVacuumOn" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^MAIN.iPCVacuumOn" Size="1" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -1383,6 +1372,41 @@
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-26T15:45:38">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+								<Link VarA="VacuumHandler.oVacuumControl" TypeA="ST_ATV71CommandWord" InOutA="1" GuidA="{D197F349-720D-460F-BD12-ED58DF810310}" VarB="Outputs^VacuumHandler.oVacuumControl" RestoreInfo="ANotFound"/>
+								<Link VarA="VacuumHandler.oVacuumPressureRequested" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Outputs^VacuumHandler.oVacuumPressureRequested" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+								<Link VarA="VacuumHandler.oMotorFrequency" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Outputs^VacuumHandler.oMotorFrequency" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="InputDst" Prefix="TIPC^CNCControl^CNCControl Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+								<Link VarA="VacuumHandler.iPIDRegulatorFeedback" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Inputs^VacuumHandler.iPIDRegulatorFeedback" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
+								<Link VarA="VacuumHandler.iAnalogInput2ScaledValue" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue" RestoreInfo="ANotFound"/>
+								<Link VarA="VacuumHandler.iOutputFrequency" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Inputs^VacuumHandler.iOutputFrequency" RestoreInfo="ANotFound"/>
+								<Link VarA="VacuumHandler.iOutputVelocity" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Inputs^VacuumHandler.iOutputVelocity" RestoreInfo="ANotFound"/>
+								<Link VarA="VacuumHandler.iPIDRegulatorOutput" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Inputs^VacuumHandler.iPIDRegulatorOutput" RestoreInfo="ANotFound"/>
+								<Link VarA="VacuumHandler.iStatusWord" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Inputs^VacuumHandler.iStatusWord" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-01-26T15:52:05">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 8 (EL2124)">
+								<Link VarA="VacuumHandler.oPCVacuumPressureGood" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 4^VacuumHandler.oPCVacuumPressureGood" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="InputDst" Prefix="TIPC^CNCControl^CNCControl Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
+								<Link VarA="VacuumHandler.iPCVacuumOn" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^VacuumHandler.iPCVacuumOn" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<TaskPouOids>
 						<TaskPouOid Prio="10" OTCID="#x08502003"/>
 						<TaskPouOid Prio="4" OTCID="#x08502001"/>
@@ -1418,22 +1442,22 @@
 						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001600010100000002000000000000000000000000000000</Fmmu>
 						<Pdo Name="Inputs" Index="#x1a00" Flags="#x0010" SyncMan="3">
-							<Entry Name="VacuumHandler.iStatusWord" Index="#x2061" Sub="#x2a">
+							<Entry Name="MAIN.VacuumControl.iStatusWord" Index="#x2061" Sub="#x2a">
 								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="VacuumHandler.iOutputVelocity" Index="#x2061" Sub="#x2b">
+							<Entry Name="MAIN.VacuumControl.iOutputVelocity" Index="#x2061" Sub="#x2b">
 								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="VacuumHandler.iAnalogInput2ScaledValue" Index="#x2061" Sub="#x2c">
+							<Entry Name="MAIN.VacuumControl.iAnalogInput2ScaledValue" Index="#x2061" Sub="#x2c">
 								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="VacuumHandler.iPIDRegulatorFeedback" Index="#x2061" Sub="#x2d">
+							<Entry Name="MAIN.VacuumControl.iPIDRegulatorFeedback" Index="#x2061" Sub="#x2d">
 								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="VacuumHandler.iPIDRegulatorOutput" Index="#x2061" Sub="#x2e">
+							<Entry Name="MAIN.VacuumControl.iPIDRegulatorOutput" Index="#x2061" Sub="#x2e">
 								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="VacuumHandler.iOutputFrequency" Index="#x2061" Sub="#x2f">
+							<Entry Name="MAIN.VacuumControl.iOutputFrequency" Index="#x2061" Sub="#x2f">
 								<Type>UINT</Type>
 							</Entry>
 							<Entry Name="NM7" Index="#x2061" Sub="#x30">
@@ -1444,19 +1468,19 @@
 							</Entry>
 						</Pdo>
 						<Pdo Name="Outputs" Index="#x1600" InOut="1" Flags="#x0010" SyncMan="2">
-							<Entry Name="VacuumHandler.oVacuumControl" Index="#x2061" Sub="#x3e">
+							<Entry Name="MAIN.VacuumControl.oVacuumControl" Index="#x2061" Sub="#x3e">
 								<Type>UINT</Type>
 								<Comment>
 									<![CDATA[ Vacuum Control Output]]>
 								</Comment>
 							</Entry>
-							<Entry Name="VacuumHandler.oVacuumPressureRequested" Index="#x2061" Sub="#x3f">
+							<Entry Name="MAIN.VacuumControl.oVacuumPressureRequested" Index="#x2061" Sub="#x3f">
 								<Type>UINT</Type>
 								<Comment>
 									<![CDATA[ Vacuum Pressure requested from VFD - in tenths of a psi from 0 to 1450]]>
 								</Comment>
 							</Entry>
-							<Entry Name="VacuumHandler.oMotorFrequency" Index="#x2061" Sub="#x40">
+							<Entry Name="MAIN.VacuumControl.oMotorFrequency" Index="#x2061" Sub="#x40">
 								<Type>UINT</Type>
 							</Entry>
 							<Entry Name="NC4" Index="#x2061" Sub="#x41">
@@ -4561,7 +4585,7 @@
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="VacuumHandler.oPCVacuumPressureGood" Index="#x7030" Sub="#x01">
+								<Entry Name="MAIN.oPCVacuumPressureGood" Index="#x7030" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment>
 										<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
@@ -4653,7 +4677,7 @@
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
-								<Entry Name="VacuumHandler.iPCVacuumOn" Index="#x6010" Sub="#x01">
+								<Entry Name="MAIN.iPCVacuumOn" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment>
 										<![CDATA[ Turn on vacuum signal from PC]]>
@@ -4974,26 +4998,26 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 		<MappingInfo Identifier="{00000000-2002-0850-0120-500841000403}" Id="#x02030030"/>
 		<OwnerA Name="TIPC^CNCControl^CNCControl Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
-				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iAnalogInput2ScaledValue" VarB="Inputs^VacuumHandler.iAnalogInput2ScaledValue"/>
-				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iOutputFrequency" VarB="Inputs^VacuumHandler.iOutputFrequency"/>
-				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iOutputVelocity" VarB="Inputs^VacuumHandler.iOutputVelocity"/>
-				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iPIDRegulatorOutput" VarB="Inputs^VacuumHandler.iPIDRegulatorOutput"/>
-				<Link VarA="EveryHundredMilliseconds Inputs^VacuumHandler.iStatusWord" VarB="Inputs^VacuumHandler.iStatusWord"/>
-				<Link VarA="EveryHundredMilliseconds Outputs^VacuumHandler.oMotorFrequency" VarB="Outputs^VacuumHandler.oMotorFrequency"/>
-				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPIDRegulatorFeedback" VarB="Inputs^VacuumHandler.iPIDRegulatorFeedback"/>
-				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumControl" VarB="Outputs^VacuumHandler.oVacuumControl"/>
-				<Link VarA="MainCNCControl Outputs^VacuumHandler.oVacuumPressureRequested" VarB="Outputs^VacuumHandler.oVacuumPressureRequested"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iAnalogInput2ScaledValue" VarB="Inputs^MAIN.VacuumControl.iAnalogInput2ScaledValue"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iOutputFrequency" VarB="Inputs^MAIN.VacuumControl.iOutputFrequency"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iOutputVelocity" VarB="Inputs^MAIN.VacuumControl.iOutputVelocity"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iPIDRegulatorFeedback" VarB="Inputs^MAIN.VacuumControl.iPIDRegulatorFeedback"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iPIDRegulatorOutput" VarB="Inputs^MAIN.VacuumControl.iPIDRegulatorOutput"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iStatusWord" VarB="Inputs^MAIN.VacuumControl.iStatusWord"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.VacuumControl.oMotorFrequency" VarB="Outputs^MAIN.VacuumControl.oMotorFrequency"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.VacuumControl.oVacuumControl" VarB="Outputs^MAIN.VacuumControl.oVacuumControl"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.VacuumControl.oVacuumPressureRequested" VarB="Outputs^MAIN.VacuumControl.oVacuumPressureRequested"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^HITECO UE-1F 6.6 Spindle">
-				<Link VarA="MainCNCControl Inputs^MAIN.SpindleController.iStatusWord" VarB="Inputs^statusword [0x6041.0]"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oControlWord" VarB="Outputs^controlword [0x6040.0]"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleController.oTargetVelocity" VarB="Outputs^vl target velocity [0x6042.0]"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iStatusWord" VarB="Inputs^statusword [0x6041.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oControlWord" VarB="Outputs^controlword [0x6040.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oTargetVelocity" VarB="Outputs^vl target velocity [0x6042.0]"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 4^MAIN.iPCCoolantOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleOn" VarB="Channel 1^MAIN.iPCSpindleOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCToolRelease" VarB="Channel 3^MAIN.iPCToolRelease"/>
-				<Link VarA="MainCNCControl Inputs^VacuumHandler.iPCVacuumOn" VarB="Channel 2^VacuumHandler.iPCVacuumOn"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCVacuumOn" VarB="Channel 2^MAIN.iPCVacuumOn"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 15 (EL1018)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iProbe" VarB="Channel 1^MAIN.iProbe"/>
@@ -5152,7 +5176,7 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCColletOpen" VarB="Channel 2^MAIN.oPCColletOpen"/>
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCServoAlarm" VarB="Channel 1^MAIN.oPCServoAlarm"/>
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCSpindleStopped" VarB="Channel 3^MAIN.oPCSpindleStopped"/>
-				<Link VarA="MainCNCControl Outputs^VacuumHandler.oPCVacuumPressureGood" VarB="Channel 4^VacuumHandler.oPCVacuumPressureGood"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.oPCVacuumPressureGood" VarB="Channel 4^MAIN.oPCVacuumPressureGood"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 9 (EL2124)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oPCAirPressure" VarB="Channel 1^MAIN.oPCAirPressure"/>

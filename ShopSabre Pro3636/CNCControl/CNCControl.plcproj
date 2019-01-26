@@ -70,7 +70,7 @@
     <Compile Include="POUs\Spindle\SpindleCIA402Velocity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Spindle\SpindleControl.TcIO">
+    <Compile Include="POUs\Spindle\SpindleController.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Spindle\SpindleDeltaVFDOverEIP.TcPOU">
@@ -91,13 +91,16 @@
     <Compile Include="POUs\Utilities\FB_ScaleBetween.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Vacuum\EIPVacuumPressureGetter.TcPOU">
+    <Compile Include="POUs\Vacuum\VacuumATV71Ethercat.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Vacuum\FB_GetVacuumAMSID.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Vacuum\VacuumHandler.TcPOU">
+    <Compile Include="POUs\Vacuum\ToshibaP9VacuumPressureGetter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Vacuum\VacuumController.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

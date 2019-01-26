@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <Itf Name="VacuumController" Id="{a6ba872a-680c-43c9-bbd3-617ff5b97c87}">
+    <Declaration><![CDATA[INTERFACE VacuumController
+]]></Declaration>
+    <Method Name="GetCurrentPressure" Id="{b4b0a566-08c1-409c-9474-042f0a202c71}">
+      <Declaration><![CDATA[METHOD GetCurrentPressure : REAL
+]]></Declaration>
+    </Method>
+    <Method Name="Run" Id="{52599611-8733-4e90-8e2d-548edbbc782f}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SetPressureRequired" Id="{d5fda7c4-e0fa-4237-8451-ee7d4b8d7e1a}">
+      <Declaration><![CDATA[METHOD SetPressureRequired : BOOL
+VAR_INPUT
+	Pressure : REAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{325ea40d-0a1d-4adf-8d28-015b11c19d28}">
+      <Declaration><![CDATA[METHOD Stop : BOOL]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

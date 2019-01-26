@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="SpindleDeltaVFDOverEIP" Id="{6020789a-138f-4f2b-90da-86ac6f55afbb}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleDeltaVFDOverEIP IMPLEMENTS SpindleControl
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleDeltaVFDOverEIP IMPLEMENTS SpindleController
 VAR
 	// Delta VFD control for the spindle
 	oSpindleControl AT %Q* : ST_DeltaVFDCommandWord;
