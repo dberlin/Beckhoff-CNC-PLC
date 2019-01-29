@@ -3,7 +3,10 @@
   <POU Name="FB_MovingAverageReal" Id="{fda7e211-5c6c-492f-ac36-81cea3ee5c49}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MovingAverageReal
 VAR_INPUT
+	// Value to add to the moving average.
 	ValueToAdd : LREAL;
+	// The number of values to store in the array.
+	NumValuesToUse : UINT := TO_UINT(UPPER_BOUND(AverageArray, 1) - LOWER_BOUND(AverageArray, 1) + 1);
 END_VAR
 VAR_IN_OUT
 	AverageArray  : ARRAY [*] OF LREAL;
@@ -13,49 +16,36 @@ VAR_OUTPUT
 END_VAR
 VAR
 	CurrentIndex : UINT;
-	NumValues: UINT;
+	NumValuesAdded: UINT;
 END_VAR
 VAR_TEMP
 	Counted : UINT;
 	I: DINT;
 	Sum: LREAL;
-	ArrayLength : UINT;
+	ArrayLength : UINT := TO_UINT(UPPER_BOUND(AverageArray, 1) - LOWER_BOUND(AverageArray, 1) + 1);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Compute average over array.
 // The order of this addition and MOD are important to avoid going out of bounds.
-// NOTE: We deliberately do not try to account for underfilling the array.
-ArrayLength := TO_UINT(UPPER_BOUND(AverageArray, 1) - LOWER_BOUND(AverageArray, 1) + 1);
+NumValuesToUse := MIN(ArrayLength, NumValuesToUse);
 AverageArray[CurrentIndex] := ValueToAdd;
 CurrentIndex := CurrentIndex + 1;
-CurrentIndex := CurrentIndex MOD ArrayLength;
-NumValues := MIN(NumValues + 1 , ArrayLength);
-IF NumValues > 0 THEN
+CurrentIndex := CurrentIndex MOD NumValuesToUse;
+NumValuesAdded := MIN(NumValuesAdded + 1 , NumValuesToUse);
+IF NumValuesAdded > 0 THEN
 	FOR I := LOWER_BOUND(AverageArray, 1) TO UPPER_BOUND(AverageArray, 1) BY 1 DO
 		Sum := Sum + AverageArray[I];
 		Counted := Counted + 1;
-		// Don't count more than the number of values
-		IF Counted > NumValues THEN
+		// Don't count more than the number of values.
+		IF Counted > NumValuesAdded THEN
 			EXIT;
 		END_IF
 	END_FOR
 END_IF
-CurrentValue := TO_REAL(Sum / NumValues);]]></ST>
+CurrentValue := TO_REAL(Sum / NumValuesAdded);]]></ST>
     </Implementation>
     <LineIds Name="FB_MovingAverageReal">
-      <LineId Id="28" Count="1" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="35" Count="1" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="76" Count="0" />
-      <LineId Id="100" Count="0" />
-      <LineId Id="22" Count="1" />
-      <LineId Id="102" Count="0" />
-      <LineId Id="106" Count="0" />
-      <LineId Id="103" Count="2" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="101" Count="0" />
+      <LineId Id="172" Count="16" />
       <LineId Id="31" Count="0" />
     </LineIds>
   </POU>

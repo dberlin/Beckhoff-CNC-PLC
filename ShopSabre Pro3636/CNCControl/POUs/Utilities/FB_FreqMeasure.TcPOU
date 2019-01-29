@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="FB_FreqMeasure" Id="{3d6d3d65-e18a-4fc3-a773-f23be8247d43}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_FreqMeasure
-// This function is the equivalent of FREQ_MEASURE from codesys's utility library
+    <Declaration><![CDATA[(* This function is the equivalent of FREQ_MEASURE from codesys's utility library.
+   It emulates their wacky API that tries to auto-detect specific errors *)
+FUNCTION_BLOCK FB_FreqMeasure
 VAR_INPUT
 	// Input signal
     IN: BOOL;
 	// Number of periods to average the frequency over.
 	// Must be between 1 and 100
-    PERIODS: INT :=1;
+    PERIODS: UINT := 1;
 	// Reset all parameters to 0
     RESET: BOOL;
 END_VAR
@@ -23,24 +24,23 @@ VAR
 	FallingEnableEdge : F_TRIG;
     STARTED: BOOL;
     RISETIME: TIME;
+	AveragePeriod : FB_MovingAverageReal;
 	// Difference in time between current and last rising edge
     DIFF: DINT;
 	// Array of time differences for each period
-    TIMEDIFF: ARRAY[0..99] OF DINT;
+    TIMEDIFF: ARRAY[0..99] OF LREAL;
 	// How many periods we have counted so far
-    COUNT: INT;
-	// Current place in the array of time differences
-    IDX: INT;
-    I: INT;
-	SUM: DINT;
+    COUNT: UINT;
 	SYSTIMEMS : TIME;          
+END_VAR
+VAR_TEMP
+	OutTemp : LREAL;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-IF RESET THEN
+IF Reset THEN
     VALID := FALSE;
     COUNT := 0;
-    IDX := 0;
     STARTED := FALSE;
     OUT := 0;
     RETURN;
@@ -49,8 +49,15 @@ END_IF
 RisingEnableEdge(CLK := IN);
 FallingEnableEdge(CLK := IN);
 
-// We care only about whether we are the beginning or the end of the signal
+(* We care only about whether we are the beginning or the end of the signal.
+   If we are at the beginning, we store the current time the signal rose.
+   If we are the end, we look at the current time, subtract the rise time,
+   and add the signal time period to the period array.
+   Once we have collected the requested number of periods, we start averaging
+   and mark ourselves valid. *)
 IF RisingEnableEdge.Q OR FallingEnableEdge.Q THEN
+	// The tming mechanism depends on the PLC. What we expect is something that produces milliseconds.
+	// The only requirement is that the difference between the two times represent the signal period in millliseconds
 	SYSTIMEMS := ULINT_TO_TIME(F_GetTaskTime() / TC2_Utilities.SYSTEMTIME_TICKSPERMSEC64);
     IF FallingEnableEdge.Q AND STARTED THEN
 		DIFF := TIME_TO_DINT(SYSTIMEMS - RISETIME);
@@ -61,24 +68,17 @@ IF RisingEnableEdge.Q OR FallingEnableEdge.Q THEN
 			IF VALID AND Diff > 3000 * REAL_TO_DINT(OUT) THEN
 				VALID := FALSE;
 				COUNT := 0;
-				IDX := 0;
 				RETURN;
 			END_IF
-            TIMEDIFF[IDX] := DIFF;
-            IDX := (IDX + 1) MOD PERIODS;
+			// Compute moving average over periods
+			AveragePeriod(ValueToAdd := DINT_TO_REAL(DIFF),
+						  AverageArray := TIMEDIFF,
+						  NumValuesToUse := PERIODS,
+						  CurrentValue => OutTemp);
+			Out := LREAL_TO_REAL (OutTemp); 
             COUNT := MIN(COUNT + 1, PERIODS);
 			// Go valid once we have the minimum number of periods to average over.
-            IF COUNT = PERIODS THEN
-                SUM := 0;
-				// Sum first, then convert to real, to minimize error.
-                FOR I :=0 TO PERIODS-1 DO
-                    SUM := SUM + TIMEDIFF[I];
-                END_FOR
-                OUT := 1000.0 * PERIODS / DINT_TO_REAL(SUM);
-                VALID := TRUE;
-            ELSE 
-                VALID := FALSE;
-            END_IF
+            VALID := COUNT = PERIODS;
         END_IF
 		STARTED := FALSE;
 		RETURN;
@@ -92,14 +92,19 @@ END_IF
     <LineIds Name="FB_FreqMeasure">
       <LineId Id="33" Count="2" />
       <LineId Id="117" Count="0" />
-      <LineId Id="36" Count="2" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="0" />
       <LineId Id="40" Count="1" />
-      <LineId Id="194" Count="0" />
+      <LineId Id="340" Count="0" />
       <LineId Id="43" Count="0" />
       <LineId Id="193" Count="0" />
       <LineId Id="299" Count="0" />
       <LineId Id="298" Count="0" />
+      <LineId Id="341" Count="2" />
+      <LineId Id="345" Count="1" />
       <LineId Id="191" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="351" Count="0" />
       <LineId Id="201" Count="0" />
       <LineId Id="44" Count="0" />
       <LineId Id="204" Count="0" />
@@ -108,13 +113,18 @@ END_IF
       <LineId Id="297" Count="0" />
       <LineId Id="219" Count="0" />
       <LineId Id="221" Count="1" />
-      <LineId Id="224" Count="2" />
+      <LineId Id="224" Count="0" />
+      <LineId Id="226" Count="0" />
       <LineId Id="223" Count="0" />
-      <LineId Id="47" Count="2" />
+      <LineId Id="359" Count="0" />
+      <LineId Id="357" Count="0" />
+      <LineId Id="365" Count="1" />
+      <LineId Id="364" Count="0" />
+      <LineId Id="363" Count="0" />
+      <LineId Id="47" Count="0" />
       <LineId Id="261" Count="0" />
-      <LineId Id="50" Count="1" />
-      <LineId Id="301" Count="0" />
-      <LineId Id="52" Count="8" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="60" Count="0" />
       <LineId Id="207" Count="1" />
       <LineId Id="61" Count="1" />
       <LineId Id="197" Count="0" />
