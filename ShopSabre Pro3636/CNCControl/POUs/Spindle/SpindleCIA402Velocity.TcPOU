@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
   <POU Name="SpindleCIA402Velocity" Id="{02da1002-7a44-4285-a82f-82c9814ffe90}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FINAL SpindleCIA402Velocity IMPLEMENTS SpindleController
-
+    <Declaration><![CDATA[FUNCTION_BLOCK SpindleCIA402Velocity IMPLEMENTS SpindleController
 VAR
+	// CIA402 Control word
 	oControlWord AT %Q*: ST_CIA402ControlWord;
+	// CIA402 Status word
 	iStatusWord AT %I*: UINT;
+	// CIA402 actual velocity parameter
+	iActualVelocity AT %I* : UDINT;
+	// CIA402 target velocity
 	oTargetVelocity AT %Q* : INT;
 	// Forward/backward is specified by positive or negative speed
 	VelocityMultiplier : INT := 1;
@@ -14,6 +18,14 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="GetSpeed" Id="{f14b85d8-5fa7-4ec3-946f-333b61f1fd83}">
+      <Declaration><![CDATA[(* Return the current speed of the spindle in RPM*)
+METHOD GetSpeed : UDINT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetSpeed := iActualVelocity;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetState" Id="{44dd01bf-ad1a-4ea7-92f3-3cd85851766f}">
       <Declaration><![CDATA[METHOD GetState : E_CIA402State
 VAR CONSTANT
@@ -70,7 +82,8 @@ END_VAR
       <Declaration><![CDATA[METHOD Run : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE GetState() OF
+        <ST><![CDATA[oControlWord.FaultReset := FALSE;
+CASE GetState() OF
 	E_CIA402State.SwitchOnDisabled:
 		oControlWord.EnableVoltage := TRUE;
 	E_CIA402State.ReadyToSwitchOn:
@@ -109,18 +122,24 @@ END_VAR
       <Declaration><![CDATA[METHOD Stop : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE GetState() OF
+        <ST><![CDATA[oControlWord.FaultReset := FALSE;
+CASE GetState() OF
 	E_CIA402State.ReadyToSwitchOn:
 		oControlWord.EnableVoltage := FALSE;
 	E_CIA402State.SwitchedOn:
 		oControlWord.SwitchOn := FALSE;
 	E_CIA402State.OperationEnabled :
 		oControlWord.EnableOperation := FALSE;
+	E_CIA402State.Fault : 
+		oControlWord.FaultReset := TRUE;
 END_CASE]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="SpindleCIA402Velocity">
       <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.GetSpeed">
+      <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="SpindleCIA402Velocity.GetState">
       <LineId Id="47" Count="2" />
@@ -138,7 +157,8 @@ END_CASE]]></ST>
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="SpindleCIA402Velocity.Run">
-      <LineId Id="19" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="21" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="12" Count="0" />
@@ -156,7 +176,10 @@ END_CASE]]></ST>
       <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="SpindleCIA402Velocity.Stop">
-      <LineId Id="6" Count="6" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="7" Count="5" />
+      <LineId Id="14" Count="1" />
       <LineId Id="4" Count="0" />
     </LineIds>
   </POU>

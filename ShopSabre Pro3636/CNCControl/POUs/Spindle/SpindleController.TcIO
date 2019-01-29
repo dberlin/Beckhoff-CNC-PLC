@@ -3,11 +3,20 @@
   <Itf Name="SpindleController" Id="{df9af8cd-f926-49bc-9ede-9a0faf189bc9}">
     <Declaration><![CDATA[INTERFACE SpindleController
 ]]></Declaration>
+    <Method Name="GetSpeed" Id="{b7b1fee2-3c6f-4eca-abb5-cabb91af2c0d}">
+      <Declaration><![CDATA[// Return the current speed of the spindle in RPM
+METHOD GetSpeed : UDINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Run" Id="{bde1c9a9-ee7f-4e70-897d-f6e0e05beb6a}">
-      <Declaration><![CDATA[METHOD Run : BOOL]]></Declaration>
+      <Declaration><![CDATA[// Start the Spindle running
+METHOD Run : BOOL]]></Declaration>
     </Method>
     <Method Name="SetDirection" Id="{34672ef6-92f0-4960-b735-ea7a89f86797}">
-      <Declaration><![CDATA[METHOD SetDirection : BOOL
+      <Declaration><![CDATA[// Set the direction the spindle rotates in.
+METHOD SetDirection : BOOL
 VAR_INPUT
 	// Set the spindle rotation direction
 	Reverse : BOOL;
@@ -15,7 +24,8 @@ END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="SetSpeed" Id="{cb2af7f9-4e6c-4e88-9d58-7c04bcf58105}">
-      <Declaration><![CDATA[METHOD SetSpeed : BOOL
+      <Declaration><![CDATA[// Set the target speed for the spindle.
+METHOD SetSpeed : BOOL
 VAR_INPUT
 	Speed : UINT;
 END_VAR

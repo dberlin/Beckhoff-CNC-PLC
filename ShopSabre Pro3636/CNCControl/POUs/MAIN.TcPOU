@@ -67,7 +67,7 @@ VAR
 	iSpindleOverTemp AT %I* : BOOL;
 	// Turn spindle on input from PC
 	iPCSpindleOn AT %I* : BOOL;
-	SpindleControl : SpindleCIA402Velocity;
+	SpindleControl : SpindleKEBWithEncoder;
 	{endregion}
 	{endregion}
 	{region "Input Debouncers"}

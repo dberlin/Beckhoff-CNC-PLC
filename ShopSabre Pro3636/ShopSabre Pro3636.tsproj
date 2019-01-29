@@ -1046,6 +1046,24 @@
 						</Var>
 						<Var>
 							<Name>MAIN.SpindleControl.iStatusWord</Name>
+							<Comment>
+								<![CDATA[ CIA402 Status word]]>
+							</Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.SpindleControl.iActualVelocity</Name>
+							<Comment>
+								<![CDATA[ CIA402 actual velocity parameter]]>
+							</Comment>
+							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.SpindleControl.iEncoderErrorState</Name>
+							<Comment>
+								<![CDATA[ Encoder error state
+ Anything other than 0 is an error]]>
+							</Comment>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
@@ -1148,11 +1166,25 @@
 						</Var>
 						<Var>
 							<Name>MAIN.SpindleControl.oControlWord</Name>
+							<Comment>
+								<![CDATA[ CIA402 Control word]]>
+							</Comment>
 							<Type GUID="{21C7F6B5-3C21-4B40-9089-DB64F45BA590}">ST_CIA402ControlWord</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.SpindleControl.oTargetVelocity</Name>
+							<Comment>
+								<![CDATA[ CIA402 target velocity]]>
+							</Comment>
 							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.SpindleControl.oDigitalInputs</Name>
+							<Comment>
+								<![CDATA[ This represents the digital inputs of the KEB drive
+ Bit 0 resets the error state]]>
+							</Comment>
+							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
@@ -1504,10 +1536,10 @@
 				<Box BoxType="9099" BoxFlags="#x00000020" Id="18">
 					<Name>HITECO UE-1F 6.6 Spindle</Name>
 					<ImageId>1001</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0080" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="13" VendorId="#x00000014" ProductCode="#x00600000" RevisionNo="#x000005b4" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="KEB_F6_drive_unit_EtherCAT" Desc="F6_drive_unit_EtherCAT" PortABoxInfo="#x01000010">
+					<EtherCAT SlaveType="2" PdiType="#x0080" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="13" VendorId="#x00000014" ProductCode="#x00600000" RevisionNo="#x000005b4" InfoDataAddr="true" InfoDataSoeDS401="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" Type="KEB_F6_drive_unit_EtherCAT (MDP)" Desc="F6_drive_unit_EtherCAT" PortABoxInfo="#x01000010">
 						<SyncMan>001840002600010001000000100000014000001826010000</SyncMan>
 						<SyncMan>001940002200010002000000100000014000001922010000</SyncMan>
-						<SyncMan>001004007400010003000000000000000000001074010000</SyncMan>
+						<SyncMan>001006007400010003000000000000000000001074010000</SyncMan>
 						<SyncMan>001108003000010004000000000000000000001130010000</SyncMan>
 						<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001100010100000002000000000000000000000000000000</Fmmu>
@@ -1515,26 +1547,41 @@
 						<DcData>0003000000000000000000000000000001000000010000000000000000000000</DcData>
 						<DcMode>4173796e63000000000000000000000044432d6f66660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>53796e6300000000000000000000000044432d73796e6368726f6e6f7573000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<Pdo Name="Inputs" Index="#x1a00" Flags="#x0200" SyncMan="3">
+						<Pdo Name="Inputs" Index="#x1a00" Flags="#x0280" SyncMan="3">
 							<Entry Name="statusword [0x6041.0]" Index="#x6041">
 								<Type>INT</Type>
 							</Entry>
 							<Entry Name="velocity actual value [0x606C.0]" Index="#x606c">
 								<Type>DINT</Type>
 							</Entry>
-							<Entry Name="vl velocity actual value [0x6044.0]" Index="#x6044">
+							<Entry Name="ec01: error encoder interface [0x2801.0]" Index="#x2801">
 								<Type>INT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Outputs" Index="#x1600" InOut="1" Flags="#x0200" SyncMan="2">
+						<Pdo Name="Outputs" Index="#x1600" InOut="1" Flags="#x0280" SyncMan="2">
 							<Entry Name="controlword [0x6040.0]" Index="#x6040">
 								<Type>INT</Type>
 							</Entry>
 							<Entry Name="vl target velocity [0x6042.0]" Index="#x6042">
 								<Type>INT</Type>
 							</Entry>
+							<Entry Name="di02: dig. input ext. src. [0x3202.0]" Index="#x3202">
+								<Type>INT</Type>
+							</Entry>
 						</Pdo>
 						<CoeProfile ProfileNo="402"/>
+						<Slot Name="Prozessdaten-Modul Slot A">
+							<SlotData>0000010001000000010000000000000000000000000000000000000000000000</SlotData>
+							<ModuleClass Class="KEB_F6_drive_unit_Custom" Name="KEB_F6_drive_unit_Custom" VendorId="20"/>
+							<ModuleClass Class="KEB_F6_drive_unit_Std" Name="KEB_F6_drive_unit_Std" VendorId="20"/>
+							<Module Id="#x03090001" Type="Spindle_Profile" Class="KEB_F6_drive_unit_Custom">
+								<Name>Module 1 (Spindle_Profile)</Name>
+								<ImageId>65</ImageId>
+								<ModuleData>1400000001800000000004000000000000000000000000000000000000000000</ModuleData>
+								<PdoIndex>6656</PdoIndex>
+								<PdoIndex>5632</PdoIndex>
+							</Module>
+						</Slot>
 					</EtherCAT>
 				</Box>
 				<Box BoxType="9099" Id="1">
@@ -5009,9 +5056,12 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 				<Link VarA="MainCNCControl Outputs^MAIN.VacuumControl.oVacuumPressureRequested" VarB="Outputs^MAIN.VacuumControl.oVacuumPressureRequested"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^HITECO UE-1F 6.6 Spindle">
-				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iStatusWord" VarB="Inputs^statusword [0x6041.0]"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oControlWord" VarB="Outputs^controlword [0x6040.0]"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oTargetVelocity" VarB="Outputs^vl target velocity [0x6042.0]"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iActualVelocity" VarB="Module 1 (Spindle_Profile)^Inputs^velocity actual value [0x606C.0]"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iEncoderErrorState" VarB="Module 1 (Spindle_Profile)^Inputs^ec01: error encoder interface [0x2801.0]"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iStatusWord" VarB="Module 1 (Spindle_Profile)^Inputs^statusword [0x6041.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oControlWord" VarB="Module 1 (Spindle_Profile)^Outputs^controlword [0x6040.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oDigitalInputs" VarB="Module 1 (Spindle_Profile)^Outputs^di02: dig. input ext. src. [0x3202.0]"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oTargetVelocity" VarB="Module 1 (Spindle_Profile)^Outputs^vl target velocity [0x6042.0]"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL1124)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 4^MAIN.iPCCoolantOn"/>

@@ -76,6 +76,9 @@
     <Compile Include="POUs\Spindle\SpindleDeltaVFDOverEIP.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Spindle\SpindleKEBWithEncoder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Utilities\FB_FreqMeasure.TcPOU">
       <SubType>Code</SubType>
     </Compile>

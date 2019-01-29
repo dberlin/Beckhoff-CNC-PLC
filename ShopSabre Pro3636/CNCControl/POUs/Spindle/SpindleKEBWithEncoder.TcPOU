@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+  <POU Name="SpindleKEBWithEncoder" Id="{fed11a32-8341-4653-b826-dc853a6adbc2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SpindleKEBWithEncoder EXTENDS SpindleCIA402Velocity IMPLEMENTS SpindleController
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	// This represents the digital inputs of the KEB drive
+	// Bit 0 resets the error state
+	oDigitalInputs AT %Q* : UINT;
+	// Encoder error state
+	// Anything other than 0 is an error
+	iEncoderErrorState AT %I* : UINT;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Run" Id="{d1742b78-9779-4c7f-9098-68cf3bcdf238}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*CASE GetState() OF 
+	E_CIA402State.SwitchOnDisabled:
+		oDigitalInputs.0 := TRUE;
+	ELSE
+		oDigitalInputs.0 := FALSE;
+END_CASE
+*)
+// The 1024ppr encoder is only good to 12000rpm, so if you go faster, it will get an error that needs to be reset.
+// This resets the error state.
+IF iEncoderErrorState <> 0  AND GetState() = E_CIA402State.SwitchOnDisabled THEN
+	oControlWord.FaultReset := TRUE;
+ELSE
+	oControlWord.FaultReset := FALSE;
+	SUPER^.Run();
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="SpindleKEBWithEncoder">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleKEBWithEncoder.Run">
+      <LineId Id="5" Count="4" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="13" Count="2" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
