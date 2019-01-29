@@ -18,24 +18,17 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Run" Id="{d1742b78-9779-4c7f-9098-68cf3bcdf238}">
-      <Declaration><![CDATA[METHOD Run : BOOL
+    <Method Name="Stop" Id="{a392b421-edcf-4148-9040-0ef4e6951966}">
+      <Declaration><![CDATA[METHOD Stop : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*CASE GetState() OF 
-	E_CIA402State.SwitchOnDisabled:
-		oDigitalInputs.0 := TRUE;
-	ELSE
-		oDigitalInputs.0 := FALSE;
-END_CASE
-*)
-// The 1024ppr encoder is only good to 12000rpm, so if you go faster, it will get an error that needs to be reset.
-// This resets the error state.
+        <ST><![CDATA[// The 1024ppr encoder is only good to 12000rpm, so if you go faster, it will get an error that needs to be reset.
+// This resets the error state (but only when the spindle is safely stopped)
 IF iEncoderErrorState <> 0  AND GetState() = E_CIA402State.SwitchOnDisabled THEN
 	oControlWord.FaultReset := TRUE;
 ELSE
 	oControlWord.FaultReset := FALSE;
-	SUPER^.Run();
+	SUPER^.Stop();
 END_IF
 
 ]]></ST>
@@ -44,15 +37,11 @@ END_IF
     <LineIds Name="SpindleKEBWithEncoder">
       <LineId Id="9" Count="0" />
     </LineIds>
-    <LineIds Name="SpindleKEBWithEncoder.Run">
-      <LineId Id="5" Count="4" />
+    <LineIds Name="SpindleKEBWithEncoder.Stop">
+      <LineId Id="15" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="6" />
       <LineId Id="4" Count="0" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="21" Count="1" />
-      <LineId Id="13" Count="2" />
-      <LineId Id="17" Count="2" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="12" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

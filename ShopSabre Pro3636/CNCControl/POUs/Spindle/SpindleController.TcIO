@@ -32,7 +32,8 @@ END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="Stop" Id="{775584b9-1b67-4b01-a066-f4712b5973a1}">
-      <Declaration><![CDATA[METHOD Stop : BOOL]]></Declaration>
+      <Declaration><![CDATA[// Stop the running spindle
+METHOD Stop : BOOL]]></Declaration>
     </Method>
   </Itf>
 </TcPlcObject>
