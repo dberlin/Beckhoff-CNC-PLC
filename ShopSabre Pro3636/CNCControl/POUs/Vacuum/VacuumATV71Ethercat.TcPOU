@@ -83,7 +83,7 @@ END_VAR
       <Declaration><![CDATA[METHOD Stop : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[oVacuumControl.Forward := TRUE;
+        <ST><![CDATA[oVacuumControl.Forward := FALSE;
 oVacuumControl.Reverse := FALSE;
 oVacuumControl.PidIntegralOff := FALSE;]]></ST>
       </Implementation>
