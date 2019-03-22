@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.28">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.29">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{2CDCCB26-9DC1-49EA-B036-768F14F7DD4F}" PersistentType="true">NitraValves</Name>
@@ -229,7 +229,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
 			<BitSize>5</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -851,7 +851,7 @@
 				<Target BkhfOrder="VE2507253">
 					<TargetSelect TargetId="2">{87DBEEFC-A548-4B37-9797-C9521D3A43A2}</TargetSelect>
 					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
-					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302001a" DongleSystemId="{43D41E12-F694-15B0-FEC6-2821FEF2143F}"/>
+					<LicenseDevice DongleHardwareId="2" DongleDevice="#x0302000f" DongleSystemId="{43D41E12-F694-15B0-FEC6-2821FEF2143F}"/>
 				</Target>
 			</Licenses>
 			<Tasks>
@@ -893,14 +893,14 @@
 						<Var>
 							<Name>MAIN.iPCCoolantOn</Name>
 							<Comment>
-								<![CDATA[ Turn on coolant signal from PC]]>
+								<![CDATA[ Turn on coolant signal from PC Output 4]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.iPCVacuumOn</Name>
 							<Comment>
-								<![CDATA[ Turn on vacuum signal from PC]]>
+								<![CDATA[ Turn on vacuum signal from PC Output 2]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -957,7 +957,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.iSpindleOverTemp</Name>
+							<Name>MAIN.iSpindleNotOverTemp</Name>
 							<Comment>
 								<![CDATA[ Spindle over temperature relay]]>
 							</Comment>
@@ -966,7 +966,14 @@
 						<Var>
 							<Name>MAIN.iPCSpindleOn</Name>
 							<Comment>
-								<![CDATA[ Turn spindle on input from PC]]>
+								<![CDATA[ Turn spindle on input from PC Output 3]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.iPCSpindleDirection</Name>
+							<Comment>
+								<![CDATA[ Spindle direction from PC Output 8]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -984,21 +991,13 @@
 							</Comment>
 							<Type>UDINT</Type>
 						</Var>
-						<Var>
-							<Name>MAIN.SpindleControl.iEncoderErrorState</Name>
-							<Comment>
-								<![CDATA[ Encoder error state
- Anything other than 0 is an error]]>
-							</Comment>
-							<Type>UINT</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>MainCNCControl Outputs</Name>
 						<Var>
 							<Name>MAIN.oPCAirPressure</Name>
 							<Comment>
-								<![CDATA[ Air Pressure >90psi signal to PC pin 10]]>
+								<![CDATA[ Air Pressure >90psi signal to PC Input 5]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -1012,7 +1011,7 @@
 						<Var>
 							<Name>MAIN.oPCVacuumPressureGood</Name>
 							<Comment>
-								<![CDATA[ Vacuum Pressure good output to PC Pin 7]]>
+								<![CDATA[ Vacuum Pressure good output to PC Input 6]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -1051,21 +1050,21 @@
 						<Var>
 							<Name>MAIN.oPCToolPresence</Name>
 							<Comment>
-								<![CDATA[ Tool Presence to PC Pin 2]]>
+								<![CDATA[ Tool Presence to PC Input 9]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.oPCColletOpen</Name>
 							<Comment>
-								<![CDATA[ Collet Open to PC Pin 9]]>
+								<![CDATA[ Collet Open to PC Input 8]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.oPCSpindleOverTemp</Name>
+							<Name>MAIN.oPCSpindleOkay</Name>
 							<Comment>
-								<![CDATA[ Spindle over temperature to PC Pin 27]]>
+								<![CDATA[ Does the spindle have any faults (over temp, VFD fault, etc)]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -1082,14 +1081,6 @@
 								<![CDATA[ CIA402 target velocity]]>
 							</Comment>
 							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.SpindleControl.oDigitalInputs</Name>
-							<Comment>
-								<![CDATA[ This represents the digital inputs of the KEB drive
- Bit 0 resets the error state]]>
-							</Comment>
-							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
@@ -1355,6 +1346,25 @@
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-02-27T22:45:59">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 8 (EL2889)">
+								<Link VarA="MAIN.oPCSpindleOverTemp" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 3^MAIN.oPCSpindleOverTemp" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2019-03-21T12:31:08">
+						<OwnerA Name="OutputSrc" Prefix="TIPC^CNCControl^CNCControl Instance" Type="2">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^HITECO UE-1F 6.6 Spindle">
+								<Link VarA="MAIN.SpindleControl.oDigitalInputs" TypeA="UINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Module 1 (Spindle_Profile)^Outputs^di02: dig. input ext. src. [0x3202.0]" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="InputDst" Prefix="TIPC^CNCControl^CNCControl Instance" Type="1">
+							<OwnerB Name="TIID^Device 1 (EtherCAT)^HITECO UE-1F 6.6 Spindle">
+								<Link VarA="MAIN.SpindleControl.iEncoderErrorState" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="Module 1 (Spindle_Profile)^Inputs^ec01: error encoder interface [0x2801.0]" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<TaskPouOids>
 						<TaskPouOid Prio="10" OTCID="#x08502003"/>
 						<TaskPouOid Prio="4" OTCID="#x08502001"/>
@@ -1375,6 +1385,9 @@
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">
 					<Name>Image</Name>
+				</Image>
+				<Image Id="4" AddrType="10" ImageType="3">
+					<Name>Image-2</Name>
 				</Image>
 				<Box BoxType="9099" BoxFlags="#x00000020" Id="16">
 					<Name>Box 16 (ATV71 EtherCAT)</Name>
@@ -1501,36 +1514,51 @@
 					<Name>Term 1 (EK1100)</Name>
 					<ImageId>1002</ImageId>
 					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" InfoDataDcTimes="true" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x01000012"/>
-					<Box BoxType="9099" Id="9">
-						<Name>Term 9 (EL2809)</Name>
+					<Box BoxType="9099" Id="8">
+						<Name>Term 8 (EL2889)</Name>
 						<ImageId>1003</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0af93052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2809 16Ch. Dig. Output 24V, 0.5A" Desc="EL2809" PortABoxInfo="#x01000001">
+						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0b493052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2889 16Ch. Dig. Output 24V, 0.5A, negative" Desc="EL2889" PortABoxInfo="#x01000001">
 							<SyncMan>000f01004400010003000000000000000100000f44090000</SyncMan>
 							<SyncMan>010f01004400010003000000000000000100010f44090000</SyncMan>
 							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7000" Sub="#x01">
+								<Entry Name="MAIN.oPCAirPressure" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Air Pressure >90psi signal to PC Input 5]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7010" Sub="#x01">
+								<Entry Name="MAIN.oPCVacuumPressureGood" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Vacuum Pressure good output to PC Input 6]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7020" Sub="#x01">
+								<Entry Name="MAIN.oPCSpindleOkay" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Does the spindle have any faults (over temp, VFD fault, etc)]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7030" Sub="#x01">
+								<Entry Name="MAIN.oPCColletOpen" Index="#x7030" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Collet Open to PC Input 8]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 5" Index="#x1604" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7040" Sub="#x01">
+								<Entry Name="MAIN.oPCToolPresence" Index="#x7040" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Tool Presence to PC Input 9]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 6" Index="#x1605" InOut="1" Flags="#x0011" SyncMan="0">
@@ -1593,7 +1621,7 @@
 					<Box BoxType="9099" BoxFlags="#x00000020" Id="3">
 						<Name>Term 3 (EL1502)</Name>
 						<ImageId>7</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x05de3052" RevisionNo="#x00160000" InfoDataAddr="true" InfoDataDcTimes="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1502 2Ch. +/- Counter 24V, 100kHz" Desc="EL1502" PortABoxInfo="#x01000009">
+						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x05de3052" RevisionNo="#x00160000" InfoDataAddr="true" InfoDataDcTimes="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1502 2Ch. +/- Counter 24V, 100kHz" Desc="EL1502" PortABoxInfo="#x01000008">
 							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
 							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
 							<SyncMan>00110c002400010003000000000000000600001124010000</SyncMan>
@@ -1826,23 +1854,35 @@
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 6" Index="#x1a05" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6050" Sub="#x01">
+								<Entry Name="MAIN.iPCVacuumOn" Index="#x6050" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Turn on vacuum signal from PC]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 7" Index="#x1a06" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6060" Sub="#x01">
+								<Entry Name="MAIN.iPCCoolantOn" Index="#x6060" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Turn on coolant signal from PC Output 4]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 8" Index="#x1a07" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6070" Sub="#x01">
+								<Entry Name="MAIN.iPCSpindleOn" Index="#x6070" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Turn spindle on input from PC Output 3]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 9" Index="#x1a08" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6080" Sub="#x01">
+								<Entry Name="MAIN.iPCSpindleDirection" Index="#x6080" Sub="#x01">
 									<Type>BIT</Type>
+									<Comment>
+										<![CDATA[ Spindle direction from PC Output 8]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 10" Index="#x1a09" Flags="#x0011" SyncMan="0">
@@ -1882,8 +1922,8 @@
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" BoxFlags="#x00000020" Id="26">
-						<Name>Term 26 (EL6070)</Name>
+					<Box BoxType="9099" BoxFlags="#x00000020" Id="15">
+						<Name>Term 15 (EL6070)</Name>
 						<ImageId>1004</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="35" FoeType="1" VendorId="#x00000002" ProductCode="#x17b63052" RevisionNo="#x00120000" InfoDataAddr="true" RepeatSupport="true" TimeoutMailbox2="3000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6070 1Ch. Licensing-Terminal" Desc="EL6070" PortABoxInfo="#x01000004">
 							<SyncMan>001000012600010001000000300000010001001026010000</SyncMan>
@@ -1895,7 +1935,7 @@
 					<Box BoxType="9099" Id="17">
 						<Name>Term 17 (EL9110)</Name>
 						<ImageId>1005</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23963052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9110 Power Supplier with LED (24V, Diagnostics)" Desc="EL9110" PortABoxInfo="#x0100001a">
+						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23963052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9110 Power Supplier with LED (24V, Diagnostics)" Desc="EL9110" PortABoxInfo="#x0100000f">
 							<SyncMan>001001000000010004000000000000000000001000000000</SyncMan>
 							<Fmmu>0000000000000000001000010100000002000000000000000000000000000000</Fmmu>
 							<Pdo Name="PowerOK" Index="#x1a00" Flags="#x0011" SyncMan="0">
@@ -1912,7 +1952,7 @@
 							<BeckhoffEcatSlavePlugIn>
 								<Channel>
 									<ChannelNo>0</ChannelNo>
-									<Data>03000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</Data>
+									<Data>010000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000a0000000000000001000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</Data>
 								</Channel>
 							</BeckhoffEcatSlavePlugIn>
 						</Xml>
@@ -1924,11 +1964,10 @@
 							<Fmmu>0000000000000000801100010100000002000000000000000000000000000000</Fmmu>
 							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
 							<BootStrapData>0010f400f410f400</BootStrapData>
-							<DcData>00070000000000006079feffa861000001000000020100000000000000000000</DcData>
 							<DcMode>53796e6368726f6e00000000000000004672656552756e2f534d2d53796e6368726f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
 							<DcMode>4443000000000000000000000000000044432d53796e6368726f6e0000000000000000000000000000000000000000000000000000000000a8610000000000070100000000000000000000000000000000000000000000000000000000000000</DcMode>
 							<DcMode>4443494e00000000000000000000000044432d53796e6368726f6e2028696e7075742062617365642900000000000000000000006079feffa8610000000000070100000000000000000001000000000000000000000000000000000000000000</DcMode>
-							<MBoxUserCmdData>020003001a000000000000000000000000000000000000000000000000000000300080011200000000040000000001000000000000000000004000</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a000000000000000000000000000000000000000000000000000000300080011200000021040000b25d00000000000009000000004000</MBoxUserCmdData>
 							<Pdo Name="AI Standard" Index="#x1a00" Flags="#x0010" SyncMan="3">
 								<ExcludePdo>#x1a01</ExcludePdo>
 								<Entry Name="Status__Underrange" BitLen="1" Index="#x6000" Sub="#x01" Flags="#x00020000">
@@ -1978,8 +2017,11 @@ Bit1: Value smaller than Limit2]]>
 								<Entry Name="Status__TxPDO Toggle" BitLen="1" Index="#x6000" Sub="#x10" Flags="#x00020000">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry Name="Value" BitLen="16" Index="#x6000" Sub="#x11" Flags="#x00020000">
+								<Entry Name="DemandedSpeedTask.DemandedSpeedImpl.iAnalogSpeed" BitLen="16" Index="#x6000" Sub="#x11" Flags="#x00020000">
 									<Type>INT</Type>
+									<Comment>
+										<![CDATA[Analog speed as 0-10v from PC Pin 13]]>
+									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact" Index="#x1a01" Flags="#x0010">
@@ -2281,9 +2323,10 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{08502003-0010-0304-0020-500810000403}" Id="#x02030030" Watchdog="00000000000000000000000000000000"/>
-		<MappingInfo Identifier="{00000000-2002-0850-0120-500810000403}" Id="#x02030020"/>
+		<MappingInfo Identifier="{08502003-0040-0304-0020-500840000403}" Id="#x02030040" Watchdog="00000000000000000000000000000000"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{00000000-2002-0850-0120-500830000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500841000403}" Id="#x02030030"/>
 		<OwnerA Name="TIPC^CNCControl^CNCControl Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 16 (ATV71 EtherCAT)">
 				<Link VarA="MainCNCControl Inputs^MAIN.VacuumControl.iAnalogInput2ScaledValue" VarB="Inputs^MAIN.VacuumControl.iAnalogInput2ScaledValue"/>
@@ -2298,21 +2341,33 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^HITECO UE-1F 6.6 Spindle">
 				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iActualVelocity" VarB="Module 1 (Spindle_Profile)^Inputs^velocity actual value [0x606C.0]"/>
-				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iEncoderErrorState" VarB="Module 1 (Spindle_Profile)^Inputs^ec01: error encoder interface [0x2801.0]"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.SpindleControl.iStatusWord" VarB="Module 1 (Spindle_Profile)^Inputs^statusword [0x6041.0]"/>
 				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oControlWord" VarB="Module 1 (Spindle_Profile)^Outputs^controlword [0x6040.0]"/>
-				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oDigitalInputs" VarB="Module 1 (Spindle_Profile)^Outputs^di02: dig. input ext. src. [0x3202.0]"/>
 				<Link VarA="MainCNCControl Outputs^MAIN.SpindleControl.oTargetVelocity" VarB="Module 1 (Spindle_Profile)^Outputs^vl target velocity [0x6042.0]"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 19 (EL3161)">
+				<Link VarA="EveryMS Inputs^DemandedSpeedTask.DemandedSpeedImpl.iAnalogSpeed" VarB="AI Standard^DemandedSpeedTask.DemandedSpeedImpl.iAnalogSpeed"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 3 (EL1502)">
 				<Link VarA="EveryHundredMilliseconds Inputs^SpindleSpeedCalculator.CounterValue" VarB="CNT Inputs Channel 1^Counter value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 4 (EL1809)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iAirPressureSensor" VarB="Channel 1^MAIN.iPressureSensor"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 7^MAIN.iPCCoolantOn"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleDirection" VarB="Channel 9^MAIN.iPCSpindleDirection"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleOn" VarB="Channel 8^MAIN.iPCSpindleOn"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCVacuumOn" VarB="Channel 6^MAIN.iPCVacuumOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iS1ToolPresence" VarB="Channel 5^MAIN.iS1ToolPresence"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iS2ColletOpen" VarB="Channel 4^MAIN.iS2ColletOpen"/>
-				<Link VarA="MainCNCControl Inputs^MAIN.iSpindleOverTemp" VarB="Channel 3^MAIN.iSpindleOverTemp"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iSpindleNotOverTemp" VarB="Channel 3^MAIN.iSpindleOverTemp"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iSpindleToolReleaseButton" VarB="Channel 2^MAIN.iSpindleToolReleaseButton"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 8 (EL2889)">
+				<Link VarA="MainCNCControl Outputs^MAIN.oPCAirPressure" VarB="Channel 1^MAIN.oPCAirPressure"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.oPCColletOpen" VarB="Channel 4^MAIN.oPCColletOpen"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.oPCSpindleOkay" VarB="Channel 3^MAIN.oPCSpindleOkay"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.oPCToolPresence" VarB="Channel 5^MAIN.oPCToolPresence"/>
+				<Link VarA="MainCNCControl Outputs^MAIN.oPCVacuumPressureGood" VarB="Channel 2^MAIN.oPCVacuumPressureGood"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (TC3 EIP Scanner)^Box 12 (Nitra CMV EtherNet/IP)">
 				<Link VarA="MainCNCControl Outputs^MAIN.oValveControl" VarB="Connection 1 (Input/Output)^Outputs^MAIN.oValveControl"/>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="SpindleCIA402Velocity" Id="{02da1002-7a44-4285-a82f-82c9814ffe90}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK SpindleCIA402Velocity IMPLEMENTS SpindleController
 VAR
@@ -78,6 +78,15 @@ END_VAR
         <ST><![CDATA[MEMCPY(ADR(GetStatus), ADR(iStatusWord), SIZEOF(iStatusWord));]]></ST>
       </Implementation>
     </Method>
+    <Method Name="HasFault" Id="{4a2414af-0535-4476-999a-bd131bda2e15}">
+      <Declaration><![CDATA[METHOD HasFault : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HasFault := GetState() = E_CIA402State.Fault OR GetState() = E_CIA402State.FaultReactionActive;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Run" Id="{ab0e9766-94b8-40b4-9cd9-43564953bb58}">
       <Declaration><![CDATA[METHOD Run : BOOL
 ]]></Declaration>
@@ -90,6 +99,9 @@ CASE GetState() OF
 		oControlWord.SwitchOn := TRUE;
 	E_CIA402State.SwitchedOn:
 		oControlWord.EnableOperation := TRUE;
+	// We don't need explicit fault handling. 
+	// The fault will cause the controller to tell the drive to stop, 
+	// and the stop will take care of the fault reset.
 END_CASE]]></ST>
       </Implementation>
     </Method>
@@ -159,6 +171,9 @@ END_CASE]]></ST>
     <LineIds Name="SpindleCIA402Velocity.GetStatus">
       <LineId Id="5" Count="0" />
     </LineIds>
+    <LineIds Name="SpindleCIA402Velocity.HasFault">
+      <LineId Id="5" Count="0" />
+    </LineIds>
     <LineIds Name="SpindleCIA402Velocity.Run">
       <LineId Id="23" Count="0" />
       <LineId Id="21" Count="0" />
@@ -168,6 +183,7 @@ END_CASE]]></ST>
       <LineId Id="16" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="17" Count="0" />
+      <LineId Id="25" Count="2" />
       <LineId Id="10" Count="0" />
     </LineIds>
     <LineIds Name="SpindleCIA402Velocity.SetDirection">

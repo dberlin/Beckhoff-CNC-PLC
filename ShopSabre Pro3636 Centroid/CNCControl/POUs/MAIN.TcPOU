@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="MAIN" Id="{cd64af0a-d51b-49f0-91ce-918439305f15}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	{region "Air Pressure and Coolant"}
-	// Air Pressure >90psi signal to PC pin 10
+	// Air Pressure >90psi signal to PC Input 5
 	oPCAirPressure AT %Q*: BOOL;
 	// Air Pressure >90psi signal from sensor.  The sensor triggers as pressure is rising past 90psi
 	iAirPressureSensor AT %I*: BOOL;
 	// Control of NITRA Valves over ethernet/ip	 
 	oValveControl AT %Q* : NitraValves; 
-	// Turn on coolant signal from PC
+	// Turn on coolant signal from PC Output 4
 	iPCCoolantOn AT %I* : BOOL;
 	{endregion}
 	{region "Vacuum"}
 	VacuumControl: VacuumATV71Ethercat;
-	 // Turn on vacuum signal from PC
+	 // Turn on vacuum signal from PC Output 2
 	iPCVacuumOn AT %I* : BOOL;
-	// Vacuum Pressure good output to PC Pin 7
+	// Vacuum Pressure good output to PC Input 6
 	oPCVacuumPressureGood AT %Q*: BOOL;
 	{endregion}
 	{endregion}
@@ -36,26 +36,26 @@ VAR
 	iSpindleToolReleaseButton AT %I*: BOOL;
 	// Tool Release from PC Pin 24
 	iPCToolRelease AT %I*: BOOL;
-	// Tool Presence to PC Pin 2
+	// Tool Presence to PC Input 9
 	oPCToolPresence AT %Q* : BOOL;
 	// S1 Tool Presence sensor from the spindle
 	iS1ToolPresence AT %I* : BOOL;
-	// Collet Open to PC Pin 9
+	// Collet Open to PC Input 8
 	oPCColletOpen AT %Q* : BOOL;
 	// S2 Collet Open sensor from the spindle
 	iS2ColletOpen AT %I* : BOOL;	 
-	// Spindle over temperature to PC Pin 27
-	oPCSpindleOverTemp AT %Q* : BOOL;
 	// Spindle over temperature relay
-	iSpindleOverTemp AT %I* : BOOL;
-	// Turn spindle on input from PC
+	iSpindleNotOverTemp AT %I* : BOOL;
+	// Does the spindle have any faults (over temp, VFD fault, etc)
+	oPCSpindleOkay AT %Q*: BOOL;
+	// Turn spindle on input from PC Output 3
 	iPCSpindleOn AT %I* : BOOL;
-	SpindleControl : SpindleKEBWithEncoder;
+	// Spindle direction from PC Output 8
+	iPCSpindleDirection AT %I* : BOOL;
+	SpindleControl : SpindleCIA402Velocity;
 	{endregion}
 	{endregion}
 	{region "Input Debouncers"}
-	(* The 5V input has a ridiculously fast time - a few nanoseconds.
-	   Therefore, we debounce it *)
 	CoolantOnDebounced : TON;
 	SpindleOnDebounced : TON;
 	ToolReleaseDebounced : TON;	
@@ -98,6 +98,7 @@ VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 	oPCSpindleSpeedOK := SpindleOnDebounced.Q AND_THEN (SpindleSpeedCalculator.SpindleSpeed  >= (0.95 * TO_REAL(DemandedSpeedTask.DemandedSpeed)));
 
 // Spindle control handling
+	 SpindleControl.SetDirection(iPCSpindleDirection);
 	 // NOTE: HSK-F63 spindles may not be spun while the tool is not present
 	 IF NOT (SpindleOnDebounced.Q AND iS1ToolPresence) THEN
 	 	SpindleControl.SetSpeed(0);
@@ -107,19 +108,20 @@ VacuumOnDebounced(IN := iPCVacuumOn, PT := T#3MS);
 		SpindleControl.Run();
 	 END_IF
 		  
+	oPCSpindleOkay := iSpindleNotOverTemp AND NOT SpindleControl.HasFault();
 // Spindle Tool Change handling
 	oPCToolPresence := iS1ToolPresence;
 	oPCColletOpen := iS2ColletOpen;
-	oPCSpindleOverTemp := iSpindleOverTemp;
 	oValveControl.ToolRelease := (iAirPressureSensor AND_THEN SpindleStopped) AND_THEN (ToolReleaseDebounced.Q OR iSpindleToolReleaseButton); 		  
 
 {endregion}		  
 {endregion}]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="5471" Count="3" />
-      <LineId Id="5484" Count="1" />
-      <LineId Id="5488" Count="40" />
+      <LineId Id="5669" Count="40" />
+      <LineId Id="5717" Count="0" />
+      <LineId Id="5710" Count="2" />
+      <LineId Id="5714" Count="2" />
       <LineId Id="3416" Count="0" />
     </LineIds>
   </POU>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="SpindleKEBWithEncoder" Id="{fed11a32-8341-4653-b826-dc853a6adbc2}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK SpindleKEBWithEncoder EXTENDS SpindleCIA402Velocity IMPLEMENTS SpindleController
 VAR_INPUT
@@ -18,6 +18,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="HasFault" Id="{ea71f003-3137-4871-9323-4a33a4218fbf}">
+      <Declaration><![CDATA[METHOD HasFault : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HasFault := FALSE;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Stop" Id="{a392b421-edcf-4148-9040-0ef4e6951966}">
       <Declaration><![CDATA[METHOD Stop : BOOL
 ]]></Declaration>
@@ -36,6 +45,9 @@ END_IF
     </Method>
     <LineIds Name="SpindleKEBWithEncoder">
       <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="SpindleKEBWithEncoder.HasFault">
+      <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="SpindleKEBWithEncoder.Stop">
       <LineId Id="15" Count="0" />

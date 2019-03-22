@@ -1,11 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.16">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <Itf Name="SpindleController" Id="{df9af8cd-f926-49bc-9ede-9a0faf189bc9}">
     <Declaration><![CDATA[INTERFACE SpindleController
 ]]></Declaration>
     <Method Name="GetSpeed" Id="{b7b1fee2-3c6f-4eca-abb5-cabb91af2c0d}">
       <Declaration><![CDATA[// Return the current speed of the spindle in RPM
 METHOD GetSpeed : UDINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="HasFault" Id="{3bd6f5ad-e08e-4f6f-8b38-2e578ebe5a92}">
+      <Declaration><![CDATA[METHOD HasFault : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
