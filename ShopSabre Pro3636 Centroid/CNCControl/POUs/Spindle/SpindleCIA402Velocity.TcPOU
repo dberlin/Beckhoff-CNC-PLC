@@ -136,6 +136,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[oControlWord.FaultReset := FALSE;
 CASE GetState() OF
+	E_CIA402State.SwitchOnDisabled:
+		oControlWord.EnableVoltage := FALSE;
+		oControlWord.SwitchOn := FALSE;
+		oControlWord.EnableOperation := FALSE;
 	E_CIA402State.ReadyToSwitchOn:
 		oControlWord.EnableVoltage := FALSE;
 	E_CIA402State.SwitchedOn:
@@ -197,7 +201,12 @@ END_CASE]]></ST>
     <LineIds Name="SpindleCIA402Velocity.Stop">
       <LineId Id="6" Count="0" />
       <LineId Id="17" Count="0" />
-      <LineId Id="7" Count="5" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="9" Count="3" />
       <LineId Id="14" Count="1" />
       <LineId Id="19" Count="2" />
       <LineId Id="4" Count="0" />

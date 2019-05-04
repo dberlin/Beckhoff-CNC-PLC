@@ -1379,7 +1379,7 @@
 				<AddressInfo>
 					<Pnp>
 						<DeviceDesc>Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
-						<DeviceName>\DEVICE\{507E3F3C-F36A-4F77-83FE-782468B8F8F2}</DeviceName>
+						<DeviceName>\DEVICE\{05F203CA-DFDF-47D0-A53C-42B6D3B2F4CB}</DeviceName>
 						<DeviceData>54b20304cbb8</DeviceData>
 					</Pnp>
 				</AddressInfo>
@@ -1854,18 +1854,18 @@
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 6" Index="#x1a05" Flags="#x0011" SyncMan="0">
-								<Entry Name="MAIN.iPCVacuumOn" Index="#x6050" Sub="#x01">
+								<Entry Name="MAIN.iPCCoolantOn" Index="#x6050" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment>
-										<![CDATA[ Turn on vacuum signal from PC]]>
+										<![CDATA[ Turn on coolant signal from PC Output 4]]>
 									</Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 7" Index="#x1a06" Flags="#x0011" SyncMan="0">
-								<Entry Name="MAIN.iPCCoolantOn" Index="#x6060" Sub="#x01">
+								<Entry Name="MAIN.iPCVacuumOn" Index="#x6060" Sub="#x01">
 									<Type>BIT</Type>
 									<Comment>
-										<![CDATA[ Turn on coolant signal from PC Output 4]]>
+										<![CDATA[ Turn on vacuum signal from PC Output 2]]>
 									</Comment>
 								</Entry>
 							</Pdo>
@@ -1967,7 +1967,7 @@
 							<DcMode>53796e6368726f6e00000000000000004672656552756e2f534d2d53796e6368726f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
 							<DcMode>4443000000000000000000000000000044432d53796e6368726f6e0000000000000000000000000000000000000000000000000000000000a8610000000000070100000000000000000000000000000000000000000000000000000000000000</DcMode>
 							<DcMode>4443494e00000000000000000000000044432d53796e6368726f6e2028696e7075742062617365642900000000000000000000006079feffa8610000000000070100000000000000000001000000000000000000000000000000000000000000</DcMode>
-							<MBoxUserCmdData>020003001a000000000000000000000000000000000000000000000000000000300080011200000021040000b25d00000000000009000000004000</MBoxUserCmdData>
+							<MBoxUserCmdData>020003001a00000000000000000000000000000000000000000000000000000030008001120000002104000064bb00000000000009000000004000</MBoxUserCmdData>
 							<Pdo Name="AI Standard" Index="#x1a00" Flags="#x0010" SyncMan="3">
 								<ExcludePdo>#x1a01</ExcludePdo>
 								<Entry Name="Status__Underrange" BitLen="1" Index="#x6000" Sub="#x01" Flags="#x00020000">
@@ -2353,10 +2353,10 @@ C:\TwinCAT\3.1\Config\Io\EtherNetIP\031F000C010400010001.eds
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1100)^Term 4 (EL1809)">
 				<Link VarA="MainCNCControl Inputs^MAIN.iAirPressureSensor" VarB="Channel 1^MAIN.iPressureSensor"/>
-				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 7^MAIN.iPCCoolantOn"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCCoolantOn" VarB="Channel 6^MAIN.iPCCoolantOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleDirection" VarB="Channel 9^MAIN.iPCSpindleDirection"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iPCSpindleOn" VarB="Channel 8^MAIN.iPCSpindleOn"/>
-				<Link VarA="MainCNCControl Inputs^MAIN.iPCVacuumOn" VarB="Channel 6^MAIN.iPCVacuumOn"/>
+				<Link VarA="MainCNCControl Inputs^MAIN.iPCVacuumOn" VarB="Channel 7^MAIN.iPCVacuumOn"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iS1ToolPresence" VarB="Channel 5^MAIN.iS1ToolPresence"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iS2ColletOpen" VarB="Channel 4^MAIN.iS2ColletOpen"/>
 				<Link VarA="MainCNCControl Inputs^MAIN.iSpindleNotOverTemp" VarB="Channel 3^MAIN.iSpindleOverTemp"/>
